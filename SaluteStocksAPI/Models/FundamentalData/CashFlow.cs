@@ -16,76 +16,76 @@ public class CashFlow
 
 public class CashFlowReport : Report
 {
-    [JsonProperty("operatingCashflow")] public string OperatingCashFlow { get; set; }
+    [JsonProperty("operatingCashflow")] public long OperatingCashFlow { get; set; }
 
     [JsonProperty("paymentsForOperatingActivities")]
-    public string PaymentsForOperatingActivities { get; set; }
+    public long PaymentsForOperatingActivities { get; set; }
 
     [JsonProperty("proceedsFromOperatingActivities")]
-    public string ProceedsFromOperatingActivities { get; set; }
+    public long ProceedsFromOperatingActivities { get; set; }
 
     [JsonProperty("changeInOperatingLiabilities")]
-    public string ChangeInOperatingLiabilities { get; set; }
+    public long ChangeInOperatingLiabilities { get; set; }
 
     [JsonProperty("changeInOperatingAssets")]
-    public string ChangeInOperatingAssets { get; set; }
+    public long ChangeInOperatingAssets { get; set; }
 
     [JsonProperty("depreciationDepletionAndAmortization")]
-    public string DepreciationDepletionAndAmortization { get; set; }
+    public long DepreciationDepletionAndAmortization { get; set; }
 
-    [JsonProperty("capitalExpenditures")] public string CapitalExpenditures { get; set; }
+    [JsonProperty("capitalExpenditures")] public long CapitalExpenditures { get; set; }
 
-    [JsonProperty("changeInReceivables")] public string ChangeInReceivables { get; set; }
+    [JsonProperty("changeInReceivables")] public long ChangeInReceivables { get; set; }
 
-    [JsonProperty("changeInInventory")] public string ChangeInInventory { get; set; }
+    [JsonProperty("changeInInventory")] public long ChangeInInventory { get; set; }
 
-    [JsonProperty("profitLoss")] public string ProfitLoss { get; set; }
+    [JsonProperty("profitLoss")] public long ProfitLoss { get; set; }
 
     [JsonProperty("cashflowFromInvestment")]
-    public string CashflowFromInvestment { get; set; }
+    public long CashflowFromInvestment { get; set; }
 
     [JsonProperty("cashflowFromFinancing")]
-    public string CashflowFromFinancing { get; set; }
+    public long CashflowFromFinancing { get; set; }
 
     [JsonProperty("proceedsFromRepaymentsOfShortTermDebt")]
-    public string ProceedsFromRepaymentsOfShortTermDebt { get; set; }
+    public long ProceedsFromRepaymentsOfShortTermDebt { get; set; }
 
     [JsonProperty("paymentsForRepurchaseOfCommonStock")]
-    public string PaymentsForRepurchaseOfCommonStock { get; set; }
+    public long PaymentsForRepurchaseOfCommonStock { get; set; }
 
     [JsonProperty("paymentsForRepurchaseOfEquity")]
-    public string PaymentsForRepurchaseOfEquity { get; set; }
+    public long PaymentsForRepurchaseOfEquity { get; set; }
 
     [JsonProperty("paymentsForRepurchaseOfPreferredStock")]
-    public string PaymentsForRepurchaseOfPreferredStock { get; set; }
+    public long PaymentsForRepurchaseOfPreferredStock { get; set; }
 
-    [JsonProperty("dividendPayout")] public string DividendPayout { get; set; }
+    [JsonProperty("dividendPayout")] public long DividendPayout { get; set; }
 
     [JsonProperty("dividendPayoutCommonStock")]
-    public string DividendPayoutCommonStock { get; set; }
+    public long DividendPayoutCommonStock { get; set; }
 
     [JsonProperty("dividendPayoutPreferredStock")]
-    public string DividendPayoutPreferredStock { get; set; }
+    public long DividendPayoutPreferredStock { get; set; }
 
     [JsonProperty("proceedsFromIssuanceOfCommonStock")]
-    public string ProceedsFromIssuanceOfCommonStock { get; set; }
+    public long ProceedsFromIssuanceOfCommonStock { get; set; }
 
     [JsonProperty("proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")]
-    public string ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet { get; set; }
+    public long ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet { get; set; }
 
     [JsonProperty("proceedsFromIssuanceOfPreferredStock")]
-    public string ProceedsFromIssuanceOfPreferredStock { get; set; }
+    public long ProceedsFromIssuanceOfPreferredStock { get; set; }
 
     [JsonProperty("proceedsFromRepurchaseOfEquity")]
-    public string ProceedsFromRepurchaseOfEquity { get; set; }
+    public long ProceedsFromRepurchaseOfEquity { get; set; }
 
     [JsonProperty("proceedsFromSaleOfTreasuryStock")]
-    public string ProceedsFromSaleOfTreasuryStock { get; set; }
+    public long ProceedsFromSaleOfTreasuryStock { get; set; }
 
     [JsonProperty("changeInCashAndCashEquivalents")]
-    public string ChangeInCashAndCashEquivalents { get; set; }
+    public long ChangeInCashAndCashEquivalents { get; set; }
 
-    [JsonProperty("changeInExchangeRate")] public string ChangeInExchangeRate { get; set; }
+    [JsonProperty("changeInExchangeRate")] public long ChangeInExchangeRate { get; set; }
 
-    [JsonProperty("netIncome")] public string NetIncome { get; set; }
+    [JsonProperty("netIncome")] public long NetIncome { get; set; }
 }

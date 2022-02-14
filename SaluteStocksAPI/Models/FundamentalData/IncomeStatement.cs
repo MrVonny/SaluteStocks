@@ -6,6 +6,7 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 
 public class IncomeStatement
 {
+
     [JsonProperty("symbol")] public string Symbol { get; set; }
 
     [JsonProperty("annualReports")] public List<IncomeStatementReport> AnnualReports { get; set; }
