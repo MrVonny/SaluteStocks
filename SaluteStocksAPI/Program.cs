@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using SaluteStocksAPI.DataBase;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "SaluteStocksAPI", Version = "v1" }); });
+builder.Services.AddDbContext<StocksContext>(
+    options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    MySqlServerVersion.LatestSupportedServerVersion));
 
 var app = builder.Build();
 
