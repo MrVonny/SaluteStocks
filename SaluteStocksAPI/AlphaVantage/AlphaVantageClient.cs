@@ -1,5 +1,9 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
+// using Microsoft.VisualBasic.FileIO;
+using CsvHelper;
+using System.Globalization;
+
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
@@ -82,7 +86,7 @@ public class AlphaVantageClient
 
     #region Core
 
-    public async Task<TimeSeries> GetTimeSeriesDaily(string symbol,
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDaily(string symbol,
         OutputSize outputSize = OutputSize.Full, DataType dataType = DataType.Csv, bool adjusted = true)
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>();
@@ -106,8 +110,8 @@ public class AlphaVantageClient
 
         return dataType switch
         {
-            DataType.Csv => await GetAndParseCsvAsync<TimeSeries>(uri),
-            DataType.Json => await GetAndParseJsonAsync<TimeSeries>(uri),
+            DataType.Csv => await GetAndParseCsvAsync<List<QuotesPeriodInfo>>(uri),
+            // DataType.Json => await GetAndParseJsonAsync<QuotesPeriodInfo>(uri),
             _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
         };
     }
@@ -152,7 +156,9 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            //ToDo: десериализовать CSV
+            // ToDo: десериализовать CSV
+            return new CsvReader( new StringReader(result), CultureInfo.CurrentCulture).GetRecord<T>();
+            
             throw new NotImplementedException();
         }
 
@@ -161,7 +167,7 @@ public class AlphaVantageClient
 
     private Uri GenearteUri(string function, params KeyValuePair<string, string>[] query)
     {
-        return new Uri(BaseUrl + $"tokne=query?apikey={_apikey}&function={function}&" +
+        return new Uri(BaseUrl + $"query?apikey={_apikey}&function={function}&" +
                        string.Join("&", query.Select(pair => $"{pair.Key}={pair.Value}")));
     }
 }
