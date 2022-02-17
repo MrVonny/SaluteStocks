@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@sberdevices/assistant-client": "^4.17.2"
+  }
+}
