@@ -23,11 +23,16 @@ public class AlphaVantageClient
             public static string CompanyOverview => "OVERVIEW";
             public static string Earnings => "EARNINGS";
             public static string ListingDelistingStatus => "LISTING_STATUS";
+            public static string EarningsCalendar => "EARNINGS_CALENDAR";
+            public static string IPOCalendar => "IPO_CALENDAR";
+            
+
         }
 
         public static class CoreStock
         {
             public static string IntraDay => "TIME_SERIES_INTRADAY";
+            public static string IntraDayExtended => "TIME_SERIES_INTRADAY_EXTENDED";
             public static string Daily => "TIME_SERIES_DAILY";
             public static string DailyAdjusted => "TIME_SERIES_DAILY_ADJUSTED";
             public static string Weekly => "TIME_SERIES_WEEKLY";
@@ -82,6 +87,13 @@ public class AlphaVantageClient
         return await GetAndParseJsonAsync<CompanyOverview>(uri);
     }
 
+    public async Task<Earnings> GetCompanyEarnings(string symbol)
+    {
+        var uri = GenearteUri(FunctionNames.FundamentalData.Earnings,
+            new KeyValuePair<string, string>("symbol", symbol));
+        return await GetAndParseJsonAsync<Earnings>(uri);
+    }
+    
     #endregion
 
     #region Core
@@ -156,8 +168,7 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            // ToDo: десериализовать CSV
-            return new CsvReader( new StringReader(result), CultureInfo.CurrentCulture).GetRecord<T>();
+            return new CsvReader(new StringReader(result), CultureInfo.CurrentCulture).GetRecord<T>();
             
             throw new NotImplementedException();
         }
