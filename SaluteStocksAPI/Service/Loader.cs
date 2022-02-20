@@ -10,11 +10,11 @@ public class Loader : BackgroundService
     private readonly IDataBaseRepository _repository;
     private readonly LoaderSettings _settings;
     private AlphaVantageClient Client => AlphaVantageClientFactory.Create();
-    private ConcurrentBag<string> SymbolList { get; set; }
+    //private ConcurrentBag<string> SymbolList { get; set; }
 
     public Loader()
     {
-        SymbolList = new ConcurrentBag<string>(Client.GetListing().Result.Select(x=>x.Symbol));
+        //SymbolList = new ConcurrentBag<string>(Client.GetListing().Result.Select(x=>x.Symbol));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
