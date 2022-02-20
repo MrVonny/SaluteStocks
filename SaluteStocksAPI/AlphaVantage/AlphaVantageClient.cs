@@ -86,9 +86,11 @@ public class AlphaVantageClient
 
         return await GetAndParseJsonAsync<CompanyOverview>(uri);
     }
+
     
-    public async Task<List<ListingRow>> GetListing(ListingStatus listingStatus = ListingStatus.Active ,DateTime? time = null)
+    public async Task<List<ListingRow>> GetListing(ListingStatus listingStatus = ListingStatus.Active, DateTime? time = null)
     {
+        
         var values =new List<KeyValuePair<string, string>>();
         if(time != null)
             values.Add(new KeyValuePair<string, string>("date", time.Value.ToString("yyyy-MM-dd")));
@@ -116,34 +118,43 @@ public class AlphaVantageClient
 
     #region Core
 
-    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDaily(string symbol,
-        OutputSize outputSize = OutputSize.Full, DataType dataType = DataType.Csv, bool adjusted = true)
+    public async Task<TimeSeries> GetTimeSeriesDailyJson(string symbol,
+        OutputSize outputSize = OutputSize.Full, bool adjusted = true)
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>();
 
         keyValuePairs.Add(new KeyValuePair<string, string>("symbol", symbol));
-        keyValuePairs.Add(new KeyValuePair<string, string>("datatype", dataType switch
-        {
-            DataType.Csv => "csv",
-            DataType.Json => "json",
-            _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
-        }));
+        keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "json"));
         keyValuePairs.Add(new KeyValuePair<string, string>("outputsize", outputSize switch
         {
             OutputSize.Compact => "compact",
             OutputSize.Full => "full",
-            _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(outputSize), outputSize, null)
+        }));
+
+        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily, 
+            keyValuePairs.ToArray());
+        return await GetAndParseJsonAsync<TimeSeries>(uri);
+
+    }
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDailyCsv(string symbol,
+        OutputSize outputSize = OutputSize.Full,  bool adjusted = true)
+    {
+        var keyValuePairs = new List<KeyValuePair<string, string>>();
+
+        keyValuePairs.Add(new KeyValuePair<string, string>("symbol", symbol));
+        keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "csv"));
+        keyValuePairs.Add(new KeyValuePair<string, string>("outputsize", outputSize switch
+        {
+            OutputSize.Compact => "compact",
+            OutputSize.Full => "full",
+            _ => throw new ArgumentOutOfRangeException(nameof(outputSize), outputSize, null)
         }));
 
         var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily, 
             keyValuePairs.ToArray());
 
-        return dataType switch
-        {
-            DataType.Csv => await GetAndParseCsvAsync<QuotesPeriodInfo>(uri),
-            // DataType.Json => await GetAndParseJsonAsync<QuotesPeriodInfo>(uri),
-            _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
-        };
+        return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
 
     #endregion
