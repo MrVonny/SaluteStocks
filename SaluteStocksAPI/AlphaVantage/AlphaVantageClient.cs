@@ -1,5 +1,9 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
+// using Microsoft.VisualBasic.FileIO;
+using CsvHelper;
+using System.Globalization;
+
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
@@ -19,11 +23,16 @@ public class AlphaVantageClient
             public static string CompanyOverview => "OVERVIEW";
             public static string Earnings => "EARNINGS";
             public static string ListingDelistingStatus => "LISTING_STATUS";
+            public static string EarningsCalendar => "EARNINGS_CALENDAR";
+            public static string IPOCalendar => "IPO_CALENDAR";
+            
+
         }
 
         public static class CoreStock
         {
             public static string IntraDay => "TIME_SERIES_INTRADAY";
+            public static string IntraDayExtended => "TIME_SERIES_INTRADAY_EXTENDED";
             public static string Daily => "TIME_SERIES_DAILY";
             public static string DailyAdjusted => "TIME_SERIES_DAILY_ADJUSTED";
             public static string Weekly => "TIME_SERIES_WEEKLY";
@@ -78,11 +87,18 @@ public class AlphaVantageClient
         return await GetAndParseJsonAsync<CompanyOverview>(uri);
     }
 
+    public async Task<Earnings> GetCompanyEarnings(string symbol)
+    {
+        var uri = GenearteUri(FunctionNames.FundamentalData.Earnings,
+            new KeyValuePair<string, string>("symbol", symbol));
+        return await GetAndParseJsonAsync<Earnings>(uri);
+    }
+    
     #endregion
 
     #region Core
 
-    public async Task<TimeSeries> GetTimeSeriesDaily(string symbol,
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDaily(string symbol,
         OutputSize outputSize = OutputSize.Full, DataType dataType = DataType.Csv, bool adjusted = true)
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>();
@@ -106,8 +122,8 @@ public class AlphaVantageClient
 
         return dataType switch
         {
-            DataType.Csv => await GetAndParseCsvAsync<TimeSeries>(uri),
-            DataType.Json => await GetAndParseJsonAsync<TimeSeries>(uri),
+            DataType.Csv => await GetAndParseCsvAsync<List<QuotesPeriodInfo>>(uri),
+            // DataType.Json => await GetAndParseJsonAsync<QuotesPeriodInfo>(uri),
             _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
         };
     }
@@ -152,7 +168,8 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            //ToDo: десериализовать CSV
+            return new CsvReader(new StringReader(result), CultureInfo.CurrentCulture).GetRecord<T>();
+            
             throw new NotImplementedException();
         }
 
@@ -161,7 +178,7 @@ public class AlphaVantageClient
 
     private Uri GenearteUri(string function, params KeyValuePair<string, string>[] query)
     {
-        return new Uri(BaseUrl + $"tokne=query?apikey={_apikey}&function={function}&" +
+        return new Uri(BaseUrl + $"query?apikey={_apikey}&function={function}&" +
                        string.Join("&", query.Select(pair => $"{pair.Key}={pair.Value}")));
     }
 }

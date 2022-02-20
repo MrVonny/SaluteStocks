@@ -27,7 +27,7 @@ public class CompanyOverview
 
     [JsonProperty("Address")] public string Address { get; set; }
 
-    [JsonProperty("FiscalYearEnd")] public string FiscalYearEnd { get; set; }
+    [JsonProperty("FiscalYearEnd")] public DateTime FiscalYearEnd { get; set; }
 
     [JsonProperty("LatestQuarter")] public string LatestQuarter { get; set; }
 
