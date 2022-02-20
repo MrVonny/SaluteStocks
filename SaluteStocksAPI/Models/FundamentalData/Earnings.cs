@@ -42,7 +42,7 @@ public class QuarterlyEarning
     [JsonProperty("surprisePercentage")] public double SurprisePercentage { get; set; }
 }
 
-public class Earnings
+public class Earnings : EntityInfo
 {
     [JsonProperty("symbol")] public string Symbol { get; set; }
 
