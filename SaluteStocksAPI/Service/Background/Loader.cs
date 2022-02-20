@@ -3,7 +3,7 @@ using SaluteStocksAPI.AlphaVantage;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;
 
-namespace SaluteStocksAPI.Service;
+namespace SaluteStocksAPI.Service.Background;
 
 public class Loader : BackgroundService
 {
@@ -12,9 +12,10 @@ public class Loader : BackgroundService
     private AlphaVantageClient Client => AlphaVantageClientFactory.Create();
     private ConcurrentBag<string> SymbolList { get; set; }
 
-    public Loader()
+    public Loader(IDataBaseRepository repository, LoaderSettings settings)
     {
-        
+        _repository = repository;
+        _settings = settings;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -64,7 +65,7 @@ public class Loader : BackgroundService
     }
 }
 
-internal class LoaderSettings
+public class LoaderSettings
 {
-    public TimeSpan CheckUpdateTime => TimeSpan.FromSeconds(1);
+    public TimeSpan CheckUpdateTime = TimeSpan.FromSeconds(1);
 }

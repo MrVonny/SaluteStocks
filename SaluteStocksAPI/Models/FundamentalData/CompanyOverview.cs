@@ -6,8 +6,6 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 
 public class CompanyOverview : EntityInfo
 {
-    [JsonProperty("Symbol")] public string Symbol { get; set; }
-
     [JsonProperty("AssetType")] public string AssetType { get; set; }
 
     [JsonProperty("Name")] public string Name { get; set; }

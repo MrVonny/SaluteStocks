@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Service;
+using SaluteStocksAPI.Service.Background;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +9,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "SaluteStocksAPI", Version = "v1" }); });
+
+//DB Context
 builder.Services.AddDbContext<StocksContext>(
     options => options.UseMySql(builder.Configuration.GetConnectionString("MySql"),
     MySqlServerVersion.LatestSupportedServerVersion));
 
-builder.Services.AddHostedService<Loader>();
+//DB repository
+builder.Services.AddScoped<IDataBaseRepository, DataBaseRepository>();
+
+//Loader background service
+builder.Services.AddHostedService(provider => new Loader(
+    provider.GetService<IDataBaseRepository>(),
+    new LoaderSettings
+    {
+        CheckUpdateTime = TimeSpan.FromSeconds(2)
+    })
+);
 
 
 var app = builder.Build();

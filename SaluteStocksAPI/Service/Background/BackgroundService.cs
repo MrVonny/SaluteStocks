@@ -1,4 +1,4 @@
-﻿namespace SaluteStocksAPI.Service;
+﻿namespace SaluteStocksAPI.Service.Background;
 
 public abstract class BackgroundService : IHostedService, IDisposable
 {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
@@ -44,8 +43,6 @@ public class QuarterlyEarning
 
 public class Earnings : EntityInfo
 {
-    [JsonProperty("symbol")] public string Symbol { get; set; }
-
     [JsonProperty("annualEarnings")] public List<AnnualEarning> AnnualEarnings { get; set; }
 
     [JsonProperty("quarterlyEarnings")] public List<QuarterlyEarning> QuarterlyEarnings { get; set; }

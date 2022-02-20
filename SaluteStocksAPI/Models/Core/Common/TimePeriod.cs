@@ -1,4 +1,4 @@
-﻿namespace SaluteStocksAPI.Models.Core;
+﻿namespace SaluteStocksAPI.Models.Core.Common;
 
 public enum TimePeriod
 {

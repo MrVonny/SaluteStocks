@@ -1,6 +1,4 @@
 ﻿using SaluteStocksAPI.DataBase;
-using SaluteStocksAPI.Models.FundamentalData;
-using SaluteStocksAPI.Screener;
 
 namespace SaluteStocksAPI.Service;
 

@@ -1,4 +1,4 @@
-﻿using SaluteStocksAPI.AlphaVantage;
+﻿using SaluteStocksAPI.AlphaVantage.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 

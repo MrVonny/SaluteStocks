@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
-using SaluteStocksAPI.AlphaVantage.Common;
-using SaluteStocksAPI.Models.Core;
 
 namespace TestProject1;
 

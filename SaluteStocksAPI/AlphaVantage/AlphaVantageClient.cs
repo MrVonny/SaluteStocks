@@ -1,11 +1,10 @@
-﻿using System.Net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 // using Microsoft.VisualBasic.FileIO;
 using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
 using SaluteStocksAPI.AlphaVantage.Common;
-using SaluteStocksAPI.Models.Core;
+using SaluteStocksAPI.Models.Core.Common;
 using SaluteStocksAPI.Models.FundamentalData;
 
 namespace SaluteStocksAPI.AlphaVantage;
