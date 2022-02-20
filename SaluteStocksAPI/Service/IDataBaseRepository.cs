@@ -10,4 +10,5 @@ public interface IDataBaseRepository
 
 
     public Task SetCompanyOverview(CompanyOverview companyOverview);
+    Task<string> GetOldestCompanyOverviewSymbol();
 }

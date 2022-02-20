@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
@@ -10,6 +11,8 @@ namespace TestProject1;
 
 [TestFixture] public class Tests
 {
+    protected AlphaVantageClient Client = AlphaVantageClientFactory.Create(); 
+    
     [SetUp]
     public void Setup()
     {
@@ -19,11 +22,18 @@ namespace TestProject1;
     [Test]
     public async Task Test1()
     {
-
-        var ac = AlphaVantageClientFactory.Create(); 
-        
-        var timeSeries = await ac.GetTimeSeriesDaily("IBM", adjusted:false);
+        var timeSeries = await Client.GetTimeSeriesDaily("IBM", adjusted:false);
         
         Assert.AreEqual( "130.4400",timeSeries[0].High);
+    }
+
+    [Test]
+    public async Task GetListingTest()
+    {
+        var listing = await Client.GetListing();
+        
+        Assert.Greater(listing.Count, 1000);
+        Assert.That(listing, Is.All.Not.Null);
+        Assert.That(listing.Select(x=>x.Symbol), Is.All.Not.Null);
     }
 }

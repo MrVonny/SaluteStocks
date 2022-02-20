@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 // using Microsoft.VisualBasic.FileIO;
 using CsvHelper;
 using System.Globalization;
-
+using CsvHelper.Configuration;
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
@@ -87,7 +87,7 @@ public class AlphaVantageClient
         return await GetAndParseJsonAsync<CompanyOverview>(uri);
     }
     
-    public async Task<CompanyOverview> GetListing(ListingStatus listingStatus = ListingStatus.Active ,DateTime? time = null)
+    public async Task<List<ListingRow>> GetListing(ListingStatus listingStatus = ListingStatus.Active ,DateTime? time = null)
     {
         var values =new List<KeyValuePair<string, string>>();
         if(time != null)
@@ -102,7 +102,7 @@ public class AlphaVantageClient
         
         var uri = GenearteUri(FunctionNames.FundamentalData.ListingDelistingStatus, values.ToArray());
 
-        return await GetAndParseJsonAsync<CompanyOverview>(uri);
+        return await GetAndParseCsvAsync<ListingRow>(uri);
     }
 
     public async Task<Earnings> GetCompanyEarnings(string symbol)
@@ -140,7 +140,7 @@ public class AlphaVantageClient
 
         return dataType switch
         {
-            DataType.Csv => await GetAndParseCsvAsync<List<QuotesPeriodInfo>>(uri),
+            DataType.Csv => await GetAndParseCsvAsync<QuotesPeriodInfo>(uri),
             // DataType.Json => await GetAndParseJsonAsync<QuotesPeriodInfo>(uri),
             _ => throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null)
         };
@@ -178,7 +178,7 @@ public class AlphaVantageClient
         throw new(response.ReasonPhrase);
     }
 
-    private async Task<T> GetAndParseCsvAsync<T>(Uri uri)
+    private async Task<List<T>> GetAndParseCsvAsync<T>(Uri uri)
     {
         HttpClient client = new HttpClient();
 
@@ -186,9 +186,11 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            return new CsvReader(new StringReader(result), CultureInfo.CurrentCulture).GetRecord<T>();
-            
-            throw new NotImplementedException();
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                PrepareHeaderForMatch = args => args.Header.ToLower(),
+            };
+            return new CsvReader(new StringReader(result), config).GetRecords<T>().ToList();
         }
 
         throw new(response.ReasonPhrase);

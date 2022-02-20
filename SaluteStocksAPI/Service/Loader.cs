@@ -11,7 +11,7 @@ public class Loader
 
     public Loader()
     {
-        SymbolList = new ConcurrentBag<string>(Client.Get);
+        SymbolList = new ConcurrentBag<string>(Client.GetListing().Result.Select(x=>x.Symbol));
         
     }
 
@@ -21,6 +21,7 @@ public class Loader
         {
             Task.Run(() =>
             {
+                var symbol =  _repository.GetOldestCompanyOverviewSymbol().Result;
                 var companyOverview = Client.GetCompanyOverview(symbol).Result;
                 _repository.SetCompanyOverview(companyOverview);
             });
