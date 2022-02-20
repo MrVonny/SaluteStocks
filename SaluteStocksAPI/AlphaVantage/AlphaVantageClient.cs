@@ -187,6 +187,8 @@ public class AlphaVantageClient
             var result = await response.Content.ReadAsStringAsync();
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
+                MissingFieldFound = null,
+                HeaderValidated = null,
                 PrepareHeaderForMatch = args => args.Header.ToLower(),
             };
             return new CsvReader(new StringReader(result), config).GetRecords<T>().ToList();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.DataBase;
+using SaluteStocksAPI.Models.FundamentalData;
 
 namespace SaluteStocksAPI.Service;
 
@@ -12,14 +13,15 @@ class DataBaseRepository : IDataBaseRepository
         _context = context;
     }
 
-    public Task SetListing(object listing)
+    public async Task SetListing(List<ListingRow> listing)
     {
-        throw new NotImplementedException();
+        _context.Listing.UpdateRange(listing);
+        await _context.SaveChangesAsync();
     }
 
-    public Task<List<string>> GetListing()
+    public async Task<List<ListingRow>> GetListing()
     {
-        throw new NotImplementedException();
+        return await _context.Listing.ToListAsync();
     }
 
     public async Task Set<T>(T entity) where T : EntityInfo

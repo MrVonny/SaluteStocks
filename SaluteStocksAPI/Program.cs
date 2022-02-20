@@ -17,14 +17,14 @@ builder.Services.AddDbContext<StocksContext>(
 
 //DB repository
 builder.Services.AddScoped<IDataBaseRepository, DataBaseRepository>();
-
 //Loader background service
 builder.Services.AddHostedService(provider => new Loader(
-    provider.GetService<IDataBaseRepository>(),
-    new LoaderSettings
-    {
-        CheckUpdateTime = TimeSpan.FromSeconds(2)
-    })
+        new LoaderSettings
+        {
+            CheckUpdateTime = TimeSpan.FromSeconds(2)
+        },
+        provider.GetService<IServiceScopeFactory>()
+    )
 );
 
 
