@@ -1,6 +1,8 @@
-﻿namespace SaluteStocksAPI.Models.Core;
+﻿using SaluteStocksAPI.DataBase;
 
-public class TimeSeries
+namespace SaluteStocksAPI.Models.Core;
+
+public class TimeSeries : EntityInfo
 {
     public string Information { get; set; }
     public string Symbol { get; set; }

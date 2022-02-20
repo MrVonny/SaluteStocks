@@ -4,9 +4,9 @@ public class Screener
 {
     #region Common
 
-    public string Currency { get; set; }
-    public string Sector { get; set; }
-    public string Country { get; set; }
+    public string[] Currency { get; set; }
+    public string[] Sector { get; set; }
+    public string[] Country { get; set; }
     
     #endregion
 

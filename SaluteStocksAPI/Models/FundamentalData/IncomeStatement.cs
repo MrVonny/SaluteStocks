@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
-public class IncomeStatement
+public class IncomeStatement : EntityInfo
 {
     [JsonProperty("symbol")] public string Symbol { get; set; }
 

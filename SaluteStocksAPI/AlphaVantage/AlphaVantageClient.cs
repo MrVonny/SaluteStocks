@@ -77,6 +77,24 @@ public class AlphaVantageClient
 
         return await GetAndParseJsonAsync<CompanyOverview>(uri);
     }
+    
+    public async Task<CompanyOverview> GetListing(ListingStatus listingStatus = ListingStatus.Active ,DateTime? time = null)
+    {
+        var values =new List<KeyValuePair<string, string>>();
+        if(time != null)
+            values.Add(new KeyValuePair<string, string>("date", time.Value.ToString("yyyy-MM-dd")));
+
+        values.Add(new KeyValuePair<string, string>("state", listingStatus switch
+        {
+            ListingStatus.Active => "active",
+            ListingStatus.Delisted => "delisted",
+            _ => throw new ArgumentOutOfRangeException(nameof(listingStatus), listingStatus, null)
+        }));
+        
+        var uri = GenearteUri(FunctionNames.FundamentalData.ListingDelistingStatus, values.ToArray());
+
+        return await GetAndParseJsonAsync<CompanyOverview>(uri);
+    }
 
     #endregion
 

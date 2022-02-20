@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
+using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
-public class CompanyOverview
+public class CompanyOverview : EntityInfo
 {
     [JsonProperty("Symbol")] public string Symbol { get; set; }
 

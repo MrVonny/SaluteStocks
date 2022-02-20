@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-public class AnnualEarning
+public class AnnualEarning : EntityInfo
 {
     [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
 

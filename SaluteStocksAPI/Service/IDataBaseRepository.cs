@@ -7,7 +7,6 @@ public interface IDataBaseRepository
 {
     public Task SetListing(object listing);
     public Task<List<string>> GetListing();
-    public Task<List<Tuple<string, DateTime>>> GetListingWithLastUpdateDate();
 
 
     public Task SetCompanyOverview(CompanyOverview companyOverview);
