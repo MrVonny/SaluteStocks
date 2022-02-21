@@ -10,6 +10,7 @@ public class AnnualEarning
     [JsonIgnore]
     [Key]
     public int Id { get; set; }
+    public string Symbol { get; set; }
     
     /// <summary>
     /// years: 2021, 2020, 2019 ... 1996
@@ -34,6 +35,8 @@ public class QuarterlyEarning
     [JsonIgnore]
     [Key]
     public int Id { get; set; }
+    
+    public string Symbol { get; set; }
     
     [JsonProperty("fiscalDateEnding")] public DateTime FiscalDateEnding { get; set; }
 
