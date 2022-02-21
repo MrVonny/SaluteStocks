@@ -24,7 +24,7 @@ class DataBaseRepository : IDataBaseRepository
         return await _context.Listing.ToListAsync();
     }
 
-    public async Task Set<T>(T entity) where T : EntityInfo
+    public async Task AddOrUpdate<T>(T entity) where T : EntityInfo
     {
         var dbSet = _context.Set<T>();
         dbSet.Update(entity);
@@ -38,7 +38,8 @@ class DataBaseRepository : IDataBaseRepository
 
     public async Task<string> GetOldestSymbol<T>() where T : EntityInfo
     {
-        //ToDo: async реализация?
-        return _context.Set<T>().MinBy(e => e.LastLocalRefresh)?.Symbol;
+        var set =_context.Set<T>();
+        var min = await set.MinAsync(x => x.LastLocalRefresh);
+        return (await set.SingleOrDefaultAsync(e => e.LastLocalRefresh == min))?.Symbol;
     }
 }
