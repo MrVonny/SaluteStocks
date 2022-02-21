@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
@@ -106,7 +108,7 @@ public class AlphaVantageClient
 
         return await GetAndParseCsvAsync<ListingRow>(uri);
     }
-
+     
     public async Task<Earnings> GetCompanyEarnings(string symbol)
     {
         var uri = GenearteUri(FunctionNames.FundamentalData.Earnings,
@@ -132,11 +134,12 @@ public class AlphaVantageClient
             _ => throw new ArgumentOutOfRangeException(nameof(outputSize), outputSize, null)
         }));
 
-        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily, 
+        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily,
             keyValuePairs.ToArray());
         return await GetAndParseJsonAsync<TimeSeries>(uri);
 
     }
+
     public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDailyCsv(string symbol,
         OutputSize outputSize = OutputSize.Full,  bool adjusted = true)
     {
@@ -183,9 +186,13 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(result);
+            result = result.Replace("None", "null");
+            // JObject jResult = JObject.Parse(result);
+            var settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
+            return JsonConvert.DeserializeObject<T>(result, settings);
         }
-
+    
         throw new(response.ReasonPhrase);
     }
 
