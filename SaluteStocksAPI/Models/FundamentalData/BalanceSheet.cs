@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData.Common;
 
@@ -8,14 +7,6 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 public class BalanceSheet : EntityInfo
 {
-    /// <summary>
-    /// e.g. SBER, AAPL, IBM, YDX.FRK
-    /// </summary>
-    
-    [JsonProperty("symbol")] public string Symbol { get; set; }
-    
-    
-    
     [JsonProperty("annualReports")] public List<BalanceSheetReport> AnnualReports { get; set; }
 
     [JsonProperty("quarterlyReports")] public List<BalanceSheetReport> QuarterlyReports { get; set; }

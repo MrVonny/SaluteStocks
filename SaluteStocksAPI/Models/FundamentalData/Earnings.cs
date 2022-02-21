@@ -3,11 +3,14 @@ using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
-#nullable enable
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-public class AnnualEarning 
+public class AnnualEarning
 {
+    [JsonIgnore]
+    [Key]
+    public int Id { get; set; }
+    public string Symbol { get; set; }
     
     /// <summary>
     /// years: 2021, 2020, 2019 ... 1996
@@ -29,6 +32,11 @@ public class AnnualEarning
 
 public class QuarterlyEarning
 {
+    [JsonIgnore]
+    [Key]
+    public int Id { get; set; }
+    
+    public string Symbol { get; set; }
     
     [JsonProperty("fiscalDateEnding")] public DateTime? FiscalDateEnding { get; set; }
 
@@ -45,7 +53,6 @@ public class QuarterlyEarning
 
 public class Earnings : EntityInfo
 {
-    [JsonProperty("symbol")] public string Symbol { get; set; }
 
     [JsonProperty("annualEarnings")] public List<AnnualEarning> AnnualEarnings { get; set; }
 

@@ -1,4 +1,3 @@
-﻿using System.ComponentModel;
 using System.Net;
 using Newtonsoft.Json;
 // using Microsoft.VisualBasic.FileIO;
@@ -8,7 +7,7 @@ using CsvHelper.Configuration;
 using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using Microsoft.OpenApi.Extensions;
 using SaluteStocksAPI.AlphaVantage.Common;
-using SaluteStocksAPI.Models.Core;
+using SaluteStocksAPI.Models.Core.Common;
 using SaluteStocksAPI.Models.FundamentalData;
 namespace SaluteStocksAPI.AlphaVantage;
 
@@ -195,6 +194,8 @@ public class AlphaVantageClient
             var result = await response.Content.ReadAsStringAsync();
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
+                MissingFieldFound = null,
+                HeaderValidated = null,
                 PrepareHeaderForMatch = args => args.Header.ToLower(),
             };
             return new CsvReader(new StringReader(result), config).GetRecords<T>().ToList();

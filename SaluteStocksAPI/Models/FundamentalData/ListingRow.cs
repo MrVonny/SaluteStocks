@@ -1,9 +1,12 @@
-﻿using SaluteStocksAPI.AlphaVantage;
+﻿using System.ComponentModel.DataAnnotations;
+using SaluteStocksAPI.AlphaVantage.Common;
+using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
-public class ListingRow
+public class ListingRow : EntityInfo
 {
+    [Key]
     public string Symbol { get; set; }
     public string Name { get; set; }
     public string Exchange { get; set; }

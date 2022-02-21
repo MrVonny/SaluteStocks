@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-namespace SaluteStocksAPI.Models.Core;
+namespace SaluteStocksAPI.Models.Core.Common;
+using System.ComponentModel;
 
 public enum TimePeriod
 {

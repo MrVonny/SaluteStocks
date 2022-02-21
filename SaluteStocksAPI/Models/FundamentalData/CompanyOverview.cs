@@ -1,35 +1,32 @@
 ﻿using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
-#nullable enable
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
 public class CompanyOverview : EntityInfo
 {
-    [JsonProperty("Symbol")] public string Symbol { get; set; }
-
-    [JsonProperty("AssetType")] public string? AssetType { get; set; }
+    [JsonProperty("AssetType")] public string AssetType { get; set; }
 
     [JsonProperty("Name")] public string Name { get; set; }
 
-    [JsonProperty("Description")] public string? Description { get; set; }
+    [JsonProperty("Description")] public string Description { get; set; }
 
     [JsonProperty("CIK")] public long? CIK { get; set; }
 
-    [JsonProperty("Exchange")] public string? Exchange { get; set; }
+    [JsonProperty("Exchange")] public string Exchange { get; set; }
 
     [JsonProperty("Currency")] public string Currency { get; set; }
 
-    [JsonProperty("Country")] public string? Country { get; set; }
+    [JsonProperty("Country")] public string Country { get; set; }
 
-    [JsonProperty("Sector")] public string? Sector { get; set; }
+    [JsonProperty("Sector")] public string Sector { get; set; }
 
-    [JsonProperty("Industry")] public string? Industry { get; set; }
+    [JsonProperty("Industry")] public string Industry { get; set; }
 
-    [JsonProperty("Address")] public string? Address { get; set; }
+    [JsonProperty("Address")] public string Address { get; set; }
 
-    [JsonProperty("FiscalYearEnd")] public string? FiscalYearEnd { get; set; }
+    [JsonProperty("FiscalYearEnd")] public DateTime FiscalYearEnd { get; set; }
 
     [JsonProperty("LatestQuarter")] public DateTime? LatestQuarter { get; set; }
 

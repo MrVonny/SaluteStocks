@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData.Common;
 
@@ -8,9 +7,6 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 
 public class IncomeStatement : EntityInfo
 {
-
-    [JsonProperty("symbol")] public string Symbol { get; set; }
-
     [JsonProperty("annualReports")] public List<IncomeStatementReport> AnnualReports { get; set; }
 
     [JsonProperty("quarterlyReports")] public List<IncomeStatementReport> QuarterlyReports { get; set; }
