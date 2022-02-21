@@ -1,15 +1,15 @@
-﻿using System.Net;
+﻿using System.ComponentModel;
+using System.Net;
 using Newtonsoft.Json;
 // using Microsoft.VisualBasic.FileIO;
 using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
+using Microsoft.OpenApi.Extensions;
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
-
 namespace SaluteStocksAPI.AlphaVantage;
 
 public class AlphaVantageClient
@@ -108,7 +108,7 @@ public class AlphaVantageClient
 
         return await GetAndParseCsvAsync<ListingRow>(uri);
     }
-     
+
     public async Task<Earnings> GetCompanyEarnings(string symbol)
     {
         var uri = GenearteUri(FunctionNames.FundamentalData.Earnings,
@@ -119,27 +119,19 @@ public class AlphaVantageClient
     #endregion
 
     #region Core
-
-    public async Task<TimeSeries> GetTimeSeriesDailyJson(string symbol,
-        OutputSize outputSize = OutputSize.Full, bool adjusted = true)
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesIntraday(string symbol,
+        OutputSize outputSize = OutputSize.Full, bool adjusted = true, TimePeriod interval = TimePeriod.Min5)
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>();
-
-        keyValuePairs.Add(new KeyValuePair<string, string>("symbol", symbol));
-        keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "json"));
-        keyValuePairs.Add(new KeyValuePair<string, string>("outputsize", outputSize switch
-        {
-            OutputSize.Compact => "compact",
-            OutputSize.Full => "full",
-            _ => throw new ArgumentOutOfRangeException(nameof(outputSize), outputSize, null)
-        }));
-
-        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily,
-            keyValuePairs.ToArray());
-        return await GetAndParseJsonAsync<TimeSeries>(uri);
-
+        keyValuePairs.Add((new KeyValuePair<string, string>("symbol", symbol)));
+        keyValuePairs.Add(new KeyValuePair<string, string>("interval", interval.GetAttributeOfType<DescriptionAttribute>().Description));
+        keyValuePairs.Add(new KeyValuePair<string, string>( "adjusted", adjusted ? "true":"false"));
+        keyValuePairs.Add(new KeyValuePair<string, string>( "outputsize" , 
+            outputSize == OutputSize.Compact ? "compact" : "full"));
+        keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "csv"));
+        var uri = GenearteUri(FunctionNames.CoreStock.IntraDay, keyValuePairs.ToArray());
+        return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
-
     public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDailyCsv(string symbol,
         OutputSize outputSize = OutputSize.Full,  bool adjusted = true)
     {
@@ -186,13 +178,9 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            result = result.Replace("None", "null");
-            // JObject jResult = JObject.Parse(result);
-            var settings = new JsonSerializerSettings();
-            settings.NullValueHandling = NullValueHandling.Ignore;
-            return JsonConvert.DeserializeObject<T>(result, settings);
+            return JsonConvert.DeserializeObject<T>(result);
         }
-    
+
         throw new(response.ReasonPhrase);
     }
 

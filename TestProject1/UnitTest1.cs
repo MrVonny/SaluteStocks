@@ -37,7 +37,6 @@ namespace TestProject1;
         
         Assert.Greater(timeSeriesCsv.Count, 100);
         Assert.That(timeSeriesCsv, Is.All.Not.Null);
-        
 
     }
     
@@ -65,6 +64,12 @@ namespace TestProject1;
     {
         var companyIncomeStatement = await Client.GetIncomeStatement("IBM");
         Assert.That(companyIncomeStatement.AnnualReports, Is.All.Not.Null );
+    }
+
+    [Test] public async Task GetCompanyTimeSeriesIntradayTest()
+    {
+        var companyTimeSeriesIntraday = await Client.GetTimeSeriesIntraday("IBM");
+        Assert.That(companyTimeSeriesIntraday, Is.All.Not.Null);
     }
     
 }

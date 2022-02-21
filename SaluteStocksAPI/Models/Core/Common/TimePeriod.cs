@@ -1,13 +1,14 @@
-﻿namespace SaluteStocksAPI.Models.Core;
+﻿using System.ComponentModel;
+namespace SaluteStocksAPI.Models.Core;
 
 public enum TimePeriod
 {
-    Day,
-    Week,
-    Month,
-    Min1,
-    Min5,
-    Min15,
-    Min30,
-    Min60
+    [Description("daily")]Day,
+    [Description("weekly")]Week,
+    [Description("monthly")]Month,
+    [Description("1min")]Min1,
+    [Description("5min")]Min5,
+    [Description("15min")]Min15,
+    [Description("30min")]Min30,
+    [Description("60min")]Min60
 }
