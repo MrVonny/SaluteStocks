@@ -56,7 +56,7 @@ namespace TestProject1;
     [Test] public async Task GetCompanyBalanceSheetTest()
     {
         var companyBalanceSheet = await Client.GetBalanceSheet("IBM");
-        Assert.That(companyBalanceSheet.AnnualReports, Is.All.Not.Null);
+        Assert.That(companyBalanceSheet.AnnualReports, Is.Not.Empty);
     }
 
     [Test]

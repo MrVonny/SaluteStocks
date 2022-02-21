@@ -178,6 +178,7 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
+            result = result.Replace("\"None\"", "null");
             return JsonConvert.DeserializeObject<T>(result);
         }
 
