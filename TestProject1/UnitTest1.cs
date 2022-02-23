@@ -40,14 +40,14 @@ namespace TestProject1;
     [Test] public async Task GetCompanyEarningsTest()
     {
         Earnings? companyEarnings = await Client.GetCompanyEarnings("IBM");
-        Assert.That(companyEarnings.AnnualEarnings, Is.All.Not.AnyOf("asd", "qwe"));
+        Assert.That(companyEarnings.AnnualEarnings, Is.Not.Empty);
     }
     
     
     [Test] public async Task GetCompanyCashFlowTest()
     {
         var companyCashFlow = await Client.GetCashFlow("IBM");
-        Assert.That(companyCashFlow.AnnualReports, Is.All.Not.Null);
+        Assert.That(companyCashFlow.AnnualReports, Is.Not.Empty);
     }
     
     [Test] public async Task GetCompanyBalanceSheetTest()
@@ -60,13 +60,30 @@ namespace TestProject1;
     public async Task GetCompanyIncomeStatement()
     {
         var companyIncomeStatement = await Client.GetIncomeStatement("IBM");
-        Assert.That(companyIncomeStatement.AnnualReports, Is.All.Not.Null );
+        Assert.That(companyIncomeStatement.AnnualReports, Is.Not.Empty );
     }
 
     [Test] public async Task GetCompanyTimeSeriesIntradayTest()
     {
         var companyTimeSeriesIntraday = await Client.GetTimeSeriesIntraday("IBM");
-        Assert.That(companyTimeSeriesIntraday, Is.All.Not.Null);
+        Assert.That(companyTimeSeriesIntraday, Is.Not.Empty);
     }
     
+    [Test] public async Task GetCompanyTimeSeriesIntradayExtendedTest()
+    {
+        var companyTimeSeriesIntradayExtended = await Client.GetTimeSeriesIntradayExtended("IBM");
+        Assert.That(companyTimeSeriesIntradayExtended, Is.Not.Empty);
+    }
+
+    [Test] public async Task GetIpoCalendar()
+    {
+        var ipoCal = await Client.GetIpoCalendar();
+        Assert.That(ipoCal, Is.Not.Empty);
+    }
+
+    [Test] public async Task GetEarningsCalendar()
+    {
+        var earningsCalendar = await Client.GetEarningsCalendar();
+        Assert.That(earningsCalendar, Is.Not.Empty);
+    }
 }

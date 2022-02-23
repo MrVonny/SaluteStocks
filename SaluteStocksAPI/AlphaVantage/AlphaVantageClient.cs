@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Extensions;
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core.Common;
 using SaluteStocksAPI.Models.FundamentalData;
+using SaluteStocksAPI.Models.FundamentalData.Common;
+
 namespace SaluteStocksAPI.AlphaVantage;
 
 public class AlphaVantageClient
@@ -114,6 +116,26 @@ public class AlphaVantageClient
         return await GetAndParseJsonAsync<Earnings>(uri);
     }
     
+    public async Task<List<EarningsCalendar>> GetEarningsCalendar(string symbol = "", Horizon horizon = Horizon.ThreeMonths)
+    {
+        var keyValuePairs = new List<KeyValuePair<string, string>>();
+        if (symbol != "") keyValuePairs.Add(new KeyValuePair<string, string>("symbol", symbol));
+        
+        keyValuePairs.Add(new KeyValuePair<string, string>("horizon", 
+            horizon.GetAttributeOfType<DescriptionAttribute>().Description));
+        
+        
+        var uri = GenearteUri(FunctionNames.FundamentalData.EarningsCalendar,
+            keyValuePairs.ToArray());
+        return await GetAndParseCsvAsync<EarningsCalendar>(uri);
+    }
+    
+    public async Task<List<IpoCalendar>> GetIpoCalendar()
+    {
+        var uri = GenearteUri(FunctionNames.FundamentalData.IPOCalendar);
+        return await GetAndParseCsvAsync<IpoCalendar>(uri);
+    }
+
     #endregion
 
     #region Core
@@ -122,12 +144,36 @@ public class AlphaVantageClient
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>();
         keyValuePairs.Add((new KeyValuePair<string, string>("symbol", symbol)));
-        keyValuePairs.Add(new KeyValuePair<string, string>("interval", interval.GetAttributeOfType<DescriptionAttribute>().Description));
+        
+        keyValuePairs.Add(new KeyValuePair<string, string>("interval", 
+            interval.GetAttributeOfType<DescriptionAttribute>().Description));
+        
         keyValuePairs.Add(new KeyValuePair<string, string>( "adjusted", adjusted ? "true":"false"));
+        
         keyValuePairs.Add(new KeyValuePair<string, string>( "outputsize" , 
             outputSize == OutputSize.Compact ? "compact" : "full"));
+        
         keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "csv"));
         var uri = GenearteUri(FunctionNames.CoreStock.IntraDay, keyValuePairs.ToArray());
+        return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
+    }
+    
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesIntradayExtended(string symbol, Slice slice = Slice.Year1Month1,
+        OutputSize outputSize = OutputSize.Full, bool adjusted = true, TimePeriod interval = TimePeriod.Min5)
+    {
+        
+        var keyValuePairs = new List<KeyValuePair<string, string>>();
+        
+        keyValuePairs.Add((new KeyValuePair<string, string>("symbol", symbol)));
+        
+        keyValuePairs.Add(new KeyValuePair<string, string>("interval",
+            interval.GetAttributeOfType<DescriptionAttribute>().Description));
+        
+        keyValuePairs.Add(new KeyValuePair<string, string>("slice",
+            slice.ToString().ToLowerInvariant()));
+        
+        keyValuePairs.Add(new KeyValuePair<string, string>( "adjusted", adjusted ? "true":"false"));
+        var uri = GenearteUri(FunctionNames.CoreStock.IntraDayExtended, keyValuePairs.ToArray());
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
     public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDailyCsv(string symbol,
