@@ -1,9 +1,8 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
-using SaluteStocksAPI.AlphaVantage.Common;
-using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
 
 namespace TestProject1;
@@ -41,7 +40,7 @@ namespace TestProject1;
     [Test] public async Task GetCompanyEarningsTest()
     {
         Earnings? companyEarnings = await Client.GetCompanyEarnings("IBM");
-        Assert.That(companyEarnings.AnnualEarnings, Is.All.Not.Null);
+        Assert.That(companyEarnings.AnnualEarnings, Is.All.Not.AnyOf("asd", "qwe"));
     }
     
     

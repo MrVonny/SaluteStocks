@@ -1,10 +1,9 @@
-using System.Net;
+using System.ComponentModel;
 using Newtonsoft.Json;
 // using Microsoft.VisualBasic.FileIO;
 using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
-using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using Microsoft.OpenApi.Extensions;
 using SaluteStocksAPI.AlphaVantage.Common;
 using SaluteStocksAPI.Models.Core.Common;
@@ -177,6 +176,7 @@ public class AlphaVantageClient
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
+            
             result = result.Replace("\"None\"", "null");
             return JsonConvert.DeserializeObject<T>(result);
         }

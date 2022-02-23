@@ -3,7 +3,6 @@ using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
-#nullable enable
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 public class CashFlow : EntityInfo
