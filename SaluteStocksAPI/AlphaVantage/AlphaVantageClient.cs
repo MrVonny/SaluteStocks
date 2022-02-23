@@ -6,6 +6,7 @@ using System.Globalization;
 using CsvHelper.Configuration;
 using Microsoft.OpenApi.Extensions;
 using SaluteStocksAPI.AlphaVantage.Common;
+using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.Core.Common;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Models.FundamentalData.Common;
@@ -39,8 +40,8 @@ public class AlphaVantageClient
             public static string DailyAdjusted => "TIME_SERIES_DAILY_ADJUSTED";
             public static string Weekly => "TIME_SERIES_WEEKLY";
             public static string WeeklyAdjusted => "TIME_SERIES_WEEKLY_ADJUSTED";
-            public static string Monthly => "TIME_SERIES_DAILY";
-            public static string MonthlyAdjusted => "TIME_SERIES_DAILY";
+            public static string Monthly => "TIME_SERIES_MONTHLY";
+            public static string MonthlyAdjusted => "TIME_SERIES_MONTHLY_ADJUSTED";
             public static string QuoteEndpoint => "GLOBAL_QUOTE";
             public static string SearchEndpoint => "SYMBOL_SEARCH";
         }
@@ -179,21 +180,75 @@ public class AlphaVantageClient
     public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDailyCsv(string symbol,
         OutputSize outputSize = OutputSize.Full,  bool adjusted = true)
     {
-        var keyValuePairs = new List<KeyValuePair<string, string>>();
-
-        keyValuePairs.Add(new KeyValuePair<string, string>("symbol", symbol));
-        keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "csv"));
-        keyValuePairs.Add(new KeyValuePair<string, string>("outputsize", outputSize switch
+        var keyValuePairs = new List<KeyValuePair<string, string>>
         {
-            OutputSize.Compact => "compact",
-            OutputSize.Full => "full",
-            _ => throw new ArgumentOutOfRangeException(nameof(outputSize), outputSize, null)
-        }));
+            new KeyValuePair<string, string>("symbol", symbol),
+            new KeyValuePair<string, string>("datatype", "csv"),
+            new KeyValuePair<string, string>("outputsize", outputSize switch
+            {
+                OutputSize.Compact => "compact",
+                OutputSize.Full => "full",
+                _ => throw new ArgumentOutOfRangeException(nameof(outputSize), outputSize, null)
+            })
+        };
 
         var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily, 
             keyValuePairs.ToArray());
 
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
+    }
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesWeeklyCsv(string symbol, bool adjusted = true)
+    {
+        var keyValuePairs = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("symbol", symbol),
+            new KeyValuePair<string, string>("datatype", "csv")
+        };
+
+        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.WeeklyAdjusted : FunctionNames.CoreStock.Weekly, 
+            keyValuePairs.ToArray());
+
+        return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
+    }
+
+    public async Task<List<QuotesPeriodInfo>> GetTimeSeriesMonthlyCsv(string symbol, bool adjusted = true)
+    {
+        var keyValuePairs = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("symbol", symbol),
+            new KeyValuePair<string, string>("datatype", "csv")
+        };
+
+        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.MonthlyAdjusted : FunctionNames.CoreStock.Monthly, 
+            keyValuePairs.ToArray());
+
+        return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
+    }
+    
+    public async Task<List<GlobalQuote>> GetQuoteEndpoint(string symbol) // list of 1 element
+    {
+        var keyValuePairs = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("symbol", symbol),
+            new KeyValuePair<string, string>("datatype", "csv")
+        };
+
+        var uri = GenearteUri(FunctionNames.CoreStock.QuoteEndpoint, 
+            keyValuePairs.ToArray());
+
+        return await GetAndParseCsvAsync<GlobalQuote>(uri);
+    }
+
+    public async Task<List<SearchResult>> GetSearchResult(string keywords)
+    {
+        var keyValueParts = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("keywords", keywords),
+            new KeyValuePair<string, string>("datatype", "csv")
+        };
+        var uri = GenearteUri(FunctionNames.CoreStock.SearchEndpoint,
+            keyValueParts.ToArray());
+        return await GetAndParseCsvAsync<SearchResult>(uri);
     }
 
     #endregion
