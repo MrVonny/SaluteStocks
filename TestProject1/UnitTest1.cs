@@ -80,13 +80,13 @@ namespace TestProject1;
 
     [Test] public async Task GetIpoCalendar()
     {
-        var ipoCal = Client.GetIpoCalendar();
-        Assert.That(ipoCal.Result, Is.Not.Empty);
+        var ipoCal = await Client.GetIpoCalendar();
+        Assert.That(ipoCal, Is.Not.Empty);
     }
 
     [Test] public async Task GetEarningsCalendar()
     {
-        var earningsCalendar = Client.GetEarningsCalendar();
-        Assert.That(earningsCalendar.Result, Is.Not.Empty);
+        var earningsCalendar = await Client.GetEarningsCalendar();
+        Assert.That(earningsCalendar, Is.Not.Empty);
     }
 }
