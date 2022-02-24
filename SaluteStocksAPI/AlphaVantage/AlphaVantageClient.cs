@@ -225,7 +225,7 @@ public class AlphaVantageClient
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
     
-    public async Task<List<GlobalQuote>> GetQuoteEndpoint(string symbol) // list of 1 element
+    public async Task<GlobalQuote> GetQuoteEndpoint(string symbol) // list of 1 element
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>
         {
@@ -236,7 +236,7 @@ public class AlphaVantageClient
         var uri = GenearteUri(FunctionNames.CoreStock.QuoteEndpoint, 
             keyValuePairs.ToArray());
 
-        return await GetAndParseCsvAsync<GlobalQuote>(uri);
+        return (await GetAndParseCsvAsync<GlobalQuote>(uri)).First();
     }
 
     public async Task<List<SearchResult>> GetSearchResult(string keywords)

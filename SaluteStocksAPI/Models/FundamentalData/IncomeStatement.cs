@@ -3,7 +3,6 @@ using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
-#nullable enable
 
 public class IncomeStatement : EntityInfo
 {

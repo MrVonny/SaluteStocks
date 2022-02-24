@@ -77,7 +77,7 @@ namespace TestProject1;
     [Test] public async Task GetCompanyQuoteEndpointTest()
     {
         var companyQuoteEndpoint = await Client.GetQuoteEndpoint("IBM");
-        Assert.That(companyQuoteEndpoint.Count, Is.EqualTo(1));
+        Assert.That(companyQuoteEndpoint, Is.Not.Null);
     }
     [Test]
     public async Task GetListingTest()
