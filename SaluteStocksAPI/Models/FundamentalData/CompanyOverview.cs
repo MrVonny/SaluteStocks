@@ -12,7 +12,7 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("Description")] public string Description { get; set; }
 
-    [JsonProperty("CIK")] public string CIK { get; set; }
+    [JsonProperty("CIK")] public long? CIK { get; set; }
 
     [JsonProperty("Exchange")] public string Exchange { get; set; }
 
@@ -28,73 +28,73 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("FiscalYearEnd")] public DateTime FiscalYearEnd { get; set; }
 
-    [JsonProperty("LatestQuarter")] public string LatestQuarter { get; set; }
+    [JsonProperty("LatestQuarter")] public DateTime? LatestQuarter { get; set; }
 
-    [JsonProperty("MarketCapitalization")] public string MarketCapitalization { get; set; }
+    [JsonProperty("MarketCapitalization")] public long? MarketCapitalization { get; set; }
 
-    [JsonProperty("EBITDA")] public string EBITDA { get; set; }
+    [JsonProperty("EBITDA")] public long? EBITDA { get; set; }
 
-    [JsonProperty("PERatio")] public string PERatio { get; set; }
+    [JsonProperty("PERatio")] public double? PERatio { get; set; }
 
-    [JsonProperty("PEGRatio")] public string PEGRatio { get; set; }
+    [JsonProperty("PEGRatio")] public double? PEGRatio { get; set; }
 
-    [JsonProperty("BookValue")] public string BookValue { get; set; }
+    [JsonProperty("BookValue")] public double? BookValue { get; set; }
 
-    [JsonProperty("DividendPerShare")] public string DividendPerShare { get; set; }
+    [JsonProperty("DividendPerShare")] public double? DividendPerShare { get; set; }
 
-    [JsonProperty("DividendYield")] public string DividendYield { get; set; }
+    [JsonProperty("DividendYield")] public double? DividendYield { get; set; }
 
-    [JsonProperty("EPS")] public string EPS { get; set; }
+    [JsonProperty("EPS")] public double? EPS { get; set; }
 
-    [JsonProperty("RevenuePerShareTTM")] public string RevenuePerShareTTM { get; set; }
+    [JsonProperty("RevenuePerShareTTM")] public double? RevenuePerShareTTM { get; set; }
 
-    [JsonProperty("ProfitMargin")] public string ProfitMargin { get; set; }
+    [JsonProperty("ProfitMargin")] public double? ProfitMargin { get; set; }
 
-    [JsonProperty("OperatingMarginTTM")] public string OperatingMarginTTM { get; set; }
+    [JsonProperty("OperatingMarginTTM")] public double? OperatingMarginTTM { get; set; }
 
-    [JsonProperty("ReturnOnAssetsTTM")] public string ReturnOnAssetsTTM { get; set; }
+    [JsonProperty("ReturnOnAssetsTTM")] public double? ReturnOnAssetsTTM { get; set; }
 
-    [JsonProperty("ReturnOnEquityTTM")] public string ReturnOnEquityTTM { get; set; }
+    [JsonProperty("ReturnOnEquityTTM")] public double? ReturnOnEquityTTM { get; set; }
 
-    [JsonProperty("RevenueTTM")] public string RevenueTTM { get; set; }
+    [JsonProperty("RevenueTTM")] public long? RevenueTTM { get; set; }
 
-    [JsonProperty("GrossProfitTTM")] public string GrossProfitTTM { get; set; }
+    [JsonProperty("GrossProfitTTM")] public long? GrossProfitTTM { get; set; }
 
-    [JsonProperty("DilutedEPSTTM")] public string DilutedEPSTTM { get; set; }
+    [JsonProperty("DilutedEPSTTM")] public double? DilutedEPSTTM { get; set; }
 
     [JsonProperty("QuarterlyEarningsGrowthYOY")]
-    public string QuarterlyEarningsGrowthYOY { get; set; }
+    public double? QuarterlyEarningsGrowthYOY { get; set; }
 
     [JsonProperty("QuarterlyRevenueGrowthYOY")]
-    public string QuarterlyRevenueGrowthYOY { get; set; }
+    public double? QuarterlyRevenueGrowthYOY { get; set; }
 
-    [JsonProperty("AnalystTargetPrice")] public string AnalystTargetPrice { get; set; }
+    [JsonProperty("AnalystTargetPrice")] public double? AnalystTargetPrice { get; set; }
 
-    [JsonProperty("TrailingPE")] public string TrailingPE { get; set; }
+    [JsonProperty("TrailingPE")] public double? TrailingPE { get; set; }
 
-    [JsonProperty("ForwardPE")] public string ForwardPE { get; set; }
+    [JsonProperty("ForwardPE")] public double? ForwardPE { get; set; }
 
-    [JsonProperty("PriceToSalesRatioTTM")] public string PriceToSalesRatioTTM { get; set; }
+    [JsonProperty("PriceToSalesRatioTTM")] public double? PriceToSalesRatioTTM { get; set; }
 
-    [JsonProperty("PriceToBookRatio")] public string PriceToBookRatio { get; set; }
+    [JsonProperty("PriceToBookRatio")] public double? PriceToBookRatio { get; set; }
 
-    [JsonProperty("EVToRevenue")] public string EVToRevenue { get; set; }
+    [JsonProperty("EVToRevenue")] public double? EVToRevenue { get; set; }
 
-    [JsonProperty("EVToEBITDA")] public string EVToEBITDA { get; set; }
+    [JsonProperty("EVToEBITDA")] public double? EVToEBITDA { get; set; }
 
-    [JsonProperty("Beta")] public string Beta { get; set; }
+    [JsonProperty("Beta")] public double? Beta { get; set; }
 
-    [JsonProperty("52WeekHigh")] public string _52WeekHigh { get; set; }
+    [JsonProperty("52WeekHigh")] public double? _52WeekHigh { get; set; }
 
-    [JsonProperty("52WeekLow")] public string _52WeekLow { get; set; }
+    [JsonProperty("52WeekLow")] public double? _52WeekLow { get; set; }
 
-    [JsonProperty("50DayMovingAverage")] public string _50DayMovingAverage { get; set; }
+    [JsonProperty("50DayMovingAverage")] public double? _50DayMovingAverage { get; set; }
 
-    [JsonProperty("200DayMovingAverage")] public string _200DayMovingAverage { get; set; }
+    [JsonProperty("200DayMovingAverage")] public double? _200DayMovingAverage { get; set; }
 
-    [JsonProperty("SharesOutstanding")] public string SharesOutstanding { get; set; }
+    [JsonProperty("SharesOutstanding")] public long? SharesOutstanding { get; set; }
 
-    [JsonProperty("DividendDate")] public string DividendDate { get; set; }
+    [JsonProperty("DividendDate")] public DateTime? DividendDate { get; set; }
 
-    [JsonProperty("ExDividendDate")] public string ExDividendDate { get; set; }
+    [JsonProperty("ExDividendDate")] public DateTime? ExDividendDate { get; set; }
 }

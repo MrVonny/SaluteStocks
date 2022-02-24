@@ -1,6 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Runtime.InteropServices.ComTypes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.AlphaVantage;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;

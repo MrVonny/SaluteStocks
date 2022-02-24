@@ -15,7 +15,7 @@ public class AnnualEarning
     /// <summary>
     /// years: 2021, 2020, 2019 ... 1996
     /// </summary>
-    [JsonProperty("fiscalDateEnding")] public DateTime FiscalDateEnding { get; set; }
+    [JsonProperty("fiscalDateEnding")] public DateTime? FiscalDateEnding { get; set; }
     
     /// <summary>
     /// При́быль на а́кцию (англ. Earnings per share, EPS)
@@ -27,7 +27,7 @@ public class AnnualEarning
     /// привлекательности и эффективности компаний,
     /// действующих на фондовом рынке.
     /// </summary>
-    [JsonProperty("reportedEPS")] public double ReportedEPS { get; set; }
+    [JsonProperty("reportedEPS")] public double? ReportedEPS { get; set; }
 }
 
 public class QuarterlyEarning
@@ -38,17 +38,17 @@ public class QuarterlyEarning
     
     public string Symbol { get; set; }
     
-    [JsonProperty("fiscalDateEnding")] public DateTime FiscalDateEnding { get; set; }
+    [JsonProperty("fiscalDateEnding")] public DateTime? FiscalDateEnding { get; set; }
 
-    [JsonProperty("reportedDate")] public DateTime ReportedDate { get; set; }
+    [JsonProperty("reportedDate")] public DateTime? ReportedDate { get; set; }
 
-    [JsonProperty("reportedEPS")] public double ReportedEPS { get; set; }
+    [JsonProperty("reportedEPS")] public double? ReportedEPS { get; set; }
 
-    [JsonProperty("estimatedEPS")] public double EstimatedEPS { get; set; }
+    [JsonProperty("estimatedEPS")] public double? EstimatedEPS { get; set; }
 
-    [JsonProperty("surprise")] public double Surprise { get; set; }
+    [JsonProperty("surprise")] public double? Surprise { get; set; }
 
-    [JsonProperty("surprisePercentage")] public double SurprisePercentage { get; set; }
+    [JsonProperty("surprisePercentage")] public double? SurprisePercentage { get; set; }
 }
 
 public class Earnings : EntityInfo
