@@ -54,6 +54,22 @@ public class StocksContext : DbContext
             .HasMany(x => x.QuarterlyReports)
             .WithOne()
             .HasForeignKey(x => x.Symbol);
+
+        modelBuilder.Entity<CompanyOverview>()
+            .HasOne(x => x.BalanceSheet)
+            .WithOne(x => x.CompanyOverview);
+        modelBuilder.Entity<CompanyOverview>()
+            .HasOne(x => x.CashFlow)
+            .WithOne(x => x.CompanyOverview);
+        modelBuilder.Entity<CompanyOverview>()
+            .HasOne(x => x.Earnings)
+            .WithOne(x => x.CompanyOverview);
+        modelBuilder.Entity<CompanyOverview>()
+            .HasOne(x => x.EarningsCalendar)
+            .WithOne(x => x.CompanyOverview);
+        modelBuilder.Entity<CompanyOverview>()
+            .HasOne(x => x.IncomeStatement)
+            .WithOne(x => x.CompanyOverview);
     }
 
     public DbSet<BalanceSheet> BalanceSheets { get; set; }

@@ -6,6 +6,7 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 
 public class IncomeStatement : EntityInfo
 {
+    public CompanyOverview CompanyOverview { get; set; }
     [JsonProperty("annualReports")] public List<IncomeStatementReport> AnnualReports { get; set; }
 
     [JsonProperty("quarterlyReports")] public List<IncomeStatementReport> QuarterlyReports { get; set; }

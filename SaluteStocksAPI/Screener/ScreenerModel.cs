@@ -1,6 +1,6 @@
 ﻿namespace SaluteStocksAPI.Screener;
 
-public class Screener
+public class ScreenerModel
 {
     #region Common
 
@@ -14,7 +14,7 @@ public class Screener
 
     public RangedValue<decimal>? MarketCap { get; set; }
     public RangedValue<decimal>? Ebitda { get; set; }
-    public RangedValue<decimal>? DebtEquity { get; set; }
+    public RangedValue<decimal>? DebtToEquity { get; set; }
     public RangedValue<decimal>? PERatio { get; set; }
     public RangedValue<decimal>? EPS { get; set; }
     public RangedValue<decimal>? Beta { get; set; }

@@ -54,6 +54,7 @@ public class QuarterlyEarning
 public class Earnings : EntityInfo
 {
 
+    public CompanyOverview CompanyOverview { get; set; }
     [JsonProperty("annualEarnings")] public List<AnnualEarning> AnnualEarnings { get; set; }
 
     [JsonProperty("quarterlyEarnings")] public List<QuarterlyEarning> QuarterlyEarnings { get; set; }

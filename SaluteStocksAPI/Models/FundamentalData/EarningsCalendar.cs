@@ -5,6 +5,8 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 
 public class EarningsCalendar : Report
 {
+    public CompanyOverview CompanyOverview { get; set; }
+    
     [JsonProperty("symbol")] public string Symbol { get; set; }
     
     [JsonProperty("name")] public string Name { get; set; }

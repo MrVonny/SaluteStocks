@@ -97,4 +97,16 @@ public class CompanyOverview : EntityInfo
     [JsonProperty("DividendDate")] public DateTime? DividendDate { get; set; }
 
     [JsonProperty("ExDividendDate")] public DateTime? ExDividendDate { get; set; }
+    
+    
+    [JsonIgnore]
+    public BalanceSheet BalanceSheet { get; set; }
+    [JsonIgnore]
+    public CashFlow CashFlow { get; set; }
+    [JsonIgnore]
+    public Earnings Earnings { get; set; }
+    [JsonIgnore]
+    public EarningsCalendar EarningsCalendar { get; set; }
+    [JsonIgnore]
+    public IncomeStatement IncomeStatement { get; set; }
 }

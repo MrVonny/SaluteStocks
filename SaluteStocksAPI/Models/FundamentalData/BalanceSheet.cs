@@ -7,6 +7,7 @@ namespace SaluteStocksAPI.Models.FundamentalData;
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 public class BalanceSheet : EntityInfo
 {
+    public CompanyOverview CompanyOverview { get; set; }
     [JsonProperty("annualReports")] public List<BalanceSheetReport> AnnualReports { get; set; }
 
     [JsonProperty("quarterlyReports")] public List<BalanceSheetReport> QuarterlyReports { get; set; }
