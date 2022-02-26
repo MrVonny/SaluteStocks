@@ -11,7 +11,9 @@ try
 
     builder.Host.UseSerilog((context, configuration) =>
     {
-        configuration.WriteTo.Console();
+        configuration
+            .WriteTo.Console()
+            .WriteTo.File($@"Log/Log_{DateTime.Now:yyyy-MM-dd_hh-mm-ss}.log");
     });
 
     // Add services to the container.
