@@ -17,6 +17,8 @@ builder.Services.AddDbContext<StocksContext>(
 
 //DB repository
 builder.Services.AddScoped<IDataBaseRepository, DataBaseRepository>();
+//Screener
+builder.Services.AddScoped<ScreenerService>();
 //Loader background service
 builder.Services.AddHostedService(provider => new Loader(
         new LoaderSettings

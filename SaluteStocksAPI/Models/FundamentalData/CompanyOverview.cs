@@ -106,7 +106,5 @@ public class CompanyOverview : EntityInfo
     [JsonIgnore]
     public Earnings Earnings { get; set; }
     [JsonIgnore]
-    public EarningsCalendar EarningsCalendar { get; set; }
-    [JsonIgnore]
     public IncomeStatement IncomeStatement { get; set; }
 }
