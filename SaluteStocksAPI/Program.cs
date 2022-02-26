@@ -9,6 +9,11 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.Host.UseSerilog((context, configuration) =>
+    {
+        configuration.WriteTo.Console();
+    });
+
     // Add services to the container.
 
     builder.Services.AddControllers();
@@ -31,6 +36,7 @@ try
         new LoaderSettings { CheckUpdateTime = TimeSpan.FromSeconds(2) }, provider.GetService<IServiceScopeFactory>()));
 
     var app = builder.Build();
+    
 
     // Configure the HTTP request pipeline.
     if (builder.Environment.IsDevelopment())
