@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaluteStocksAPI.DataBase;
@@ -11,15 +12,17 @@ using SaluteStocksAPI.DataBase;
 namespace SaluteStocksAPI.Migrations
 {
     [DbContext(typeof(StocksContext))]
-    [Migration("20220226195303_CompanyOverviewNewFields")]
-    partial class CompanyOverviewNewFields
+    [Migration("20220227001146_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.AnnualEarning", b =>
                 {
@@ -27,14 +30,16 @@ namespace SaluteStocksAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<DateTime?>("FiscalDateEnding")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("ReportedEPS")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -46,17 +51,19 @@ namespace SaluteStocksAPI.Migrations
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheet", b =>
                 {
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("LastApiRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLocalRefresh")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("BalanceSheets");
+                    b.ToTable("balance_sheet", (string)null);
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheetReport", b =>
@@ -65,11 +72,13 @@ namespace SaluteStocksAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<long?>("AccumulatedDepreciationAmortizationPPE")
                         .HasColumnType("bigint");
 
                     b.Property<string>("BalanceSheetSymbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("CapitalLeaseObligations")
                         .HasColumnType("bigint");
@@ -102,7 +111,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("FiscalDateEnding")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("Goodwill")
                         .HasColumnType("bigint");
@@ -144,7 +153,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReportedCurrency")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("RetainedEarnings")
                         .HasColumnType("bigint");
@@ -159,7 +168,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("TotalAssets")
                         .HasColumnType("bigint");
@@ -197,17 +206,19 @@ namespace SaluteStocksAPI.Migrations
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CashFlow", b =>
                 {
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("LastApiRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLocalRefresh")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("CashFlows");
+                    b.ToTable("cash_flow", (string)null);
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CashFlowReport", b =>
@@ -216,11 +227,13 @@ namespace SaluteStocksAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<long?>("CapitalExpenditures")
                         .HasColumnType("bigint");
 
                     b.Property<string>("CashFlowSymbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("CashflowFromFinancing")
                         .HasColumnType("bigint");
@@ -259,7 +272,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("FiscalDateEnding")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("NetIncome")
                         .HasColumnType("bigint");
@@ -304,10 +317,10 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReportedCurrency")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -321,184 +334,190 @@ namespace SaluteStocksAPI.Migrations
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", b =>
                 {
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("AnalystTargetPrice")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<string>("AssetType")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Beta")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("BookValue")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<long?>("CIK")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Country")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("DilutedEPSTTM")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("DividendDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("DividendPerShare")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("DividendYield")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<long?>("EBITDA")
                         .HasColumnType("bigint");
 
                     b.Property<double?>("EPS")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("EVToEBITDA")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("EVToRevenue")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("ExDividendDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Exchange")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FiscalYearEnd")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("ForwardPE")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<long?>("GrossProfitTTM")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Industry")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastApiRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLocalRefresh")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime?>("LatestQuarter")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("MarketCapitalization")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("OperatingMarginTTM")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("PEGRatio")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("PERatio")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("PriceToBookRatio")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("PriceToSalesRatioTTM")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("ProfitMargin")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("QuarterlyEarningsGrowthYOY")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("QuarterlyRevenueGrowthYOY")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("ReturnOnAssetsTTM")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("ReturnOnEquityTTM")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("RevenuePerShareTTM")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<long?>("RevenueTTM")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Sector")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SharesOutstanding")
                         .HasColumnType("bigint");
 
                     b.Property<double?>("TrailingPE")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("_200DayMovingAverage")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("_50DayMovingAverage")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("_52WeekHigh")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("_52WeekLow")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("CompanyOverviews");
+                    b.ToTable("company_overview", (string)null);
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.Earnings", b =>
                 {
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("LastApiRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLocalRefresh")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("Earnings");
+                    b.ToTable("earnings", (string)null);
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", b =>
                 {
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("LastApiRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLocalRefresh")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("IncomeStatements");
+                    b.ToTable("income_statement", (string)null);
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatementReport", b =>
@@ -506,6 +525,8 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<long?>("ComprehensiveIncomeNetOfTax")
                         .HasColumnType("bigint");
@@ -529,7 +550,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("FiscalDateEnding")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("GrossProfit")
                         .HasColumnType("bigint");
@@ -538,7 +559,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("IncomeStatementSymbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("IncomeTaxExpense")
                         .HasColumnType("bigint");
@@ -577,7 +598,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReportedCurrency")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ResearchAndDevelopment")
                         .HasColumnType("bigint");
@@ -586,7 +607,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("TotalRevenue")
                         .HasColumnType("bigint");
@@ -603,28 +624,28 @@ namespace SaluteStocksAPI.Migrations
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.ListingRow", b =>
                 {
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AssetType")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DelistingDate")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Exchange")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IpoDate")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastApiRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastLocalRefresh")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -640,26 +661,28 @@ namespace SaluteStocksAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<double?>("EstimatedEPS")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("FiscalDateEnding")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ReportedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<double?>("ReportedEPS")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("Surprise")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double?>("SurprisePercentage")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 

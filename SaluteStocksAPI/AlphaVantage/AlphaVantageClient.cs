@@ -10,6 +10,7 @@ using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.Core.Common;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Models.FundamentalData.Common;
+using Serilog;
 
 namespace SaluteStocksAPI.AlphaVantage;
 
@@ -271,27 +272,33 @@ public class AlphaVantageClient
 
     private async Task<T> GetAndParseJsonAsync<T>(Uri uri)
     {
+        Log.Information("Starting to get and parse JSON from {Uri}.", uri);
         HttpClient client = new HttpClient();
 
         using HttpResponseMessage response = await client.GetAsync(uri);
         if (response.IsSuccessStatusCode)
         {
+            Log.Information("Response has success status code");
             var result = await response.Content.ReadAsStringAsync();
             
             result = result.Replace("\"None\"", "null");
+            Log.Information("Trying to deserialize response.");
             return JsonConvert.DeserializeObject<T>(result);
         }
+        Log.Error("Response is not successful. Status code is {StatusCode}. Response: {Response}", response.StatusCode, response);
 
         throw new(response.ReasonPhrase);
     }
 
     private async Task<List<T>> GetAndParseCsvAsync<T>(Uri uri)
     {
+        Log.Information("Starting to get and parse CSV from {Uri}.", uri);
         HttpClient client = new HttpClient();
 
         using HttpResponseMessage response = await client.GetAsync(uri);
         if (response.IsSuccessStatusCode)
         {
+            Log.Information("Response has success status code");
             var result = await response.Content.ReadAsStringAsync();
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
@@ -299,9 +306,10 @@ public class AlphaVantageClient
                 HeaderValidated = null,
                 PrepareHeaderForMatch = args => args.Header.ToLower(),
             };
+            Log.Information("Trying to deserialize response.");
             return new CsvReader(new StringReader(result), config).GetRecords<T>().ToList();
         }
-
+        Log.Error("Response is not successful. Status code is {StatusCode}. Response: {Response}", response.StatusCode, response);
         throw new(response.ReasonPhrase);
     }
 

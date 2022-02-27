@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;
 
@@ -15,10 +16,14 @@ class DataBaseRepository : IDataBaseRepository
 
     public async Task SetListing(List<ListingRow> listing)
     {
-        _context.Listing.UpdateRange(listing);
-        await _context.SaveChangesAsync();
+        await _context.BulkInsertOrUpdateOrDeleteAsync(listing);
+        await _context.BulkSaveChangesAsync();
     }
 
+    public async Task<List<string>> GetListingSymbols()
+    {
+        return await _context.Listing.Select(x=>x.Symbol).ToListAsync();
+    }
     public async Task<List<ListingRow>> GetListing()
     {
         return await _context.Listing.ToListAsync();

@@ -10,67 +10,15 @@ public class StocksContext : DbContext
 
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        base.OnConfiguring(optionsBuilder);
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<BalanceSheet>()
-            .HasMany(x => x.AnnualReports)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-        
-        modelBuilder.Entity<BalanceSheet>()
-            .HasMany(x => x.QuarterlyReports)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-        
-        modelBuilder.Entity<CashFlow>()
-            .HasMany(x => x.AnnualReports)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-        modelBuilder.Entity<CashFlow>()
-            .HasMany(x => x.QuarterlyReports)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
 
-        modelBuilder.Entity<Earnings>()
-            .HasMany(x => x.AnnualEarnings)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-        modelBuilder.Entity<Earnings>()
-            .HasMany(x => x.QuarterlyEarnings)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-
-        modelBuilder.Entity<IncomeStatement>()
-            .HasMany(x => x.AnnualReports)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-        modelBuilder.Entity<IncomeStatement>()
-            .HasMany(x => x.QuarterlyReports)
-            .WithOne()
-            .HasForeignKey(x => x.Symbol);
-
-        modelBuilder.Entity<CompanyOverview>()
-            .HasOne(x => x.BalanceSheet)
-            .WithOne(x => x.CompanyOverview)
-            .HasForeignKey<CompanyOverview>(x=>x.Symbol);
-        modelBuilder.Entity<CompanyOverview>()
-            .HasOne(x => x.CashFlow)
-            .WithOne(x => x.CompanyOverview)
-            .HasForeignKey<CompanyOverview>(x=>x.Symbol);
-        modelBuilder.Entity<CompanyOverview>()
-            .HasOne(x => x.Earnings)
-            .WithOne(x => x.CompanyOverview)
-            .HasForeignKey<CompanyOverview>(x=>x.Symbol);
-        modelBuilder.Entity<CompanyOverview>()
-            .HasOne(x => x.IncomeStatement)
-            .WithOne(x => x.CompanyOverview)
-            .HasForeignKey<CompanyOverview>(x=>x.Symbol);
+        modelBuilder.ApplyConfiguration(new BalanceSheetConfiguration());
+        modelBuilder.ApplyConfiguration(new CashFlowConfiguration());
+        modelBuilder.ApplyConfiguration(new CompanyOverviewConfiguration());
+        modelBuilder.ApplyConfiguration(new EarningsConfiguration());
+        modelBuilder.ApplyConfiguration(new IncomeStatementConfiguration());
     }
 
     public DbSet<BalanceSheet> BalanceSheets { get; set; }

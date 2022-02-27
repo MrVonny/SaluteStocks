@@ -13,7 +13,7 @@ try
     {
         configuration
             .WriteTo.Console()
-            .WriteTo.File($@"Log/Log_{DateTime.Now:yyyy-MM-dd_hh-mm-ss}.log");
+            .WriteTo.File($@"Logs/Log_{DateTime.Now:yyyy-MM-dd_hh-mm-ss}.log");
     });
 
     // Add services to the container.
@@ -26,8 +26,7 @@ try
 
     //DB Context
     builder.Services.AddDbContext<StocksContext>(options =>
-        options.UseMySql(builder.Configuration.GetConnectionString("MySql"),
-            MySqlServerVersion.LatestSupportedServerVersion));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
     //DB repository
     builder.Services.AddScoped<IDataBaseRepository, DataBaseRepository>();
@@ -35,7 +34,11 @@ try
     builder.Services.AddScoped<ScreenerService>();
     //Loader background service
     builder.Services.AddHostedService(provider => new Loader(
-        new LoaderSettings { CheckUpdateTime = TimeSpan.FromSeconds(2) }, provider.GetService<IServiceScopeFactory>()));
+        new LoaderSettings
+        {
+            CheckUpdateTime = TimeSpan.FromSeconds(10),
+            LoadMissingDataDelay = TimeSpan.FromMinutes(2)
+        }, provider.GetService<IServiceScopeFactory>()));
 
     var app = builder.Build();
     

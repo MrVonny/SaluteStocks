@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace SaluteStocksAPI.DataBase;
 
-public class EntityInfo
+public abstract class EntityInfo
 {
     [Key]
     [JsonProperty("symbol")]
