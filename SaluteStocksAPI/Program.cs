@@ -36,8 +36,8 @@ try
     builder.Services.AddHostedService(provider => new Loader(
         new LoaderSettings
         {
-            CheckUpdateTime = TimeSpan.FromSeconds(10),
-            LoadMissingDataDelay = TimeSpan.FromMinutes(2)
+            CheckUpdateTime = TimeSpan.FromSeconds(20),
+            LoadMissingDataDelay = TimeSpan.FromMinutes(5)
         }, provider.GetService<IServiceScopeFactory>()));
 
     var app = builder.Build();

@@ -19,8 +19,33 @@ public class StocksContext : DbContext
         modelBuilder.ApplyConfiguration(new CompanyOverviewConfiguration());
         modelBuilder.ApplyConfiguration(new EarningsConfiguration());
         modelBuilder.ApplyConfiguration(new IncomeStatementConfiguration());
-    }
 
+        modelBuilder.Entity<AnnualEarning>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<BalanceSheetAnnualReport>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<CashFlowAnnualReport>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<CashFlowAnnualReport>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<QuarterlyEarning>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<BalanceSheetQuarterlyReports>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<CashFlowQuarterlyReport>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+        modelBuilder.Entity<IncomeStatementQuarterlyReport>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+    }
+    
     public DbSet<BalanceSheet> BalanceSheets { get; set; }
     public DbSet<CashFlow> CashFlows { get; set; }
     public DbSet<CompanyOverview> CompanyOverviews { get; set; }

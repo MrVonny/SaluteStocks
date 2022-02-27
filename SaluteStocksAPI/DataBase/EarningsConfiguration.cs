@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SaluteStocksAPI.Models.FundamentalData;
 
@@ -9,14 +8,16 @@ public class EarningsConfiguration : BaseEntityConfigurations<Earnings>
     public override void Configure(EntityTypeBuilder<Earnings> modelBuilder)
     {
         base.Configure(modelBuilder);
-        modelBuilder.ToTable("earnings");
-        modelBuilder
-            .HasMany(x => x.AnnualEarnings)
-            .WithOne()
+        modelBuilder.HasMany(x => x.AnnualEarnings)
+            .WithOne(x => x.Earnings)
             .HasForeignKey(x => x.Symbol);
-        modelBuilder
-            .HasMany(x => x.QuarterlyEarnings)
-            .WithOne()
+        modelBuilder.HasMany(x => x.QuarterlyEarnings)
+            .WithOne(x => x.Earnings)
             .HasForeignKey(x => x.Symbol);
+        
+        modelBuilder
+            .HasOne(x => x.CompanyOverview)
+            .WithOne(x => x.Earnings)
+            .HasForeignKey<Earnings>(x => x.Symbol);
     }
 }

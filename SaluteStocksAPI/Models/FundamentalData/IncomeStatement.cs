@@ -1,19 +1,30 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
-using SaluteStocksAPI.Models.FundamentalData.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
-public class IncomeStatement : EntityInfo
+public class IncomeStatement : CompanyEntityInfo
 {
-    public CompanyOverview CompanyOverview { get; set; }
-    [JsonProperty("annualReports")] public List<IncomeStatementReport> AnnualReports { get; set; }
+    [JsonProperty("annualReports")] public List<IncomeStatementAnnualReport> AnnualReports { get; set; }
 
-    [JsonProperty("quarterlyReports")] public List<IncomeStatementReport> QuarterlyReports { get; set; }
+    [JsonProperty("quarterlyReports")] public List<IncomeStatementQuarterlyReport> QuarterlyReports { get; set; }
 }
 
-public class IncomeStatementReport : Report
+public class IncomeStatementReport
 {
+    [JsonIgnore]
+    [Key]
+    public int Id { get; set; }
+    
+    [JsonIgnore]
+    public IncomeStatement IncomeStatement { get; set; }
+    
+    public string Symbol { get; set; }
+    
+    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+
+    [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
     /// <summary>
     /// Совокупный доход за вычетом стоимости проданных товаров и услуг или операционных расходов, непосредственно связанных с деятельностью по получению дохода.
     /// </summary>
@@ -141,4 +152,14 @@ public class IncomeStatementReport : Report
     /// Часть прибыли или убытка за период за вычетом налога на прибыль, приходящаяся на материнскую компанию.
     /// </summary>
     [JsonProperty("netIncome")] public long? NetIncome { get; set; }
+}
+
+public class IncomeStatementAnnualReport : IncomeStatementReport
+{
+    
+}
+
+public class IncomeStatementQuarterlyReport : IncomeStatementReport
+{
+    
 }

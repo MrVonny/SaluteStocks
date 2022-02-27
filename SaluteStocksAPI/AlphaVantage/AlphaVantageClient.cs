@@ -64,7 +64,12 @@ public class AlphaVantageClient
         var uri = GenearteUri(FunctionNames.FundamentalData.IncomeStatement,
             new KeyValuePair<string, string>("symbol", symbol));
 
-        return await GetAndParseJsonAsync<IncomeStatement>(uri);
+        var res = await GetAndParseJsonAsync<IncomeStatement>(uri);
+        foreach (var report in res.AnnualReports)
+            report.Symbol = symbol;
+        foreach (var report in res.QuarterlyReports)
+            report.Symbol = symbol;
+        return res;
     }
 
     public async Task<BalanceSheet> GetBalanceSheet(string symbol)
@@ -72,7 +77,13 @@ public class AlphaVantageClient
         var uri = GenearteUri(FunctionNames.FundamentalData.BalanceSheet,
             new KeyValuePair<string, string>("symbol", symbol));
 
-        return await GetAndParseJsonAsync<BalanceSheet>(uri);
+        var res = await GetAndParseJsonAsync<BalanceSheet>(uri);
+        foreach (var report in res.AnnualReports)
+            report.Symbol = symbol;
+        foreach (var report in res.QuarterlyReports)
+            report.Symbol = symbol;
+        return res;
+
     }
 
     public async Task<CashFlow> GetCashFlow(string symbol)
@@ -80,7 +91,12 @@ public class AlphaVantageClient
         var uri = GenearteUri(FunctionNames.FundamentalData.CashFlow,
             new KeyValuePair<string, string>("symbol", symbol));
 
-        return await GetAndParseJsonAsync<CashFlow>(uri);
+        var res = await GetAndParseJsonAsync<CashFlow>(uri);
+        foreach (var report in res.AnnualReports)
+            report.Symbol = symbol;
+        foreach (var report in res.QuarterlyReports)
+            report.Symbol = symbol;
+        return res;
     }
 
     public async Task<CompanyOverview> GetCompanyOverview(string symbol)
@@ -115,7 +131,12 @@ public class AlphaVantageClient
     {
         var uri = GenearteUri(FunctionNames.FundamentalData.Earnings,
             new KeyValuePair<string, string>("symbol", symbol));
-        return await GetAndParseJsonAsync<Earnings>(uri);
+        var res = await GetAndParseJsonAsync<Earnings>(uri);
+        foreach (var report in res.AnnualEarnings)
+            report.Symbol = symbol;
+        foreach (var report in res.QuarterlyEarnings)
+            report.Symbol = symbol;
+        return res;
     }
     
     public async Task<List<EarningsCalendar>> GetEarningsCalendar(string symbol = "", Horizon horizon = Horizon.ThreeMonths)
@@ -281,9 +302,19 @@ public class AlphaVantageClient
             Log.Information("Response has success status code");
             var result = await response.Content.ReadAsStringAsync();
             
-            result = result.Replace("\"None\"", "null");
+            result = result
+                .Replace("\"None\"", "null")
+                .Replace("\"-\"", "null")
+                .Replace("\"0000-00-00\"", "null");
+            
             Log.Information("Trying to deserialize response.");
-            return JsonConvert.DeserializeObject<T>(result);
+            var deserialize = JsonConvert.DeserializeObject<T>(result);
+            if (deserialize == null)
+            {
+                Log.Error("Can't deserialize object: {object}. Return null", result);
+            }
+
+            return deserialize;
         }
         Log.Error("Response is not successful. Status code is {StatusCode}. Response: {Response}", response.StatusCode, response);
 

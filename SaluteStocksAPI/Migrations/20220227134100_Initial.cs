@@ -10,7 +10,7 @@ namespace SaluteStocksAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "balance_sheet",
+                name: "BalanceSheets",
                 columns: table => new
                 {
                     Symbol = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -19,11 +19,11 @@ namespace SaluteStocksAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_balance_sheet", x => x.Symbol);
+                    table.PrimaryKey("PK_BalanceSheets", x => x.Symbol);
                 });
 
             migrationBuilder.CreateTable(
-                name: "cash_flow",
+                name: "CashFlows",
                 columns: table => new
                 {
                     Symbol = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -32,11 +32,11 @@ namespace SaluteStocksAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cash_flow", x => x.Symbol);
+                    table.PrimaryKey("PK_CashFlows", x => x.Symbol);
                 });
 
             migrationBuilder.CreateTable(
-                name: "earnings",
+                name: "Earnings",
                 columns: table => new
                 {
                     Symbol = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -45,11 +45,11 @@ namespace SaluteStocksAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_earnings", x => x.Symbol);
+                    table.PrimaryKey("PK_Earnings", x => x.Symbol);
                 });
 
             migrationBuilder.CreateTable(
-                name: "income_statement",
+                name: "IncomeStatements",
                 columns: table => new
                 {
                     Symbol = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -58,7 +58,7 @@ namespace SaluteStocksAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_income_statement", x => x.Symbol);
+                    table.PrimaryKey("PK_IncomeStatements", x => x.Symbol);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +86,9 @@ namespace SaluteStocksAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Symbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    FiscalDateEnding = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReportedCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalAssets = table.Column<long>(type: "bigint", nullable: true),
                     TotalCurrentAssets = table.Column<long>(type: "bigint", nullable: true),
                     CashAndCashEquivalentsAtCarryingValue = table.Column<long>(type: "bigint", nullable: true),
@@ -122,23 +125,20 @@ namespace SaluteStocksAPI.Migrations
                     RetainedEarnings = table.Column<long>(type: "bigint", nullable: true),
                     CommonStock = table.Column<long>(type: "bigint", nullable: true),
                     CommonStockSharesOutstanding = table.Column<long>(type: "bigint", nullable: true),
-                    BalanceSheetSymbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Symbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    FiscalDateEnding = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReportedCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    BalanceSheetSymbol = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BalanceSheetReport", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BalanceSheetReport_balance_sheet_BalanceSheetSymbol",
+                        name: "FK_BalanceSheetReport_BalanceSheets_BalanceSheetSymbol",
                         column: x => x.BalanceSheetSymbol,
-                        principalTable: "balance_sheet",
+                        principalTable: "BalanceSheets",
                         principalColumn: "Symbol");
                     table.ForeignKey(
-                        name: "FK_BalanceSheetReport_balance_sheet_Symbol",
+                        name: "FK_BalanceSheetReport_BalanceSheets_Symbol",
                         column: x => x.Symbol,
-                        principalTable: "balance_sheet",
+                        principalTable: "BalanceSheets",
                         principalColumn: "Symbol");
                 });
 
@@ -148,6 +148,9 @@ namespace SaluteStocksAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FiscalDateEnding = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReportedCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OperatingCashFlow = table.Column<long>(type: "bigint", nullable: true),
                     PaymentsForOperatingActivities = table.Column<long>(type: "bigint", nullable: true),
                     ProceedsFromOperatingActivities = table.Column<long>(type: "bigint", nullable: true),
@@ -176,22 +179,20 @@ namespace SaluteStocksAPI.Migrations
                     ChangeInExchangeRate = table.Column<long>(type: "bigint", nullable: true),
                     NetIncome = table.Column<long>(type: "bigint", nullable: true),
                     CashFlowSymbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Symbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    FiscalDateEnding = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReportedCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CashFlowSymbol1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CashFlowReport", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CashFlowReport_cash_flow_CashFlowSymbol",
+                        name: "FK_CashFlowReport_CashFlows_CashFlowSymbol",
                         column: x => x.CashFlowSymbol,
-                        principalTable: "cash_flow",
+                        principalTable: "CashFlows",
                         principalColumn: "Symbol");
                     table.ForeignKey(
-                        name: "FK_CashFlowReport_cash_flow_Symbol",
-                        column: x => x.Symbol,
-                        principalTable: "cash_flow",
+                        name: "FK_CashFlowReport_CashFlows_CashFlowSymbol1",
+                        column: x => x.CashFlowSymbol1,
+                        principalTable: "CashFlows",
                         principalColumn: "Symbol");
                 });
 
@@ -201,17 +202,18 @@ namespace SaluteStocksAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Symbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FiscalDateEnding = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ReportedEPS = table.Column<double>(type: "float", nullable: true)
+                    ReportedEPS = table.Column<double>(type: "float", nullable: true),
+                    EarningsSymbol = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AnnualEarning", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AnnualEarning_earnings_Symbol",
-                        column: x => x.Symbol,
-                        principalTable: "earnings",
+                        name: "FK_AnnualEarning_Earnings_EarningsSymbol",
+                        column: x => x.EarningsSymbol,
+                        principalTable: "Earnings",
                         principalColumn: "Symbol");
                 });
 
@@ -221,26 +223,27 @@ namespace SaluteStocksAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Symbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FiscalDateEnding = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ReportedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ReportedEPS = table.Column<double>(type: "float", nullable: true),
                     EstimatedEPS = table.Column<double>(type: "float", nullable: true),
                     Surprise = table.Column<double>(type: "float", nullable: true),
-                    SurprisePercentage = table.Column<double>(type: "float", nullable: true)
+                    SurprisePercentage = table.Column<double>(type: "float", nullable: true),
+                    EarningsSymbol = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_QuarterlyEarning", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_QuarterlyEarning_earnings_Symbol",
-                        column: x => x.Symbol,
-                        principalTable: "earnings",
+                        name: "FK_QuarterlyEarning_Earnings_EarningsSymbol",
+                        column: x => x.EarningsSymbol,
+                        principalTable: "Earnings",
                         principalColumn: "Symbol");
                 });
 
             migrationBuilder.CreateTable(
-                name: "company_overview",
+                name: "CompanyOverviews",
                 columns: table => new
                 {
                     Symbol = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -294,29 +297,29 @@ namespace SaluteStocksAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_company_overview", x => x.Symbol);
+                    table.PrimaryKey("PK_CompanyOverviews", x => x.Symbol);
                     table.ForeignKey(
-                        name: "FK_company_overview_balance_sheet_Symbol",
+                        name: "FK_CompanyOverviews_BalanceSheets_Symbol",
                         column: x => x.Symbol,
-                        principalTable: "balance_sheet",
+                        principalTable: "BalanceSheets",
                         principalColumn: "Symbol",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_company_overview_cash_flow_Symbol",
+                        name: "FK_CompanyOverviews_CashFlows_Symbol",
                         column: x => x.Symbol,
-                        principalTable: "cash_flow",
+                        principalTable: "CashFlows",
                         principalColumn: "Symbol",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_company_overview_earnings_Symbol",
+                        name: "FK_CompanyOverviews_Earnings_Symbol",
                         column: x => x.Symbol,
-                        principalTable: "earnings",
+                        principalTable: "Earnings",
                         principalColumn: "Symbol",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_company_overview_income_statement_Symbol",
+                        name: "FK_CompanyOverviews_IncomeStatements_Symbol",
                         column: x => x.Symbol,
-                        principalTable: "income_statement",
+                        principalTable: "IncomeStatements",
                         principalColumn: "Symbol",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -327,6 +330,9 @@ namespace SaluteStocksAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FiscalDateEnding = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReportedCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GrossProfit = table.Column<long>(type: "bigint", nullable: true),
                     TotalRevenue = table.Column<long>(type: "bigint", nullable: true),
                     CostOfRevenue = table.Column<long>(type: "bigint", nullable: true),
@@ -352,29 +358,27 @@ namespace SaluteStocksAPI.Migrations
                     Ebitda = table.Column<long>(type: "bigint", nullable: true),
                     NetIncome = table.Column<long>(type: "bigint", nullable: true),
                     IncomeStatementSymbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Symbol = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    FiscalDateEnding = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReportedCurrency = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IncomeStatementSymbol1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IncomeStatementReport", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IncomeStatementReport_income_statement_IncomeStatementSymbol",
+                        name: "FK_IncomeStatementReport_IncomeStatements_IncomeStatementSymbol",
                         column: x => x.IncomeStatementSymbol,
-                        principalTable: "income_statement",
+                        principalTable: "IncomeStatements",
                         principalColumn: "Symbol");
                     table.ForeignKey(
-                        name: "FK_IncomeStatementReport_income_statement_Symbol",
-                        column: x => x.Symbol,
-                        principalTable: "income_statement",
+                        name: "FK_IncomeStatementReport_IncomeStatements_IncomeStatementSymbol1",
+                        column: x => x.IncomeStatementSymbol1,
+                        principalTable: "IncomeStatements",
                         principalColumn: "Symbol");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnnualEarning_Symbol",
+                name: "IX_AnnualEarning_EarningsSymbol",
                 table: "AnnualEarning",
-                column: "Symbol");
+                column: "EarningsSymbol");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BalanceSheetReport_BalanceSheetSymbol",
@@ -392,9 +396,9 @@ namespace SaluteStocksAPI.Migrations
                 column: "CashFlowSymbol");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CashFlowReport_Symbol",
+                name: "IX_CashFlowReport_CashFlowSymbol1",
                 table: "CashFlowReport",
-                column: "Symbol");
+                column: "CashFlowSymbol1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IncomeStatementReport_IncomeStatementSymbol",
@@ -402,14 +406,14 @@ namespace SaluteStocksAPI.Migrations
                 column: "IncomeStatementSymbol");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IncomeStatementReport_Symbol",
+                name: "IX_IncomeStatementReport_IncomeStatementSymbol1",
                 table: "IncomeStatementReport",
-                column: "Symbol");
+                column: "IncomeStatementSymbol1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_QuarterlyEarning_Symbol",
+                name: "IX_QuarterlyEarning_EarningsSymbol",
                 table: "QuarterlyEarning",
-                column: "Symbol");
+                column: "EarningsSymbol");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -424,7 +428,7 @@ namespace SaluteStocksAPI.Migrations
                 name: "CashFlowReport");
 
             migrationBuilder.DropTable(
-                name: "company_overview");
+                name: "CompanyOverviews");
 
             migrationBuilder.DropTable(
                 name: "IncomeStatementReport");
@@ -436,16 +440,16 @@ namespace SaluteStocksAPI.Migrations
                 name: "QuarterlyEarning");
 
             migrationBuilder.DropTable(
-                name: "balance_sheet");
+                name: "BalanceSheets");
 
             migrationBuilder.DropTable(
-                name: "cash_flow");
+                name: "CashFlows");
 
             migrationBuilder.DropTable(
-                name: "income_statement");
+                name: "IncomeStatements");
 
             migrationBuilder.DropTable(
-                name: "earnings");
+                name: "Earnings");
         }
     }
 }

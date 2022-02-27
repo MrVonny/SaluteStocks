@@ -1,14 +1,19 @@
-﻿using Newtonsoft.Json;
-using SaluteStocksAPI.Models.FundamentalData.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
-public class EarningsCalendar : Report
+public class EarningsCalendar : CompanyEntityInfo
 {
-    public CompanyOverview CompanyOverview { get; set; }
+    [JsonIgnore]
+    [Key]
+    public int Id { get; set; }
     
-    [JsonProperty("symbol")] public string Symbol { get; set; }
-    
+    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+
+    [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
+
     [JsonProperty("name")] public string Name { get; set; }
     
     [JsonProperty("reportDate")] public DateTime? ReportDate { get; set; }

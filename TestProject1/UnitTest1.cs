@@ -1,9 +1,7 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
-using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.FundamentalData;
 
 namespace TestProject1;
@@ -36,9 +34,12 @@ namespace TestProject1;
         Assert.That(companyCashFlow.AnnualReports, Is.Not.Empty);
     }
     
-    [Test] public async Task GetCompanyBalanceSheetTest()
+    [Test] 
+    [TestCase("IBM")]
+    [TestCase("AAC")]
+    public async Task GetCompanyBalanceSheetTest(string symbol)
     {
-        var companyBalanceSheet = await Client.GetBalanceSheet("IBM");
+        var companyBalanceSheet = await Client.GetBalanceSheet(symbol);
         Assert.That(companyBalanceSheet.AnnualReports, Is.Not.Empty);
     }
 

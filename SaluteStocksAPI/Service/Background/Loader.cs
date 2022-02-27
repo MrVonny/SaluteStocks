@@ -61,7 +61,15 @@ public class Loader : BackgroundService
                     RefreshEntity<IncomeStatement>(await repository.GetOldestSymbol<IncomeStatement>(), repository),
                 };
                 Log.Information("Waiting for the completion of tasks to refresh oldest entities.");
-                await Task.WhenAll(tasks);
+                try
+                {
+                    Task.WaitAll(tasks);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e,"Error occured in some tasks.");
+                }
+                
                 Log.Information("All entities are refreshed! Success: {Success}. Fail: {Fail}",
                     tasks.Count(x => x.IsCompletedSuccessfully),
                     tasks.Count(x=>!x.IsCompletedSuccessfully));
@@ -103,15 +111,20 @@ public class Loader : BackgroundService
                     
                         foreach (var symbol in symbols.Where(s=> !loadedSymbols.Contains(s)))
                         {
-                            await RefreshEntity<T>(symbol, repository);
+                            try
+                            {
+                                await RefreshEntity<T>(symbol, repository);
+                            }
+                            catch
+                            {
+                                // ignored
+                            }
                         }
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e, "Failed to load missing entities.");
-                        throw;
+                        Log.Error(e, "Failed to load missing entities for {Type}", typeof(T));
                     }
-                    
                 }
             }
             await Task.Delay(_settings.LoadMissingDataDelay, stoppingToken);
@@ -134,7 +147,20 @@ public class Loader : BackgroundService
                 4 => await Client.GetIncomeStatement(symbol),
                 _ => throw new ArgumentOutOfRangeException()
             };
-        
+
+            if (Types[typeof(T)] != 2)
+            {
+                var companyOverview = ((CompanyEntityInfo)entity).CompanyOverview =
+                    await repository.Get<CompanyOverview>(symbol);
+                if (companyOverview == null)
+                {
+                    companyOverview = await Client.GetCompanyOverview(symbol) ??
+                                      throw new NullReferenceException("Company Overview can't be null");
+                    await repository.AddOrUpdate(companyOverview);
+                }
+
+            }
+
             entity.LastLocalRefresh = DateTime.Now;
             await repository.AddOrUpdate((T)entity);
         }
@@ -143,9 +169,10 @@ public class Loader : BackgroundService
             Log.Error(e, "Failed to refresh  entity {EntityType} with Symbol {Symbol}", typeof(T), symbol);
             throw;
         }
-        
-        
-        await Task.Delay(_settings.LoadMissingDataDelay);
+        finally
+        {
+            await Task.Delay(_settings.CheckUpdateTime);
+        }
     }
 }
 

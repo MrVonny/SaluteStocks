@@ -32,7 +32,11 @@ class DataBaseRepository : IDataBaseRepository
     public async Task AddOrUpdate<T>(T entity) where T : EntityInfo
     {
         var dbSet = _context.Set<T>();
-        dbSet.Update(entity);
+        var e = await dbSet.SingleOrDefaultAsync(x => x.Symbol.Equals(entity.Symbol));
+        if (e == null)
+            dbSet.Add(entity);
+        else
+            _context.Entry(e).CurrentValues.SetValues(entity);
         await _context.SaveChangesAsync();
     }
 

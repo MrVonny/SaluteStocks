@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SaluteStocksAPI.Models.FundamentalData;
 
@@ -9,14 +8,17 @@ public class CashFlowConfiguration : BaseEntityConfigurations<CashFlow>
     public override void Configure(EntityTypeBuilder<CashFlow> modelBuilder)
     {
         base.Configure(modelBuilder);
-        modelBuilder.ToTable("cash_flow");
-        modelBuilder
-            .HasMany(x => x.AnnualReports)
-            .WithOne()
+        modelBuilder.HasMany(x => x.AnnualReports)
+            .WithOne(x => x.CashFlow)
             .HasForeignKey(x => x.Symbol);
-        modelBuilder
-            .HasMany(x => x.QuarterlyReports)
-            .WithOne()
+        modelBuilder.HasMany(x => x.QuarterlyReports)
+            .WithOne(x => x.CashFlow)
             .HasForeignKey(x => x.Symbol);
+        
+        modelBuilder
+            .HasOne(x => x.CompanyOverview)
+            .WithOne(x => x.CashFlow)
+            .HasForeignKey<CashFlow>(x => x.Symbol);
     }
+    
 }

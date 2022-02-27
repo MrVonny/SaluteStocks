@@ -1,20 +1,31 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
-using SaluteStocksAPI.Models.FundamentalData.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-public class CashFlow : EntityInfo
+public class CashFlow : CompanyEntityInfo
 {
-    public CompanyOverview CompanyOverview { get; set; }
-    [JsonProperty("annualReports")] public List<CashFlowReport> AnnualReports { get; set; }
+    [JsonProperty("annualReports")] public List<CashFlowAnnualReport> AnnualReports { get; set; }
 
-    [JsonProperty("quarterlyReports")] public List<CashFlowReport> QuarterlyReports { get; set; }
+    [JsonProperty("quarterlyReports")] public List<CashFlowQuarterlyReport> QuarterlyReports { get; set; }
 }
 
-public class CashFlowReport : Report
+public class CashFlowReport
 {
+    [JsonIgnore]
+    [Key]
+    public int Id { get; set; }
+    
+    public string Symbol { get; set; }
+    
+    [JsonIgnore]
+    public CashFlow CashFlow { get; set; }
+    
+    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+
+    [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
     /// <summary>
     /// Сумма притока (оттока) денежных средств от операционной деятельности, включая прекращенную деятельность. Денежные потоки от операционной деятельности включают операции, корректировки и изменения стоимости, не определяемые как инвестиционная или финансовая деятельность.
     /// </summary>
@@ -168,4 +179,14 @@ public class CashFlowReport : Report
     /// Часть прибыли или убытка за период за вычетом налога на прибыль, приходящаяся на материнскую компанию.
     /// </summary>
     [JsonProperty("netIncome")] public long? NetIncome { get; set; }
+}
+
+public class CashFlowAnnualReport : CashFlowReport
+{
+    
+}
+
+public class CashFlowQuarterlyReport : CashFlowReport
+{
+    
 }

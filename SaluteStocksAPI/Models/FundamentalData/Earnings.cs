@@ -11,6 +11,7 @@ public class AnnualEarning
     [Key]
     public int Id { get; set; }
     public string Symbol { get; set; }
+    public Earnings Earnings { get; set; }
     
     /// <summary>
     /// years: 2021, 2020, 2019 ... 1996
@@ -37,6 +38,7 @@ public class QuarterlyEarning
     public int Id { get; set; }
     
     public string Symbol { get; set; }
+    public Earnings Earnings { get; set; }
     
     [JsonProperty("fiscalDateEnding")] public DateTime? FiscalDateEnding { get; set; }
 
@@ -51,10 +53,8 @@ public class QuarterlyEarning
     [JsonProperty("surprisePercentage")] public double? SurprisePercentage { get; set; }
 }
 
-public class Earnings : EntityInfo
+public class Earnings : CompanyEntityInfo
 {
-
-    public CompanyOverview CompanyOverview { get; set; }
     [JsonProperty("annualEarnings")] public List<AnnualEarning> AnnualEarnings { get; set; }
 
     [JsonProperty("quarterlyEarnings")] public List<QuarterlyEarning> QuarterlyEarnings { get; set; }

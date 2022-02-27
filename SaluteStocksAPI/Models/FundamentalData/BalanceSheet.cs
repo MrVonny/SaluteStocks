@@ -1,20 +1,31 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
-using SaluteStocksAPI.Models.FundamentalData.Common;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-public class BalanceSheet : EntityInfo
+public class BalanceSheet : CompanyEntityInfo
 {
-    public CompanyOverview CompanyOverview { get; set; }
-    [JsonProperty("annualReports")] public List<BalanceSheetReport> AnnualReports { get; set; }
+    [JsonProperty("annualReports")] public List<BalanceSheetAnnualReport> AnnualReports { get; set; }
 
-    [JsonProperty("quarterlyReports")] public List<BalanceSheetReport> QuarterlyReports { get; set; }
+    [JsonProperty("quarterlyReports")] public List<BalanceSheetQuarterlyReports> QuarterlyReports { get; set; }
 }
 
-public class BalanceSheetReport : Report
+public class BalanceSheetReport
 {
+    [JsonIgnore]
+    [Key]
+    public int Id { get; set; }
+    
+    public string Symbol { get; set; }
+    
+    [JsonIgnore]
+    public BalanceSheet BalanceSheet { get; set; }
+    
+    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+
+    [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
     // https://documentation.alphavantage.co/FundamentalDataDocs/gaap_documentation.html#BalanceSheet
     /// <summary>
     /// полная балансовая стоимость на данный момент
@@ -211,4 +222,14 @@ public class BalanceSheetReport : Report
     /// </summary>
     [JsonProperty("commonStockSharesOutstanding")]
     public long? CommonStockSharesOutstanding { get; set; }
+}
+
+public class BalanceSheetAnnualReport : BalanceSheetReport
+{
+    
+}
+
+public class BalanceSheetQuarterlyReports : BalanceSheetReport
+{
+    
 }

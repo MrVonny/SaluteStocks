@@ -12,7 +12,7 @@ using SaluteStocksAPI.DataBase;
 namespace SaluteStocksAPI.Migrations
 {
     [DbContext(typeof(StocksContext))]
-    [Migration("20220227001146_Initial")]
+    [Migration("20220227134100_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("EarningsSymbol")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime?>("FiscalDateEnding")
                         .HasColumnType("datetime2");
 
@@ -39,11 +42,11 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Symbol");
+                    b.HasIndex("EarningsSymbol");
 
                     b.ToTable("AnnualEarning");
                 });
@@ -63,7 +66,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("balance_sheet", (string)null);
+                    b.ToTable("BalanceSheets");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheetReport", b =>
@@ -218,7 +221,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("cash_flow", (string)null);
+                    b.ToTable("CashFlows");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CashFlowReport", b =>
@@ -233,6 +236,9 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("CashFlowSymbol")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CashFlowSymbol1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("CashflowFromFinancing")
@@ -320,13 +326,13 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CashFlowSymbol");
 
-                    b.HasIndex("Symbol");
+                    b.HasIndex("CashFlowSymbol1");
 
                     b.ToTable("CashFlowReport");
                 });
@@ -481,7 +487,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("company_overview", (string)null);
+                    b.ToTable("CompanyOverviews");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.Earnings", b =>
@@ -499,7 +505,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("earnings", (string)null);
+                    b.ToTable("Earnings");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", b =>
@@ -517,7 +523,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("income_statement", (string)null);
+                    b.ToTable("IncomeStatements");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatementReport", b =>
@@ -559,6 +565,9 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("IncomeStatementSymbol")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IncomeStatementSymbol1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("IncomeTaxExpense")
@@ -607,7 +616,7 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("TotalRevenue")
                         .HasColumnType("bigint");
@@ -616,7 +625,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasIndex("IncomeStatementSymbol");
 
-                    b.HasIndex("Symbol");
+                    b.HasIndex("IncomeStatementSymbol1");
 
                     b.ToTable("IncomeStatementReport");
                 });
@@ -663,6 +672,9 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("EarningsSymbol")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<double?>("EstimatedEPS")
                         .HasColumnType("float");
 
@@ -682,11 +694,11 @@ namespace SaluteStocksAPI.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Symbol")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Symbol");
+                    b.HasIndex("EarningsSymbol");
 
                     b.ToTable("QuarterlyEarning");
                 });
@@ -695,7 +707,7 @@ namespace SaluteStocksAPI.Migrations
                 {
                     b.HasOne("SaluteStocksAPI.Models.FundamentalData.Earnings", null)
                         .WithMany("AnnualEarnings")
-                        .HasForeignKey("Symbol");
+                        .HasForeignKey("EarningsSymbol");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheetReport", b =>
@@ -717,7 +729,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasOne("SaluteStocksAPI.Models.FundamentalData.CashFlow", null)
                         .WithMany("QuarterlyReports")
-                        .HasForeignKey("Symbol");
+                        .HasForeignKey("CashFlowSymbol1");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", b =>
@@ -763,14 +775,14 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasOne("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", null)
                         .WithMany("QuarterlyReports")
-                        .HasForeignKey("Symbol");
+                        .HasForeignKey("IncomeStatementSymbol1");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.QuarterlyEarning", b =>
                 {
                     b.HasOne("SaluteStocksAPI.Models.FundamentalData.Earnings", null)
                         .WithMany("QuarterlyEarnings")
-                        .HasForeignKey("Symbol");
+                        .HasForeignKey("EarningsSymbol");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheet", b =>

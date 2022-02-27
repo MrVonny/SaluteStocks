@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SaluteStocksAPI.Models.FundamentalData;
 
@@ -9,15 +8,16 @@ public class BalanceSheetConfiguration : BaseEntityConfigurations<BalanceSheet>
     public override void Configure(EntityTypeBuilder<BalanceSheet> modelBuilder)
     {
         base.Configure(modelBuilder);
-        modelBuilder.ToTable("balance_sheet");
-        modelBuilder
-            .HasMany(x => x.AnnualReports)
-            .WithOne()
+        modelBuilder.HasMany(x => x.AnnualReports)
+            .WithOne(x => x.BalanceSheet)
             .HasForeignKey(x => x.Symbol);
-
-        modelBuilder
-            .HasMany(x => x.QuarterlyReports)
-            .WithOne()
+        modelBuilder.HasMany(x => x.QuarterlyReports)
+            .WithOne(x => x.BalanceSheet)
             .HasForeignKey(x => x.Symbol);
+        
+        modelBuilder
+            .HasOne(x => x.CompanyOverview)
+            .WithOne(x => x.BalanceSheet)
+            .HasForeignKey<BalanceSheet>(x => x.Symbol);
     }
 }

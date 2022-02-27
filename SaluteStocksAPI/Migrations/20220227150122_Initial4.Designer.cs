@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaluteStocksAPI.DataBase;
 
@@ -11,9 +12,10 @@ using SaluteStocksAPI.DataBase;
 namespace SaluteStocksAPI.Migrations
 {
     [DbContext(typeof(StocksContext))]
-    partial class StocksContextModelSnapshot : ModelSnapshot
+    [Migration("20220227150122_Initial4")]
+    partial class Initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1016,17 +1018,6 @@ namespace SaluteStocksAPI.Migrations
                     b.Navigation("Earnings");
                 });
 
-            modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheet", b =>
-                {
-                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "CompanyOverview")
-                        .WithOne("BalanceSheet")
-                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.BalanceSheet", "Symbol")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CompanyOverview");
-                });
-
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheetAnnualReport", b =>
                 {
                     b.HasOne("SaluteStocksAPI.Models.FundamentalData.BalanceSheet", "BalanceSheet")
@@ -1043,17 +1034,6 @@ namespace SaluteStocksAPI.Migrations
                         .HasForeignKey("Symbol");
 
                     b.Navigation("BalanceSheet");
-                });
-
-            modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CashFlow", b =>
-                {
-                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "CompanyOverview")
-                        .WithOne("CashFlow")
-                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.CashFlow", "Symbol")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CompanyOverview");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CashFlowAnnualReport", b =>
@@ -1074,26 +1054,39 @@ namespace SaluteStocksAPI.Migrations
                     b.Navigation("CashFlow");
                 });
 
-            modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.Earnings", b =>
+            modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", b =>
                 {
-                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "CompanyOverview")
-                        .WithOne("Earnings")
-                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.Earnings", "Symbol")
+                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.BalanceSheet", "BalanceSheet")
+                        .WithOne("CompanyOverview")
+                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "Symbol")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CompanyOverview");
-                });
-
-            modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", b =>
-                {
-                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "CompanyOverview")
-                        .WithOne("IncomeStatement")
-                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", "Symbol")
+                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.CashFlow", "CashFlow")
+                        .WithOne("CompanyOverview")
+                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "Symbol")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CompanyOverview");
+                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.Earnings", "Earnings")
+                        .WithOne("CompanyOverview")
+                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "Symbol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", "IncomeStatement")
+                        .WithOne("CompanyOverview")
+                        .HasForeignKey("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", "Symbol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BalanceSheet");
+
+                    b.Navigation("CashFlow");
+
+                    b.Navigation("Earnings");
+
+                    b.Navigation("IncomeStatement");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatementAnnualReport", b =>
@@ -1127,6 +1120,8 @@ namespace SaluteStocksAPI.Migrations
                 {
                     b.Navigation("AnnualReports");
 
+                    b.Navigation("CompanyOverview");
+
                     b.Navigation("QuarterlyReports");
                 });
 
@@ -1134,23 +1129,16 @@ namespace SaluteStocksAPI.Migrations
                 {
                     b.Navigation("AnnualReports");
 
+                    b.Navigation("CompanyOverview");
+
                     b.Navigation("QuarterlyReports");
-                });
-
-            modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CompanyOverview", b =>
-                {
-                    b.Navigation("BalanceSheet");
-
-                    b.Navigation("CashFlow");
-
-                    b.Navigation("Earnings");
-
-                    b.Navigation("IncomeStatement");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.Earnings", b =>
                 {
                     b.Navigation("AnnualEarnings");
+
+                    b.Navigation("CompanyOverview");
 
                     b.Navigation("QuarterlyEarnings");
                 });
@@ -1158,6 +1146,8 @@ namespace SaluteStocksAPI.Migrations
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", b =>
                 {
                     b.Navigation("AnnualReports");
+
+                    b.Navigation("CompanyOverview");
 
                     b.Navigation("QuarterlyReports");
                 });
