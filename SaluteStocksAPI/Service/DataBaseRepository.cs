@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;
+using Serilog;
 
 namespace SaluteStocksAPI.Service;
 
@@ -31,13 +32,21 @@ class DataBaseRepository : IDataBaseRepository
 
     public async Task AddOrUpdate<T>(T entity) where T : EntityInfo
     {
+        Log.Information("Start AddOrUpdate for {T}.", typeof(T));
         var dbSet = _context.Set<T>();
         var e = await dbSet.SingleOrDefaultAsync(x => x.Symbol.Equals(entity.Symbol));
         if (e == null)
+        {
+            Log.Information("Entity does not exist. Adding to DB.");
             dbSet.Add(entity);
+        }
         else
+        {
+            Log.Information("Entity already exist. Updating entity DB.");
             _context.Entry(e).CurrentValues.SetValues(entity);
+        }
         await _context.SaveChangesAsync();
+        Log.Information("AddOrUpdate run successful.");
     }
 
     public async Task<T> Get<T>(string symbol) where T : EntityInfo

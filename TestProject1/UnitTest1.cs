@@ -42,6 +42,15 @@ namespace TestProject1;
         var companyBalanceSheet = await Client.GetBalanceSheet(symbol);
         Assert.That(companyBalanceSheet.AnnualReports, Is.Not.Empty);
     }
+    
+    [Test] 
+    [TestCase("ACNB")]
+    [TestCase("AAC")]
+    public async Task GetCompanyOverview(string symbol)
+    {
+        var companyOverview = await Client.GetCompanyOverview(symbol);
+        Assert.That(companyOverview, Has.Property("Symbol"));
+    }
 
     [Test]
     public async Task GetCompanyIncomeStatement()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.AlphaVantage;
+using SaluteStocksAPI.AlphaVantage.Exceptions;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;
 using Serilog;
@@ -132,7 +133,7 @@ public class Loader : BackgroundService
             }
             catch (Exception e)
             {
-                Log.Error(e, "Unexpected error while loading missing entities");
+                Log.Warning(e, "Unexpected error while loading missing entities");
             }
             finally
             {
@@ -173,6 +174,14 @@ public class Loader : BackgroundService
 
             entity.LastLocalRefresh = DateTime.Now;
             await repository.AddOrUpdate((T)entity);
+        }
+        catch (AlphaVantageEmptyResponse e)
+        {
+            Log.Warning(e, "Alpha Vantage has no {T} for symbol {Symbol}", typeof(T), symbol);
+        }
+        catch (AlphaVantageRequestLimit e)
+        {
+            Log.Warning(e, "Reached the API limit when getting {T} for symbol {Symbol}", typeof(T), symbol);
         }
         catch (Exception e)
         {

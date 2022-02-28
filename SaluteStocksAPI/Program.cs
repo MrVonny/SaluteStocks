@@ -12,6 +12,8 @@ try
     builder.Host.UseSerilog((context, configuration) =>
     {
         configuration
+            .Enrich.WithProcessId()
+            .Enrich.WithProcessName()
             .WriteTo.Console()
             .WriteTo.File($@"Logs/Log_{DateTime.Now:yyyy-MM-dd_hh-mm-ss}.log");
     });
