@@ -8,8 +8,41 @@ public class IncomeStatement : CompanyEntityInfo
 {
     [JsonProperty("annualReports")] public List<IncomeStatementAnnualReport> AnnualReports { get; set; }
 
+    
+    
     [JsonProperty("quarterlyReports")] public List<IncomeStatementQuarterlyReport> QuarterlyReports { get; set; }
+    public long? GrowthRevenue1Year { get
+    {
+        if (AnnualReports.Count < 2)
+        {
+            return null;
+        }
+        var sorted = AnnualReports.OrderByDescending(x => x.FiscalDateEnding.Year).ToList();
+        if (sorted[0].FiscalDateEnding.Year >= DateTime.Now.Year - 2 &&
+            sorted[1].FiscalDateEnding.Year >= DateTime.Now.Year - 3)
+        {
+            return sorted[0].TotalRevenue.Value - sorted[1].TotalRevenue.Value;
+        }
+
+        return null;
+    } }
+    public long? GrowthRevenue5Years { get
+    {
+        if (AnnualReports.Count < 6)
+        {
+            return null;
+        }
+        var sorted = AnnualReports.OrderByDescending(x => x.FiscalDateEnding.Year).ToList();
+        if (sorted[0].FiscalDateEnding.Year >= DateTime.Now.Year - 2 &&
+            sorted[5].FiscalDateEnding.Year >= DateTime.Now.Year - 7)
+        {
+            return sorted[0].TotalRevenue.Value - sorted[5].TotalRevenue.Value;
+        }
+
+        return null;
+    } }
 }
+
 
 public class IncomeStatementReport
 {
@@ -20,9 +53,10 @@ public class IncomeStatementReport
     [JsonIgnore]
     public IncomeStatement IncomeStatement { get; set; }
     
+    
     public string Symbol { get; set; }
     
-    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+    [JsonProperty("fiscalDateEnding")] public DateTime FiscalDateEnding { get; set; }
 
     [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
     /// <summary>

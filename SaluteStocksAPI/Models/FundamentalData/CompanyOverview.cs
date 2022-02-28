@@ -26,9 +26,9 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("Address")] public string Address { get; set; }
 
-    [JsonProperty("FiscalYearEnd")] public string FiscalYearEnd { get; set; }
+    [JsonProperty("FiscalYearEnd")] public DateTime FiscalYearEnd { get; set; }
 
-    [JsonProperty("LatestQuarter")] public DateTime? LatestQuarter { get; set; }
+    [JsonProperty("LatestQuarter")] public DateTime LatestQuarter { get; set; }
 
     [JsonProperty("MarketCapitalization")] public long? MarketCapitalization { get; set; }
 

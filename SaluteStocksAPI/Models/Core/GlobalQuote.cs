@@ -2,7 +2,7 @@
 
 namespace SaluteStocksAPI.Models.Core;
 
-public class GlobalQuote
+public class lobalQuote
 {
     [JsonProperty("symbol")]public string Symbol { get; set; }
     [JsonProperty("open")]public double? Open { get; set; }

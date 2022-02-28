@@ -13,6 +13,8 @@ public class AnnualEarning
     public string Symbol { get; set; }
     public Earnings Earnings { get; set; }
     
+    
+    
     /// <summary>
     /// years: 2021, 2020, 2019 ... 1996
     /// </summary>

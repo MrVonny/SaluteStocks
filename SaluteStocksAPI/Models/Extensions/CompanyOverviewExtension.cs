@@ -1,6 +1,6 @@
+using SaluteStocksAPI.Models.Extensions.Common;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Screener;
-
 namespace SaluteStocksAPI.Models.Extensions;
 
 public static class CompanyOverviewExtension
@@ -32,24 +32,63 @@ public static class CompanyOverviewExtension
         return rangedValue.HasValue ? queryable.Where(x => x.EBITDA.Value > rangedValue.Value.Min 
                                                            && x.EBITDA.Value < rangedValue.Value.Max) : queryable;
     }
+
+    
     public static IQueryable<CompanyOverview> WhereDebtEquity(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        //ToDo: fix this
-        throw new NotImplementedException("We don't know how to calculate D/E ratio yet.");
+        return rangedValue.HasValue ? queryable.Where(x => 
+            CompanyOverviewExtensionFunctions.FuncDebtEquity(x, rangedValue.Value) ) : queryable;
     }
     //ToDo: реализовать оставшиеся методы
+    
+    public static IQueryable<CompanyOverview> WherePeRatio(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => (decimal) x.PERatio.Value > rangedValue.Value.Min &&
+                                                            (decimal) x.PERatio.Value <= rangedValue.Value.Max) : queryable;
+    }
+    
+    public static IQueryable<CompanyOverview> WhereEPS(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => (decimal) x.EPS.Value > rangedValue.Value.Min &&
+                                                           (decimal) x.EPS.Value <= rangedValue.Value.Max) : queryable;
+    }
+    
+    public static IQueryable<CompanyOverview> WhereBeta(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => (decimal) x.Beta.Value > rangedValue.Value.Min &&
+                                                           (decimal) x.Beta.Value <= rangedValue.Value.Max) : queryable;
+    }
     
     #endregion
 
     #region Dynamic
-
-    
-
+    public static IQueryable<CompanyOverview> WhereEpsGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        
+        return rangedValue.HasValue ? queryable.Where(x => CompanyOverviewExtensionFunctions.FuncEpsGrowth1Year(x, rangedValue.Value) ) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereEpsGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {  
+        return rangedValue.HasValue ? queryable.Where(x => CompanyOverviewExtensionFunctions.FuncEpsGrowth5Year(x, rangedValue.Value)) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereRevenueGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue1Year.HasValue) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereRevenueGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue5Years.HasValue) : queryable;
+    }
     #endregion
 
     #region Dividend
 
-    
+    public static IQueryable<CompanyOverview> WhereNextDividend(this IQueryable<CompanyOverview> queryable, RangedValue<DateTime>? rangedValue)
+    {
+        // throw new NotImplementedException("How to calculate dividend");
+        return rangedValue.HasValue ? queryable.Where(x => x.DividendDate.Value >= rangedValue.Value.Min &&
+                                                           x.DividendDate.Value <= rangedValue.Value.Max ) : queryable;
+    }
 
     #endregion
     

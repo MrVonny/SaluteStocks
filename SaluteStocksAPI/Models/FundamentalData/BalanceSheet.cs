@@ -23,7 +23,7 @@ public class BalanceSheetReport
     [JsonIgnore]
     public BalanceSheet BalanceSheet { get; set; }
     
-    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+    [JsonProperty("fiscalDateEnding")] public DateTime FiscalDateEnding { get; set; }
 
     [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
     // https://documentation.alphavantage.co/FundamentalDataDocs/gaap_documentation.html#BalanceSheet
