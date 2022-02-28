@@ -87,47 +87,57 @@ public class Loader : BackgroundService
         
         while (!stoppingToken.IsCancellationRequested)
         {
-            using var scope = _scopeFactory.CreateScope();
-            await using (var db = scope.ServiceProvider.GetRequiredService<StocksContext>())
+            try
             {
-                var repository = new DataBaseRepository(db);
-                var symbols = await db.Listing.Select(e => e.Symbol).ToListAsync(cancellationToken: stoppingToken);
-
-                await LoadMissingEntities<BalanceSheet>();
-                await LoadMissingEntities<CashFlow>();
-                await LoadMissingEntities<CompanyOverview>();
-                await LoadMissingEntities<Earnings>();
-                await LoadMissingEntities<IncomeStatement>();
-                
-                async Task LoadMissingEntities<T>() where T : EntityInfo
+                using var scope = _scopeFactory.CreateScope();
+                await using (var db = scope.ServiceProvider.GetRequiredService<StocksContext>())
                 {
-                    try
+                    var repository = new DataBaseRepository(db);
+                    var symbols = await db.Listing.Select(e => e.Symbol).ToListAsync(cancellationToken: stoppingToken);
+
+                    await LoadMissingEntities<BalanceSheet>();
+                    await LoadMissingEntities<CashFlow>();
+                    await LoadMissingEntities<CompanyOverview>();
+                    await LoadMissingEntities<Earnings>();
+                    await LoadMissingEntities<IncomeStatement>();
+
+                    async Task LoadMissingEntities<T>() where T : EntityInfo
                     {
-                        Log.Information("Loading missing entities for {Type}", typeof(T));
-                        Log.Information("Getting already loaded entities");
-                        var loadedSymbols = await db.Set<T>().Select(x => x.Symbol).Distinct()
-                            .ToListAsync(cancellationToken: stoppingToken);
-                        Log.Information("Already loaded: {Total}", loadedSymbols.Count);
-                    
-                        foreach (var symbol in symbols.Where(s=> !loadedSymbols.Contains(s)))
+                        try
                         {
-                            try
+                            Log.Information("Loading missing entities for {Type}", typeof(T));
+                            Log.Information("Getting already loaded entities");
+                            var loadedSymbols = await db.Set<T>().Select(x => x.Symbol).Distinct()
+                                .ToListAsync(cancellationToken: stoppingToken);
+                            Log.Information("Already loaded: {Total}", loadedSymbols.Count);
+
+                            foreach (var symbol in symbols.Where(s => !loadedSymbols.Contains(s)))
                             {
-                                await RefreshEntity<T>(symbol, repository);
-                            }
-                            catch
-                            {
-                                // ignored
+                                try
+                                {
+                                    await RefreshEntity<T>(symbol, repository);
+                                }
+                                catch
+                                {
+                                    // ignored
+                                }
                             }
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        Log.Error(e, "Failed to load missing entities for {Type}", typeof(T));
+                        catch (Exception e)
+                        {
+                            Log.Error(e, "Failed to load missing entities for {Type}", typeof(T));
+                        }
                     }
                 }
             }
-            await Task.Delay(_settings.LoadMissingDataDelay, stoppingToken);
+            catch (Exception e)
+            {
+                Log.Error(e, "Unexpected error while loading missing entities");
+            }
+            finally
+            {
+                await Task.Delay(_settings.LoadMissingDataDelay, stoppingToken);
+            }
         }
     }
 
