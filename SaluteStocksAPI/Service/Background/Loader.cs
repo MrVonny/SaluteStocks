@@ -55,11 +55,11 @@ public class Loader : BackgroundService
                 
                 Task[] tasks =
                 {
-                    RefreshEntity<BalanceSheet>(await repository.GetOldestSymbol<BalanceSheet>(), repository),
-                    RefreshEntity<CashFlow>(await repository.GetOldestSymbol<CashFlow>(), repository),
-                    RefreshEntity<CompanyOverview>(await repository.GetOldestSymbol<CompanyOverview>(), repository),
-                    RefreshEntity<Earnings>(await repository.GetOldestSymbol<Earnings>(), repository),
-                    RefreshEntity<IncomeStatement>(await repository.GetOldestSymbol<IncomeStatement>(), repository),
+                    RefreshEntity<BalanceSheet>(await repository.GetOldestSymbol<BalanceSheet>()),
+                    RefreshEntity<CashFlow>(await repository.GetOldestSymbol<CashFlow>()),
+                    RefreshEntity<CompanyOverview>(await repository.GetOldestSymbol<CompanyOverview>()),
+                    RefreshEntity<Earnings>(await repository.GetOldestSymbol<Earnings>()),
+                    RefreshEntity<IncomeStatement>(await repository.GetOldestSymbol<IncomeStatement>()),
                 };
                 Log.Information("Waiting for the completion of tasks to refresh oldest entities.");
                 try
@@ -96,19 +96,32 @@ public class Loader : BackgroundService
                     var repository = new DataBaseRepository(db);
                     var symbols = await db.Listing.Select(e => e.Symbol).ToListAsync(cancellationToken: stoppingToken);
 
-                    await LoadMissingEntities<BalanceSheet>();
-                    await LoadMissingEntities<CashFlow>();
-                    await LoadMissingEntities<CompanyOverview>();
-                    await LoadMissingEntities<Earnings>();
-                    await LoadMissingEntities<IncomeStatement>();
-
+                    var tasks = new[]
+                    {
+                        LoadMissingEntities<BalanceSheet>(),
+                        LoadMissingEntities<CashFlow>(),
+                        LoadMissingEntities<CompanyOverview>(),
+                        LoadMissingEntities<Earnings>(),
+                        LoadMissingEntities<IncomeStatement>(),
+                    };
+                    
+                    try
+                    {
+                        Task.WaitAll(tasks);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e,"Error occured in some tasks.");
+                    }
                     async Task LoadMissingEntities<T>() where T : EntityInfo
                     {
                         try
                         {
+                            using var localScope = _scopeFactory.CreateScope();
+                            await using var localdb = localScope.ServiceProvider.GetRequiredService<StocksContext>();
                             Log.Information("Loading missing entities for {Type}", typeof(T));
                             Log.Information("Getting already loaded entities");
-                            var loadedSymbols = await db.Set<T>().Select(x => x.Symbol).Distinct()
+                            var loadedSymbols = await localdb.Set<T>().Select(x => x.Symbol).Distinct()
                                 .ToListAsync(cancellationToken: stoppingToken);
                             Log.Information("Already loaded: {Total}", loadedSymbols.Count);
 
@@ -116,7 +129,7 @@ public class Loader : BackgroundService
                             {
                                 try
                                 {
-                                    await RefreshEntity<T>(symbol, repository);
+                                    await RefreshEntity<T>(symbol);
                                 }
                                 catch
                                 {
@@ -142,8 +155,11 @@ public class Loader : BackgroundService
         }
     }
 
-    private async Task RefreshEntity<T>(string symbol, DataBaseRepository repository) where T : EntityInfo
+    private async Task RefreshEntity<T>(string symbol) where T : EntityInfo
     {
+        using var localScope = _scopeFactory.CreateScope();
+        await using var localdb = localScope.ServiceProvider.GetRequiredService<StocksContext>();
+        var repository = new DataBaseRepository(localdb);
         if (symbol is null)
             return;
         Log.Information("Trying to refresh entity {EntityType} with Symbol {Symbol}", typeof(T), symbol);
