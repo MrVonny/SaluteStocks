@@ -44,7 +44,7 @@ public class Loader : BackgroundService
         }
 
 
-        LoadMissingData(stoppingToken);
+        await LoadMissingData(stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -81,7 +81,7 @@ public class Loader : BackgroundService
         }
     }
 
-    private async void LoadMissingData(CancellationToken stoppingToken)
+    private async Task LoadMissingData(CancellationToken stoppingToken)
     {
         Log.Information("Loading missing data.");
         
