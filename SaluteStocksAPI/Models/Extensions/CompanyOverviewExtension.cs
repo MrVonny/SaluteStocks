@@ -52,7 +52,6 @@ public static class CompanyOverviewExtension
         return rangedValue.HasValue ? queryable.Where(x => (decimal) x.EPS.Value > rangedValue.Value.Min &&
                                                            (decimal) x.EPS.Value <= rangedValue.Value.Max) : queryable;
     }
-    
     public static IQueryable<CompanyOverview> WhereBeta(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
         return rangedValue.HasValue ? queryable.Where(x => (decimal) x.Beta.Value > rangedValue.Value.Min &&

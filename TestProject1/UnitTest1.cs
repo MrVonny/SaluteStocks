@@ -1,8 +1,13 @@
 using System.Linq;
 using System.Threading.Tasks;
+using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
+using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;
+using SaluteStocksAPI.Screener;
+using SaluteStocksAPI.Service;
 
 namespace TestProject1;
 
@@ -110,5 +115,13 @@ namespace TestProject1;
     {
         var earningsCalendar = await Client.GetEarningsCalendar();
         Assert.That(earningsCalendar, Is.Not.Empty);
+    }
+
+    
+    [Test]public async Task WhereEPSTest()
+    {
+        var screenerService = new ScreenerService(new StocksContext(new DbContextOptions<StocksContext>()));
+        var symbolList = await screenerService.GetStockSymbols(new ScreenerModel());
+        Assert.That( symbolList, Is.Not.Empty);
     }
 }
