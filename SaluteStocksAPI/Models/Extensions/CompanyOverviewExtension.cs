@@ -72,11 +72,15 @@ public static class CompanyOverviewExtension
     }
     public static IQueryable<CompanyOverview> WhereRevenueGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue1Year.HasValue) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue1Year.HasValue && 
+                                                           x.IncomeStatement.GrowthRevenue1Year.Value >= rangedValue.Value.Min &&
+                                                           x.IncomeStatement.GrowthRevenue1Year.Value <= rangedValue.Value.Max) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereRevenueGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue5Years.HasValue) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue5Years.HasValue&& 
+                                                           x.IncomeStatement.GrowthRevenue5Years.Value >= rangedValue.Value.Min &&
+                                                           x.IncomeStatement.GrowthRevenue5Years.Value <= rangedValue.Value.Max) : queryable;
     }
     #endregion
 
