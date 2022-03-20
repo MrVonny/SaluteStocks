@@ -10,6 +10,13 @@ public class ApiController : ControllerBase
     [Route("ping")]
     public string Ping()
     {
-        return JsonConvert.SerializeObject(new { Message = "Hello From API!" });
+        return JsonConvert.SerializeObject(new { Message = Directory.GetCurrentDirectory() });
+    }
+
+    [Route("create-file")]
+    public string CreateFile()
+    {
+        Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "dead_inside"));
+        return "Ok";
     }
 }

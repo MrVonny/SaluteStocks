@@ -11,38 +11,28 @@ import {
 } from '@sberdevices/plasma-ui';
 import {Slider} from "@sberdevices/plasma-ui/components/Slider/Double";
 import {Label} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
+import
+{
+    RecoilRoot,
+    atom,
+    selector,
+    useRecoilState,
+    useRecoilValue
+} from "recoil";
+import CSS from 'csstype';
+import {screenerState} from "./Storage";
+import Screener from "./Screener";
 
-let min: number = 0;
-let max: number = 100;
+
 
 function App() {
-
+    const [screener, setScreener] = useRecoilState(screenerState);
+    const style : CSS.Properties = {
+        margin: 0
+    }
     return (
-      <div className="App">
-        <Card style={{ width: '22.5rem' }}>
-            <CardBody>
-                <CardContent >
-                    <Cell
-                        content={<TextBoxBigTitle>EBIDTA</TextBoxBigTitle>}
-                    />
-                    <div style={{height: '50px'}}>
-                        <Row>
-                            <Col size={2}>
-                                <Label>{min}</Label>
-                            </Col>
-                            <Col size={8}/>
-                            <Col size={2}>
-                                <Label>{max}</Label>
-                            </Col>
-                        </Row>
-                    </div>
-                    <Slider min={-230} max={323} value={[20,30]} onChangeCommitted={(i) => {
-                        min = i[0];
-                        max = i[1];
-                    }} />
-                </CardContent>
-            </CardBody>
-        </Card>
+      <div className="App" style={style}>
+          <Screener></Screener>
       </div>
   );
 }
