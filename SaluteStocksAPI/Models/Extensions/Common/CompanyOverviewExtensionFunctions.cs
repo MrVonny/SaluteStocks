@@ -10,9 +10,9 @@ public static class CompanyOverviewExtensionFunctions
     {
         var currentYear = x.BalanceSheet.AnnualReports.Max(x => x.FiscalDateEnding);
         var lastReport = x.BalanceSheet.AnnualReports.Where(y => y.FiscalDateEnding == currentYear).ToList()[0];
-        var totalLiabilities = lastReport.TotalLiabilities;
-        var shareholderEquity = lastReport.TotalShareholderEquity;
-        var objectsDebtEquity = Convert.ToDecimal(totalLiabilities) / shareholderEquity;
+        var totalLiabilities = lastReport.TotalLiabilities.Value;
+        var shareholderEquity = lastReport.TotalShareholderEquity.Value;
+        var objectsDebtEquity = Convert.ToDecimal(totalLiabilities) / Convert.ToDecimal(shareholderEquity);
         return rangedValue.Max >= objectsDebtEquity && rangedValue.Min <= objectsDebtEquity;
     }
 
@@ -39,7 +39,7 @@ public static class CompanyOverviewExtensionFunctions
         }
         var epsDifference = earnings[0].ReportedEPS - earnings[1].ReportedEPS;
         // todo erase (double) after fix
-        return epsDifference >= (double) rangedValue.Min &&  epsDifference <= (double) rangedValue.Max ? true : false ;
+        return epsDifference.Value >=  rangedValue.Min &&  epsDifference.Value <= rangedValue.Max ? true : false ;
     }
     public static bool FuncEpsGrowth5Year(CompanyOverview x, RangedValue<decimal> rangedValue)
     {
@@ -62,6 +62,6 @@ public static class CompanyOverviewExtensionFunctions
         }
         var epsDifference = earnings[0].ReportedEPS - earnings[5].ReportedEPS;
         // todo erase (double) after fix
-        return epsDifference >= (double) rangedValue.Min &&  epsDifference <= (double) rangedValue.Max ? true : false ;
+        return epsDifference >= rangedValue.Min &&  epsDifference <= rangedValue.Max;
     }
 }
