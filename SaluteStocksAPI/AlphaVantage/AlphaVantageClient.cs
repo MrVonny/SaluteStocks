@@ -6,6 +6,8 @@ using System.Globalization;
 using CsvHelper.Configuration;
 using Microsoft.OpenApi.Extensions;
 using SaluteStocksAPI.AlphaVantage.Common;
+using SaluteStocksAPI.AlphaVantage.Exceptions;
+using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.Core;
 using SaluteStocksAPI.Models.Core.Common;
 using SaluteStocksAPI.Models.FundamentalData;
@@ -61,7 +63,7 @@ public class AlphaVantageClient
 
     public async Task<IncomeStatement> GetIncomeStatement(string symbol)
     {
-        var uri = GenearteUri(FunctionNames.FundamentalData.IncomeStatement,
+        var uri = GenerateUri(FunctionNames.FundamentalData.IncomeStatement,
             new KeyValuePair<string, string>("symbol", symbol));
 
         var res = await GetAndParseJsonAsync<IncomeStatement>(uri);
@@ -74,7 +76,7 @@ public class AlphaVantageClient
 
     public async Task<BalanceSheet> GetBalanceSheet(string symbol)
     {
-        var uri = GenearteUri(FunctionNames.FundamentalData.BalanceSheet,
+        var uri = GenerateUri(FunctionNames.FundamentalData.BalanceSheet,
             new KeyValuePair<string, string>("symbol", symbol));
 
         var res = await GetAndParseJsonAsync<BalanceSheet>(uri);
@@ -88,7 +90,7 @@ public class AlphaVantageClient
 
     public async Task<CashFlow> GetCashFlow(string symbol)
     {
-        var uri = GenearteUri(FunctionNames.FundamentalData.CashFlow,
+        var uri = GenerateUri(FunctionNames.FundamentalData.CashFlow,
             new KeyValuePair<string, string>("symbol", symbol));
 
         var res = await GetAndParseJsonAsync<CashFlow>(uri);
@@ -101,10 +103,16 @@ public class AlphaVantageClient
 
     public async Task<CompanyOverview> GetCompanyOverview(string symbol)
     {
-        var uri = GenearteUri(FunctionNames.FundamentalData.CompanyOverview,
+        var uri = GenerateUri(FunctionNames.FundamentalData.CompanyOverview,
             new KeyValuePair<string, string>("symbol", symbol));
 
-        return await GetAndParseJsonAsync<CompanyOverview>(uri);
+        var company = await GetAndParseJsonAsync<CompanyOverview>(uri);
+        if (company.Symbol == null)
+        {
+            Log.Error("Company overview symbol is null: {@Company}", company);
+        }
+
+        return company;
     }
 
     
@@ -122,14 +130,14 @@ public class AlphaVantageClient
             _ => throw new ArgumentOutOfRangeException(nameof(listingStatus), listingStatus, null)
         }));
         
-        var uri = GenearteUri(FunctionNames.FundamentalData.ListingDelistingStatus, values.ToArray());
+        var uri = GenerateUri(FunctionNames.FundamentalData.ListingDelistingStatus, values.ToArray());
 
         return await GetAndParseCsvAsync<ListingRow>(uri);
     }
 
     public async Task<Earnings> GetCompanyEarnings(string symbol)
     {
-        var uri = GenearteUri(FunctionNames.FundamentalData.Earnings,
+        var uri = GenerateUri(FunctionNames.FundamentalData.Earnings,
             new KeyValuePair<string, string>("symbol", symbol));
         var res = await GetAndParseJsonAsync<Earnings>(uri);
         foreach (var report in res.AnnualEarnings)
@@ -148,14 +156,14 @@ public class AlphaVantageClient
             horizon.GetAttributeOfType<DescriptionAttribute>().Description));
         
         
-        var uri = GenearteUri(FunctionNames.FundamentalData.EarningsCalendar,
+        var uri = GenerateUri(FunctionNames.FundamentalData.EarningsCalendar,
             keyValuePairs.ToArray());
         return await GetAndParseCsvAsync<EarningsCalendar>(uri);
     }
     
     public async Task<List<IpoCalendar>> GetIpoCalendar()
     {
-        var uri = GenearteUri(FunctionNames.FundamentalData.IPOCalendar);
+        var uri = GenerateUri(FunctionNames.FundamentalData.IPOCalendar);
         return await GetAndParseCsvAsync<IpoCalendar>(uri);
     }
 
@@ -177,7 +185,7 @@ public class AlphaVantageClient
             outputSize == OutputSize.Compact ? "compact" : "full"));
         
         keyValuePairs.Add(new KeyValuePair<string, string>("datatype", "csv"));
-        var uri = GenearteUri(FunctionNames.CoreStock.IntraDay, keyValuePairs.ToArray());
+        var uri = GenerateUri(FunctionNames.CoreStock.IntraDay, keyValuePairs.ToArray());
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
     
@@ -196,7 +204,7 @@ public class AlphaVantageClient
             slice.ToString().ToLowerInvariant()));
         
         keyValuePairs.Add(new KeyValuePair<string, string>( "adjusted", adjusted ? "true":"false"));
-        var uri = GenearteUri(FunctionNames.CoreStock.IntraDayExtended, keyValuePairs.ToArray());
+        var uri = GenerateUri(FunctionNames.CoreStock.IntraDayExtended, keyValuePairs.ToArray());
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
     public async Task<List<QuotesPeriodInfo>> GetTimeSeriesDailyCsv(string symbol,
@@ -214,7 +222,7 @@ public class AlphaVantageClient
             })
         };
 
-        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily, 
+        var uri = GenerateUri(adjusted ? FunctionNames.CoreStock.DailyAdjusted : FunctionNames.CoreStock.Daily, 
             keyValuePairs.ToArray());
 
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
@@ -227,7 +235,7 @@ public class AlphaVantageClient
             new KeyValuePair<string, string>("datatype", "csv")
         };
 
-        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.WeeklyAdjusted : FunctionNames.CoreStock.Weekly, 
+        var uri = GenerateUri(adjusted ? FunctionNames.CoreStock.WeeklyAdjusted : FunctionNames.CoreStock.Weekly, 
             keyValuePairs.ToArray());
 
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
@@ -241,7 +249,7 @@ public class AlphaVantageClient
             new KeyValuePair<string, string>("datatype", "csv")
         };
 
-        var uri = GenearteUri(adjusted ? FunctionNames.CoreStock.MonthlyAdjusted : FunctionNames.CoreStock.Monthly, 
+        var uri = GenerateUri(adjusted ? FunctionNames.CoreStock.MonthlyAdjusted : FunctionNames.CoreStock.Monthly, 
             keyValuePairs.ToArray());
 
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
@@ -254,7 +262,7 @@ public class AlphaVantageClient
             new KeyValuePair<string, string>("datatype", "csv")
         };
 
-        var uri = GenearteUri(FunctionNames.CoreStock.QuoteEndpoint, 
+        var uri = GenerateUri(FunctionNames.CoreStock.QuoteEndpoint, 
             keyValuePairs.ToArray());
 
         return (await GetAndParseCsvAsync<GlobalQuote>(uri)).First();
@@ -267,7 +275,7 @@ public class AlphaVantageClient
             new KeyValuePair<string, string>("keywords", keywords),
             new KeyValuePair<string, string>("datatype", "csv")
         };
-        var uri = GenearteUri(FunctionNames.CoreStock.SearchEndpoint,
+        var uri = GenerateUri(FunctionNames.CoreStock.SearchEndpoint,
             keyValueParts.ToArray());
         return await GetAndParseCsvAsync<SearchResult>(uri);
     }
@@ -290,7 +298,7 @@ public class AlphaVantageClient
 
     #endregion
 
-    private async Task<T> GetAndParseJsonAsync<T>(Uri uri)
+    private async Task<T> GetAndParseJsonAsync<T>(Uri uri) where  T : EntityInfo
     {
         Log.Information("Starting to get and parse JSON from {Uri}.", uri);
         HttpClient client = new HttpClient();
@@ -300,23 +308,24 @@ public class AlphaVantageClient
         {
             Log.Information("Response has success status code");
             var result = await response.Content.ReadAsStringAsync();
+
+            if (result == "{}")
+                throw new AlphaVantageEmptyResponse("Response was empty.");
+
+            if (result.Contains("Thank you for using Alpha Vantage!"))
+                throw new AlphaVantageRequestLimit(result);
             
             result = result
                 .Replace("\"None\"", "null")
                 .Replace("\"-\"", "null")
                 .Replace("\"0000-00-00\"", "null");
-            
+
             Log.Information("Trying to deserialize response.");
             var deserialize = JsonConvert.DeserializeObject<T>(result);
-            if (deserialize == null)
-            {
-                Log.Error("Can't deserialize object: {object}. Return null", result);
-            }
 
             return deserialize;
         }
         Log.Error("Response is not successful. Status code is {StatusCode}. Response: {Response}", response.StatusCode, response);
-
         throw new(response.ReasonPhrase);
     }
 
@@ -343,9 +352,14 @@ public class AlphaVantageClient
         throw new(response.ReasonPhrase);
     }
 
-    private Uri GenearteUri(string function, params KeyValuePair<string, string>[] query)
+    private Uri GenerateUri(string function, params KeyValuePair<string, string>[] query)
     {
-        return new Uri(BaseUrl + $"query?apikey={_apikey}&function={function}&" +
+        Log.Information("Generating URI for {Function} with params: {Params}", 
+            function,
+            string.Join(",",query.Select(x=>$"{x.Key}: {x.Value}")));
+        var uri = new Uri(BaseUrl + $"query?apikey={_apikey}&function={function}&" +
                        string.Join("&", query.Select(pair => $"{pair.Key}={pair.Value}")));
+        Log.Information("URI: {URI}", uri.ToString());
+        return uri;
     }
 }
