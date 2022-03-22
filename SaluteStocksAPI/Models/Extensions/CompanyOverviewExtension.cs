@@ -1,4 +1,3 @@
-using SaluteStocksAPI.Models.Extensions.Common;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Screener;
 namespace SaluteStocksAPI.Models.Extensions;
@@ -36,8 +35,8 @@ public static class CompanyOverviewExtension
     
     public static IQueryable<CompanyOverview> WhereDebtEquity(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => 
-            CompanyOverviewExtensionFunctions.FuncDebtEquity(x, rangedValue.Value) ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.DebtEquity >= rangedValue.Value.Min &&
+                                                           x.DebtEquity >= rangedValue.Value.Max ) : queryable;
     }
     //ToDo: реализовать оставшиеся методы
     
@@ -56,6 +55,7 @@ public static class CompanyOverviewExtension
     {
         return rangedValue.HasValue ? queryable.Where(x => (decimal) x.Beta.Value > rangedValue.Value.Min &&
                                                            (decimal) x.Beta.Value <= rangedValue.Value.Max) : queryable;
+        
     }
     
     #endregion
@@ -64,23 +64,27 @@ public static class CompanyOverviewExtension
     public static IQueryable<CompanyOverview> WhereEpsGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
         
-        return rangedValue.HasValue ? queryable.Where(x => CompanyOverviewExtensionFunctions.FuncEpsGrowth1Year(x, rangedValue.Value) ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthXYears(1).HasValue ||
+                                                           rangedValue.Value.Max >= x.DebtEquity && 
+                                                           rangedValue.Value.Min <= x.DebtEquity ) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereEpsGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {  
-        return rangedValue.HasValue ? queryable.Where(x => CompanyOverviewExtensionFunctions.FuncEpsGrowth5Year(x, rangedValue.Value)) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthXYears(1).HasValue ||
+                                                           x.EPSGrowthXYears(5) >= rangedValue.Value.Min && 
+                                                           x.EPSGrowthXYears(5) <= rangedValue.Value.Max ) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereRevenueGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue1Year.HasValue && 
-                                                           x.IncomeStatement.GrowthRevenue1Year.Value >= rangedValue.Value.Min &&
-                                                           x.IncomeStatement.GrowthRevenue1Year.Value <= rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthXYears(1).HasValue ||
+                                                           x.RevenueGrowthXYears(1) >= rangedValue.Value.Min && 
+                                                           x.RevenueGrowthXYears(1) <= rangedValue.Value.Max ) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereRevenueGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.IncomeStatement.GrowthRevenue5Years.HasValue&& 
-                                                           x.IncomeStatement.GrowthRevenue5Years.Value >= rangedValue.Value.Min &&
-                                                           x.IncomeStatement.GrowthRevenue5Years.Value <= rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthXYears(5).HasValue || 
+                                                           x.RevenueGrowthXYears(5).Value >= rangedValue.Value.Min &&
+                                                           x.RevenueGrowthXYears(5).Value <= rangedValue.Value.Max) : queryable;
     }
     #endregion
 
