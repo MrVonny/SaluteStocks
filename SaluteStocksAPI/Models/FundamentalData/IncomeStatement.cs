@@ -8,25 +8,9 @@ public class IncomeStatement : CompanyEntityInfo
 {
     [JsonProperty("annualReports")] public List<IncomeStatementAnnualReport> AnnualReports { get; set; }
 
-    
-    
+
+
     [JsonProperty("quarterlyReports")] public List<IncomeStatementQuarterlyReport> QuarterlyReports { get; set; }
-    public decimal? GrowthRevenue1Year { get
-    {
-        if (AnnualReports.Count < 2)
-        {
-            return null;
-        }
-        var sorted = AnnualReports.OrderByDescending(x => x.FiscalDateEnding.Year).ToList();
-        if (sorted[0].FiscalDateEnding.Year >= DateTime.Now.Year - 2 &&
-            sorted[1].FiscalDateEnding.Year >= DateTime.Now.Year - 3)
-        {
-            return sorted[0].TotalRevenue.Value - sorted[1].TotalRevenue.Value;
-        }
-
-        return null;
-    } }
-
 }
 
 

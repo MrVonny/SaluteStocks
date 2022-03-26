@@ -23,38 +23,32 @@ public static class CompanyOverviewExtension
     #region Financial
     public static IQueryable<CompanyOverview> WhereMarketCap(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.MarketCapitalization.Value > rangedValue.Value.Min 
-                                                           && x.MarketCapitalization.Value < rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.MarketCapitalization.Value)) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereEbitda(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.EBITDA.Value > rangedValue.Value.Min 
-                                                           && x.EBITDA.Value < rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.EBITDA.Value)) : queryable;
     }
 
     
     public static IQueryable<CompanyOverview> WhereDebtEquity(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.DebtEquity >= rangedValue.Value.Min &&
-                                                           x.DebtEquity >= rangedValue.Value.Max ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.DebtEquity)) : queryable;
     }
     //ToDo: реализовать оставшиеся методы
     
     public static IQueryable<CompanyOverview> WherePeRatio(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => (decimal) x.PERatio.Value > rangedValue.Value.Min &&
-                                                            (decimal) x.PERatio.Value <= rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.PERatio.Value)) : queryable;
     }
     
     public static IQueryable<CompanyOverview> WhereEPS(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => (decimal) x.EPS.Value > rangedValue.Value.Min &&
-                                                           (decimal) x.EPS.Value <= rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.EPS.Value)) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereBeta(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => (decimal) x.Beta.Value > rangedValue.Value.Min &&
-                                                           (decimal) x.Beta.Value <= rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.Beta.Value)) : queryable;
         
     }
     
@@ -64,27 +58,23 @@ public static class CompanyOverviewExtension
     public static IQueryable<CompanyOverview> WhereEpsGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
         
-        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthXYears(1).HasValue ||
-                                                           rangedValue.Value.Max >= x.DebtEquity && 
-                                                           rangedValue.Value.Min <= x.DebtEquity ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthSomeYears(1).HasValue ||
+                                                           rangedValue.Value.IsInRange(x.EPSGrowthSomeYears(1).Value)) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereEpsGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {  
-        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthXYears(1).HasValue ||
-                                                           x.EPSGrowthXYears(5) >= rangedValue.Value.Min && 
-                                                           x.EPSGrowthXYears(5) <= rangedValue.Value.Max ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthSomeYears(5).HasValue ||
+                                                           rangedValue.Value.IsInRange(x.EPSGrowthSomeYears(5).Value) ) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereRevenueGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthXYears(1).HasValue ||
-                                                           x.RevenueGrowthXYears(1) >= rangedValue.Value.Min && 
-                                                           x.RevenueGrowthXYears(1) <= rangedValue.Value.Max ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthSomeYears(1).HasValue ||
+                                                           rangedValue.Value.IsInRange(x.RevenueGrowthSomeYears(1).Value)) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereRevenueGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthXYears(5).HasValue || 
-                                                           x.RevenueGrowthXYears(5).Value >= rangedValue.Value.Min &&
-                                                           x.RevenueGrowthXYears(5).Value <= rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthSomeYears(5).HasValue || 
+                                                           rangedValue.Value.IsInRange(x.RevenueGrowthSomeYears(5).Value)) : queryable;
     }
     #endregion
 
