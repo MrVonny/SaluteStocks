@@ -7,7 +7,7 @@ import {
     CardBody,
     CardContent,
     CardMedia,
-    Cell, Checkbox, Col, Row, TextBoxBigTitle
+    Cell, CellContentWrapper, CellIcon, Checkbox, Col, Container, Row, TextBoxBigTitle
 } from '@sberdevices/plasma-ui';
 import {Slider} from "@sberdevices/plasma-ui/components/Slider/Double";
 import {Label} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
@@ -35,7 +35,25 @@ const Screener = () => {
                 </div>
             </ScreenerSector>
             <ScreenerSector title={"Динамика"}>
-                <ScreenerProperty title={}
+                <Row>
+                    <Col size={2}>
+                        <ScreenerProperty title={"Рост EPS за год"} subtitle={"Lorem ipsum"}>
+                            <div style={{width: 200}}>
+                                <Slider min={-100} max={100} value={[-10, 30]} onChangeCommitted={() => {}}/>
+                            </div>
+
+                        </ScreenerProperty>
+                    </Col>
+                    <Col size={2}>
+                        <ScreenerProperty title={"Рост EPS 3 года"} subtitle={"Lorem ipsum"}>
+                            <Container>
+                                <Slider min={-100} max={100} value={[10, -30]} onChangeCommitted={() => {}}/>
+                            </Container>
+                        </ScreenerProperty>
+                    </Col>
+                    <Col size={2}></Col>
+                </Row>
+
             </ScreenerSector>
         </div>
     );
