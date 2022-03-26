@@ -44,7 +44,7 @@ public class Loader : BackgroundService
         }
 
 
-        LoadMissingData(stoppingToken);
+        await LoadMissingData(stoppingToken);
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -81,7 +81,7 @@ public class Loader : BackgroundService
         }
     }
 
-    private async void LoadMissingData(CancellationToken stoppingToken)
+    private async Task LoadMissingData(CancellationToken stoppingToken)
     {
         Log.Information("Loading missing data.");
         
@@ -108,7 +108,7 @@ public class Loader : BackgroundService
                         {
                             Log.Information("Loading missing entities for {Type}", typeof(T));
                             Log.Information("Getting already loaded entities");
-                            var loadedSymbols = await db.Set<T>().Select(x => x.Symbol).Distinct()
+                            var loadedSymbols = await db.Set<T>().Where(x=>x.ExistInApi.HasValue).Select(x => x.Symbol).Distinct()
                                 .ToListAsync(cancellationToken: stoppingToken);
                             Log.Information("Already loaded: {Total}", loadedSymbols.Count);
 
@@ -158,6 +158,7 @@ public class Loader : BackgroundService
                 4 => await Client.GetIncomeStatement(symbol),
                 _ => throw new ArgumentOutOfRangeException()
             };
+            entity.ExistInApi = true;
 
             if (Types[typeof(T)] != 2)
             {
@@ -177,6 +178,40 @@ public class Loader : BackgroundService
         }
         catch (AlphaVantageEmptyResponse e)
         {
+            if (Types[typeof(T)] != 2)
+            {
+                CompanyEntityInfo entity = Activator.CreateInstance<T>() as CompanyEntityInfo;
+                entity.Symbol = symbol;
+                entity.ExistInApi = false;
+                entity.LastLocalRefresh = DateTime.Now;
+                var companyOverview = entity.CompanyOverview =
+                    await repository.Get<CompanyOverview>(symbol);
+                if (companyOverview == null)
+                {
+                    try
+                    {
+                        companyOverview = await Client.GetCompanyOverview(symbol) ?? throw new InvalidOperationException();
+                        entity.CompanyOverview = companyOverview;
+                        await repository.AddOrUpdate(companyOverview);
+                    }
+                    catch (AlphaVantageEmptyResponse)
+                    {
+                        companyOverview = new CompanyOverview()
+                            { Symbol = symbol, ExistInApi = false, LastLocalRefresh = DateTime.Now };
+                        entity.CompanyOverview = companyOverview;
+                        await repository.AddOrUpdate(companyOverview);
+                    }
+                }
+                await repository.AddOrUpdate(entity as T);
+            }
+            else
+            {
+                await repository.AddOrUpdate(new CompanyOverview()
+                    { Symbol = symbol, ExistInApi = false, LastLocalRefresh = DateTime.Now });
+            }
+
+            
+            
             Log.Warning(e, "Alpha Vantage has no {T} for symbol {Symbol}", typeof(T), symbol);
         }
         catch (AlphaVantageRequestLimit e)
