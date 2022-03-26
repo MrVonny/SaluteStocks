@@ -15,7 +15,7 @@ try
             .Enrich.WithProcessId()
             .Enrich.WithProcessName()
             .WriteTo.Console()
-            .WriteTo.File($@"Logs/Log_{DateTime.Now:yyyy-MM-dd_hh-mm-ss}.log");
+            .WriteTo.File($@"Logs/Log_{DateTime.Now:U}.log");
     });
 
     // Add services to the container.

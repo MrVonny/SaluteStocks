@@ -254,7 +254,6 @@ public class AlphaVantageClient
 
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
-    
     public async Task<GlobalQuote> GetQuoteEndpoint(string symbol) // list of 1 element
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>
