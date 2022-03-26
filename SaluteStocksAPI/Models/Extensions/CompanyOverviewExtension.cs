@@ -1,6 +1,5 @@
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Screener;
-
 namespace SaluteStocksAPI.Models.Extensions;
 
 public static class CompanyOverviewExtension
@@ -24,32 +23,69 @@ public static class CompanyOverviewExtension
     #region Financial
     public static IQueryable<CompanyOverview> WhereMarketCap(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.MarketCapitalization.Value > rangedValue.Value.Min 
-                                                           && x.MarketCapitalization.Value < rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.MarketCapitalization.Value)) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereEbitda(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.EBITDA.Value > rangedValue.Value.Min 
-                                                           && x.EBITDA.Value < rangedValue.Value.Max) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.EBITDA.Value)) : queryable;
     }
+
+    
     public static IQueryable<CompanyOverview> WhereDebtEquity(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
     {
-        //ToDo: fix this
-        throw new NotImplementedException("We don't know how to calculate D/E ratio yet.");
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.DebtEquity)) : queryable;
     }
     //ToDo: реализовать оставшиеся методы
+    
+    public static IQueryable<CompanyOverview> WherePeRatio(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.PERatio.Value)) : queryable;
+    }
+    
+    public static IQueryable<CompanyOverview> WhereEPS(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.EPS.Value)) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereBeta(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.Beta.Value)) : queryable;
+        
+    }
     
     #endregion
 
     #region Dynamic
-
-    
-
+    public static IQueryable<CompanyOverview> WhereEpsGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        
+        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthSomeYears(1).HasValue ||
+                                                           rangedValue.Value.IsInRange(x.EPSGrowthSomeYears(1).Value)) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereEpsGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {  
+        return rangedValue.HasValue ? queryable.Where(x => !x.EPSGrowthSomeYears(5).HasValue ||
+                                                           rangedValue.Value.IsInRange(x.EPSGrowthSomeYears(5).Value) ) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereRevenueGrowth1Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthSomeYears(1).HasValue ||
+                                                           rangedValue.Value.IsInRange(x.RevenueGrowthSomeYears(1).Value)) : queryable;
+    }
+    public static IQueryable<CompanyOverview> WhereRevenueGrowth5Year(this IQueryable<CompanyOverview> queryable, RangedValue<decimal>? rangedValue)
+    {
+        return rangedValue.HasValue ? queryable.Where(x => !x.RevenueGrowthSomeYears(5).HasValue || 
+                                                           rangedValue.Value.IsInRange(x.RevenueGrowthSomeYears(5).Value)) : queryable;
+    }
     #endregion
 
     #region Dividend
 
-    
+    public static IQueryable<CompanyOverview> WhereNextDividend(this IQueryable<CompanyOverview> queryable, RangedValue<DateTime>? rangedValue)
+    {
+        // throw new NotImplementedException("How to calculate dividend");
+        return rangedValue.HasValue ? queryable.Where(x => x.DividendDate.Value >= rangedValue.Value.Min &&
+                                                           x.DividendDate.Value <= rangedValue.Value.Max ) : queryable;
+    }
 
     #endregion
     

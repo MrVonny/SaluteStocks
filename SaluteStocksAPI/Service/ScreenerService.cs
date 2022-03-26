@@ -24,22 +24,21 @@ public class ScreenerService
             .WhereCountry(screenerModel.Country)
             //Financial
             .WhereMarketCap(screenerModel.MarketCap)
-            .WhereEbitda(screenerModel.Ebitda);
+            .WhereEbitda(screenerModel.Ebitda)
             //ToDo: Uncomment when implemented
-            //.WhereDebtToEquity(screenerModel.DebtToEquity)
-            //.WherePeRatio(screenerModel.PERatio)
-            //.WhereEPS(screenerModel.EPS)
-            //.WhereBeta(screenerModel.Beta)
+            .WhereDebtEquity(screenerModel.DebtToEquity)
+            .WherePeRatio(screenerModel.PERatio)
+            .WhereEPS(screenerModel.EPS)
+            .WhereBeta(screenerModel.Beta)
             //Dynamic
-            //.WhereEpsGrowth1Year(screenerModel.EpsGrowth1Year)
-            //.WhereEpsGrowth5Year(screenerModel.EpsGrowth5Year)
-            //.WhereRevenueGrowth1Year(screenerModel.RevenueGrowth1Year)
-            //.WhereRevenueGrowth5Year(screenerModel.RevenueGrowth5Year)
+            .WhereEpsGrowth1Year(screenerModel.EpsGrowth1Year)
+            .WhereEpsGrowth5Year(screenerModel.EpsGrowth5Year)
+            .WhereRevenueGrowth1Year(screenerModel.RevenueGrowth1Year)
+            .WhereRevenueGrowth5Year(screenerModel.RevenueGrowth5Year)
             //Dividend
-            //.WhereNextDividend(screenerModel.NextDividend)
+            .WhereNextDividend(screenerModel.NextDividend);
 
             return await companiesQuery.Select(x => x.Symbol).ToListAsync();
     }
-
     
 }
