@@ -9,22 +9,31 @@ import {
     Container,
     H1,
     H2,
-    H3, Row, Sheet,
-    TextBoxBigTitle,
+    H3, Row, Sheet, TextBox,
+    TextBoxBigTitle, TextBoxLabel,
     TextBoxSubTitle
 } from "@sberdevices/plasma-ui"
-import {Range} from "./Storage";
+import {Range, screenerState} from "../Storage";
 import {Slider} from "@sberdevices/plasma-ui/components/Slider/Double";
 import { colorValues } from '@sberdevices/plasma-tokens';
 import {IconClose} from "@sberdevices/plasma-icons";
-import {SubTitle, Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
+import {Label, SubTitle, Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
+import {useRecoilState, RecoilState, useRecoilValue} from "recoil";
 
 type ScreenerPropertyProps = {
     title: string,
     subtitle: string,
     type:  ScreenerPropertyType,
-    list? : string[],
-    range? : Range,
+    listState? : string[],
+    rangeState?: RecoilState<Range>
+    unit? : string,
+    description? : string,
+}
+
+type ScreenerRangePropertyProps = {
+    title: string,
+    subtitle: string,
+    rangeState: RecoilState<Range>
     unit? : string,
     description? : string,
 }
@@ -40,17 +49,19 @@ interface ScreenerPropertyState {
 }
 
 type ScreenerSheetSliderProps = {
-    range: Range
+    rangeState: RecoilState<Range>
+    onApplyClick: () => void;
 }
 
 
-
-export const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, range, type,
-                                                                      list, unit, description}) => {
+const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, type, unit, description,
+                                                           rangeState, listState, children}) => {
     const [state, setState] = React.useState({
         isSheetOpen: false,
         isSelected: false,
     } as ScreenerPropertyState);
+    const range = useRecoilValue(rangeState!)
+
 
     const onApplyClick = () => {
         setState({...state, isSelected: true, isSheetOpen: false});
@@ -62,7 +73,7 @@ export const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtit
         switch (type) {
             case ScreenerPropertyType.Range:
                 return(
-                    <ScreenerSheetSlider range={range!}/>
+                    <ScreenerSheetSlider rangeState={rangeState!} onApplyClick={onApplyClick}/>
                 );
                 break;
             case ScreenerPropertyType.List:
@@ -71,26 +82,7 @@ export const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtit
                 )
         }
     }
-    const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({range}) => {
-        const onSliderChange = (values: Number[]) => {
 
-        }
-        return(
-            <>
-                <Row>
-                    <Cell contentLeft={<label>{range.from}</label>}
-                          content={""}
-                          contentRight={range.to}/>
-                </Row>
-                <Slider min={range.from} max={range.to}
-                        value={[range.from, range.to]}
-                        onChangeCommitted={onSliderChange}/>
-                <Row>
-                    <Button onClick={onApplyClick}>Применить</Button>
-                </Row>
-            </>
-        )
-    }
 
     return (
         <>
@@ -142,6 +134,50 @@ export const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtit
             </Sheet>
         </>
     );
+}
+
+export const ScreenerRangeProperty : React.FC<ScreenerRangePropertyProps> =
+    ({title, subtitle, unit, description, rangeState}) => {
+    return <ScreenerProperty
+        title={title}
+        subtitle={subtitle}
+        type={ScreenerPropertyType.Range}
+        rangeState={rangeState}
+        unit={unit}
+        description={description}
+    />
+}
+
+const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, onApplyClick}) => {
+
+    const [range, setRangeState] = useRecoilState(rangeState)
+    const onSliderChange = (values: Number[]) => {
+        console.log(values);
+        setRangeState({from: values[0], to: values[1]} as Range)
+    }
+    return(
+        <>
+            <Row style={{
+                marginLeft: -0,
+                marginRight: -0
+            }}>
+                <Col size={1} style={{textAlign: "left"}}><TextBox>{range.from.toString()}</TextBox></Col>
+                <Col size={1} offsetXL={10} offsetL={6} offsetM={4} offsetS={2}
+                     style={{textAlign: "right"}}><TextBox>{range.to.toString()}</TextBox></Col>
+            </Row>
+            <div>
+                <Slider min={-10} max={100}
+                       value={[range.from, range.to]}
+                       onChangeCommitted={onSliderChange}
+                />
+            </div>
+            <Row>
+                <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
+                    <Button onClick={onApplyClick}>Применить</Button>
+                </Col>
+            </Row>
+        </>
+    )
 }
 
 

@@ -1,15 +1,22 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import {Checkbox, Col, Container, Row} from '@sberdevices/plasma-ui';
 import {useRecoilState, useRecoilValue} from "recoil";
-import {screenerState, screenerValue} from "./Storage";
+import {
+    debtEquityState,
+    ebitdaState,
+    epsGrowth1YearState, epsGrowth3YearState,
+    marketCapState,
+    peRatioState,
+    Range,
+    screenerState
+} from "../Storage";
 import {ScreenerSector} from "./ScreenerSector";
-import {ScreenerProperty, ScreenerPropertyType} from "./ScreenerProperty";
+import {ScreenerRangeProperty, ScreenerPropertyType} from "./ScreenerProperty";
 
 
 const Screener = () => {
-    const [screener, setScreener] = useRecoilState(screenerState);
-    const screenerVal = useRecoilValue(screenerValue);
+    const screenerVal = useRecoilValue(screenerState);
     return (
         <Container>
             <ScreenerSector title={"Валюта"}>
@@ -23,43 +30,39 @@ const Screener = () => {
             <ScreenerSector title={"Финансовые показатели"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerProperty title={"Market Cap"}
-                                          subtitle={"Стоиость компании"}
-                                          description={"Стоиость компании на фондовом рынке"}
-                                          type={ScreenerPropertyType.Range}
-                                          range={screenerVal.screener.epsGrowth1Year}
-                                          unit="млдр, $"
+                        <ScreenerRangeProperty title={"Market Cap"}
+                                               subtitle={"Стоиость компании"}
+                                               description={"Стоиость компании на фондовом рынке"}
+                                               rangeState={marketCapState}
+                                               unit="млдр, $"
                         />
 
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerProperty title={"EBITDA"}
+                        <ScreenerRangeProperty title={"EBITDA"}
                                           subtitle={"Сколько копмпания зарабатывает"}
                                           description={"Приыбль до вычета расходов, не связанных с операционной деятельностью компании"}
-                                          type={ScreenerPropertyType.Range}
-                                          range={screenerVal.screener.epsGrowth1Year}
+                                               rangeState={ebitdaState}
                                           unit="млдр, $"
 
                         />
 
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerProperty title={"Debt / Equity"}
+                        <ScreenerRangeProperty title={"Debt / Equity"}
                                           subtitle={"Чем больше %, тем выше долг компании"}
                                           description={"Соотношение заёмного капитала компании к собственному"}
-                                          type={ScreenerPropertyType.Range}
-                                          range={screenerVal.screener.epsGrowth1Year}
+                                          rangeState={debtEquityState}
                                           unit="%"
 
                         />
 
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerProperty title={"P / E"}
+                        <ScreenerRangeProperty title={"P / E"}
                                           subtitle={"Через сколько лет окупится акция"}
                                           description={"Отношения цены акции к прибыли, которая приходится на одну акцию"}
-                                          type={ScreenerPropertyType.Range}
-                                          range={screenerVal.screener.epsGrowth1Year}
+                                               rangeState={peRatioState}
 
                         />
 
@@ -69,24 +72,21 @@ const Screener = () => {
             <ScreenerSector title={"Динамика"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerProperty title={"Рост EPS за 1 год"}
+                        <ScreenerRangeProperty title={"Рост EPS за 1 год"}
                                           subtitle={""}
                                           description={"Процентный рост EPS за год"}
-                                          type={ScreenerPropertyType.Range}
-                                          range={screenerVal.screener.epsGrowth1Year}
+                                          rangeState={epsGrowth1YearState}
                                           unit="%"
                         />
 
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerProperty title={"Рост EPS за 3 года"}
+                        <ScreenerRangeProperty title={"Рост EPS за 3 года"}
                                           subtitle={""}
                                           description={"Процентный рост EPS за 3 года"}
-                                          type={ScreenerPropertyType.Range}
-                                          range={screenerVal.screener.epsGrowth1Year}
+                                               rangeState={epsGrowth3YearState}
                                           unit="%"
                         />
-
                     </Col>
                 </Row>
             </ScreenerSector>
