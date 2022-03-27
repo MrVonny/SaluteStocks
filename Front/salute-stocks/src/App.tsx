@@ -7,7 +7,7 @@ import {
     CardBody,
     CardContent,
     CardMedia,
-    Cell, Col, Row, TextBoxBigTitle
+    Cell, Col, Container, DeviceThemeProvider, Row, TextBoxBigTitle
 } from '@sberdevices/plasma-ui';
 import {Slider} from "@sberdevices/plasma-ui/components/Slider/Double";
 import {Label} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
@@ -27,13 +27,14 @@ import Screener from "./Screener";
 
 function App() {
     const [screener, setScreener] = useRecoilState(screenerState);
-    const style : CSS.Properties = {
-        margin: 0
-    }
     return (
-      <div className="App" style={style}>
-          <Screener></Screener>
-      </div>
+        <RecoilRoot>
+            <DeviceThemeProvider>
+                <Container className="App">
+                    <Screener/>
+                </Container>
+            </DeviceThemeProvider>
+        </RecoilRoot>
   );
 }
 

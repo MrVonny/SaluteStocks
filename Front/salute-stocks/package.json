@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sberdevices/assistant-client": "^4.19.1",
     "@sberdevices/plasma-icons": "^1.67.3",
     "@sberdevices/plasma-tokens": "^1.15.1",
     "@sberdevices/plasma-ui": "^1.81.2",
