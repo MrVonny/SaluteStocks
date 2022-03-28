@@ -1,12 +1,17 @@
 import {atom, selector} from "recoil";
 
 
-export interface Range {
+export declare type Range = {
     from: number;
     to: number;
 }
 
-export interface Screener {
+export declare type ScreenerPropertyRangeStorage = {
+    available: Range;
+    selected: Range;
+}
+
+export declare type Screener = {
     marketCap: Range;
     epsGrowth1Year: Range;
     epsGrowth3Year: Range;
@@ -14,32 +19,50 @@ export interface Screener {
 
 export const marketCapState = atom({
     key: 'marketCap',
-    default: {from: 0, to: 100 } as Range
+    default: {
+        available: {from: 0, to: 100},
+        selected: {from: 0, to: 100}
+    } as ScreenerPropertyRangeStorage
 })
 
 export const ebitdaState = atom({
     key: 'ebitda',
-    default: {from: 0, to: 100 } as Range
+    default: {
+        available: {from: 0, to: 100},
+        selected: {from: 0, to: 100}
+    } as ScreenerPropertyRangeStorage
 })
 
 export const debtEquityState = atom({
     key: 'debtEquityRatio',
-    default: {from: 0, to: 100 } as Range
+    default: {
+        available: {from: 0, to: 100},
+        selected: {from: 0, to: 100}
+    } as ScreenerPropertyRangeStorage
 })
 
 export const peRatioState = atom({
     key: 'peRatio',
-    default: {from: 0, to: 100 } as Range
+    default: {
+        available: {from: 0, to: 100},
+        selected: {from: 0, to: 100}
+    } as ScreenerPropertyRangeStorage
 })
 
 export const epsGrowth1YearState = atom({
     key: 'epsGrowth1Year',
-    default: {from: 0, to: 100 } as Range
+    default: {
+        available: {from: 0, to: 100},
+        selected: {from: 0, to: 100}
+    } as ScreenerPropertyRangeStorage
 })
 
 export const epsGrowth3YearState = atom({
     key: 'epsGrowth3Year',
-    default: {from: 0, to: 100 } as Range
+    default: {
+        available: {from: 0, to: 100},
+        selected: {from: 0, to: 100}
+    } as ScreenerPropertyRangeStorage
 })
 
 export const screenerState = selector({

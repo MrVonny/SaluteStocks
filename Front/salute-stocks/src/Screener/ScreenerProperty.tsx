@@ -1,4 +1,4 @@
-import React from 'react'; // we need this to make JSX compile
+import React, {useEffect, useState} from 'react'; // we need this to make JSX compile
 import {
     ActionButton,
     Button,
@@ -13,19 +13,20 @@ import {
     TextBoxBigTitle, TextBoxLabel,
     TextBoxSubTitle
 } from "@sberdevices/plasma-ui"
-import {Range, screenerState} from "../Storage";
+import {Range, ScreenerPropertyRangeStorage, screenerState} from "../Storage";
 import {Slider} from "@sberdevices/plasma-ui/components/Slider/Double";
 import { colorValues } from '@sberdevices/plasma-tokens';
 import {IconClose} from "@sberdevices/plasma-icons";
 import {Label, SubTitle, Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
 import {useRecoilState, RecoilState, useRecoilValue} from "recoil";
+import {ScreenerChart} from "./ScreenerChart";
 
 type ScreenerPropertyProps = {
     title: string,
     subtitle: string,
     type:  ScreenerPropertyType,
     listState? : string[],
-    rangeState?: RecoilState<Range>
+    rangeState?: RecoilState<ScreenerPropertyRangeStorage>
     unit? : string,
     description? : string,
 }
@@ -33,7 +34,7 @@ type ScreenerPropertyProps = {
 type ScreenerRangePropertyProps = {
     title: string,
     subtitle: string,
-    rangeState: RecoilState<Range>
+    rangeState: RecoilState<ScreenerPropertyRangeStorage>
     unit? : string,
     description? : string,
 }
@@ -49,7 +50,7 @@ interface ScreenerPropertyState {
 }
 
 type ScreenerSheetSliderProps = {
-    rangeState: RecoilState<Range>
+    rangeState: RecoilState<ScreenerPropertyRangeStorage>
     onApplyClick: () => void;
 }
 
@@ -60,8 +61,6 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
         isSheetOpen: false,
         isSelected: false,
     } as ScreenerPropertyState);
-    const range = useRecoilValue(rangeState!)
-
 
     const onApplyClick = () => {
         setState({...state, isSelected: true, isSheetOpen: false});
@@ -75,7 +74,6 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                 return(
                     <ScreenerSheetSlider rangeState={rangeState!} onApplyClick={onApplyClick}/>
                 );
-                break;
             case ScreenerPropertyType.List:
                 return (
                     <></>
@@ -92,7 +90,6 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                 marginBottom: 10
             }}
                   onClick={(event) => {
-                      console.log(event);
                 setState({...state, isSheetOpen: true})
             }}>
                 <CardContent>
@@ -105,7 +102,6 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                             <ActionButton size="s" view="critical" onClick={(event) => {
                                 event.stopPropagation();
                                 setState({...state, isSelected: false})
-                                console.log({...state, isSelected: false});
                             }}>
                                 <IconClose/>
                             </ActionButton>
@@ -151,24 +147,36 @@ export const ScreenerRangeProperty : React.FC<ScreenerRangePropertyProps> =
 const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, onApplyClick}) => {
 
     const [range, setRangeState] = useRecoilState(rangeState)
-    const onSliderChange = (values: Number[]) => {
-        console.log(values);
-        setRangeState({from: values[0], to: values[1]} as Range)
+    const [localRange, setLocalRange] = useState(range as ScreenerPropertyRangeStorage)
+    const onSliderCommitted = (values: Number[]) => {
+        setRangeState({...range, selected: {from: values[0], to: values[1]} as Range})
     }
+    const onSliderChange = (values: number[]) => {
+        setLocalRange({...localRange, selected: {from: values[0], to: values[1]} as Range})
+    }
+
     return(
         <>
             <Row style={{
                 marginLeft: -0,
                 marginRight: -0
             }}>
-                <Col size={1} style={{textAlign: "left"}}><TextBox>{range.from.toString()}</TextBox></Col>
+
+                <Col size={1} style={{textAlign: "left"}}><TextBox>{localRange.selected.from.toString()}</TextBox></Col>
                 <Col size={1} offsetXL={10} offsetL={6} offsetM={4} offsetS={2}
-                     style={{textAlign: "right"}}><TextBox>{range.to.toString()}</TextBox></Col>
+                     style={{textAlign: "right"}}><TextBox>{localRange.selected.to.toString()}</TextBox></Col>
             </Row>
+
+            <ScreenerChart availableRange={localRange.available} selectedRange={localRange.selected}>
+
+            </ScreenerChart>
             <div>
-                <Slider min={-10} max={100}
-                       value={[range.from, range.to]}
-                       onChangeCommitted={onSliderChange}
+
+                <Slider min={range.available.from} max={range.available.to}
+                       value={[range.selected.from, range.selected.to]}
+                       onChangeCommitted={onSliderCommitted}
+                        onChange={onSliderChange}
+                        
                 />
             </div>
             <Row>
