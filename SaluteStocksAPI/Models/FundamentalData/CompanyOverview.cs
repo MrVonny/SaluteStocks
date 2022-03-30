@@ -26,9 +26,9 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("Address")] public string Address { get; set; }
 
-    [JsonProperty("FiscalYearEnd")] public DateTime FiscalYearEnd { get; set; }
+    [JsonProperty("FiscalYearEnd")] public string FiscalYearEnd { get; set; }
 
-    [JsonProperty("LatestQuarter")] public DateTime LatestQuarter { get; set; }
+    [JsonProperty("LatestQuarter")] public DateTime? LatestQuarter { get; set; }
 
     [JsonProperty("MarketCapitalization")] public decimal? MarketCapitalization { get; set; }
 
@@ -129,16 +129,19 @@ public class CompanyOverview : EntityInfo
         return earnings[0].ReportedEPS.Value / earnings[some].ReportedEPS.Value;
     }
     public decimal? RevenueGrowthSomeYears(short some) {
+        //throw new NotImplementedException();
         if (IncomeStatement.AnnualReports.Count < some + 1)
         {
             return null;
         }
+
+        
         var sorted = IncomeStatement.AnnualReports.OrderByDescending(x => x.FiscalDateEnding.Year).ToList();
-        if (sorted[0].FiscalDateEnding.Year >= DateTime.Now.Year - 2 &&
-            sorted[some].FiscalDateEnding.Year >= DateTime.Now.Year - some - 2)
-        {
-            return sorted[0].TotalRevenue.Value / sorted[some].TotalRevenue.Value;
-        }
+         if (sorted[0].FiscalDateEnding.Year >= DateTime.Now.Year - 2 &&
+             sorted[some].FiscalDateEnding.Year >= DateTime.Now.Year - some - 2)
+         {
+             return sorted[0].TotalRevenue.Value / sorted[some].TotalRevenue.Value;
+         }
 
         return null;
     } 

@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@sberdevices/assistant-client": "^4.17.2"
+    "@sberdevices/assistant-client": "^4.19.1"
   }
 }
