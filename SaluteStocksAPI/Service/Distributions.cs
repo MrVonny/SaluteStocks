@@ -13,21 +13,25 @@ public class Distributions
         _context = context;
     }
 
-    public Distribution MarketCap(int pieces)
+    public async Task<Distribution> MarketCap(int pieces)
     {
+        const double logBase = 5;
         // var gps = _context.CompanyOverviews.GroupBy(overview => overview.MarketCapitalization, overview2 => 1);
-        var maxval =  _context.CompanyOverviews.MaxBy(x => x.MarketCapitalization).MarketCapitalization;
-        var gpsnew = _context.CompanyOverviews.GroupBy(x => (int)x.MarketCapitalization*pieces/maxval);
-        var ans = gpsnew.Select(
-            x => new DistributionValue
-            {
-                Position = x.Key.Value,
-                Value = x.Count()
-            });
-        return new Distribution
+        var maxValue = (await _context.CompanyOverviews.MaxAsync(x => x.MarketCapitalization))!.Value;
+        var minValue = (await _context.CompanyOverviews.MinAsync(x => x.MarketCapitalization))!.Value;
+
+        double mult = Math.Pow(maxValue / minValue, 1.0 / pieces);
+        
+        var selectedGroups = _context.CompanyOverviews.Where(x=>x.MarketCapitalization.HasValue)
+            .GroupBy(x => (long) (Math.Log(x.MarketCapitalization.Value/minValue)/Math.Log(mult)))
+            .Select(x => new  {Position = x.Key, Value = x.Count()});
+        var res = (await selectedGroups.ToListAsync()).Select(x =>
+            new DistributionValue(new KeyValuePair<double, int>(x.Position, x.Value)));
+        
+        return new Distribution()
         {
             Property = "api shit",
-            Values = ans.ToList()
+            Values = res.ToList()
         };
 
     }

@@ -18,7 +18,7 @@ public class EarningsCalendar : CompanyEntityInfo
     
     [JsonProperty("reportDate")] public DateTime? ReportDate { get; set; }
     
-    [JsonProperty("estimate")] public decimal? Estimate { get; set; }
+    [JsonProperty("estimate")] public double? Estimate { get; set; }
 
 
 }
