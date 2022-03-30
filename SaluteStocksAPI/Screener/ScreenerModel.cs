@@ -12,21 +12,21 @@ public class ScreenerModel
 
     #region Financial
 
-    public RangedValue<decimal>? MarketCap { get; set; }
-    public RangedValue<decimal>? Ebitda { get; set; }
-    public RangedValue<decimal>? DebtToEquity { get; set; }
-    public RangedValue<decimal>? PERatio { get; set; }
-    public RangedValue<decimal>? EPS { get; set; }
-    public RangedValue<decimal>? Beta { get; set; }
+    public RangedValue<double>? MarketCap { get; set; }
+    public RangedValue<double>? Ebitda { get; set; }
+    public RangedValue<double>? DebtToEquity { get; set; }
+    public RangedValue<double>? PERatio { get; set; }
+    public RangedValue<double>? EPS { get; set; }
+    public RangedValue<double>? Beta { get; set; }
 
     #endregion
 
     #region Dynamic
 
-    public RangedValue<decimal>? RevenueGrowth1Year { get; set; }
-    public RangedValue<decimal>? RevenueGrowth5Year { get; set; }
-    public RangedValue<decimal>? EpsGrowth1Year { get; set; }
-    public RangedValue<decimal>? EpsGrowth5Year { get; set; }
+    public RangedValue<double>? RevenueGrowth1Year { get; set; }
+    public RangedValue<double>? RevenueGrowth5Year { get; set; }
+    public RangedValue<double>? EpsGrowth1Year { get; set; }
+    public RangedValue<double>? EpsGrowth5Year { get; set; }
 
     #endregion
 
