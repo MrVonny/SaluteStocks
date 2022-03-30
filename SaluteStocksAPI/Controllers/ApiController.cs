@@ -38,7 +38,7 @@ public class ApiController : ControllerBase
     [Route("distribution/market-cap")]
     public async Task<string> GetMarketCapDistribution(int pieces)
     {
-        var distr = _screenerService.Distributions.MarketCap;
+        var distr = await _screenerService.Distributions.MarketCap(40);
         return JsonConvert.SerializeObject(distr);
     }
 }

@@ -12,7 +12,7 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("Description")] public string Description { get; set; }
 
-    [JsonProperty("CIK")] public decimal? CIK { get; set; }
+    [JsonProperty("CIK")] public double? CIK { get; set; }
 
     [JsonProperty("Exchange")] public string Exchange { get; set; }
 
@@ -30,76 +30,76 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("LatestQuarter")] public DateTime? LatestQuarter { get; set; }
 
-    [JsonProperty("MarketCapitalization")] public decimal? MarketCapitalization { get; set; }
+    [JsonProperty("MarketCapitalization")] public long? MarketCapitalization { get; set; }
 
-    [JsonProperty("EBITDA")] public decimal? EBITDA { get; set; }
+    [JsonProperty("EBITDA")] public long? EBITDA { get; set; }
 
-    [JsonProperty("PERatio")] public decimal? PERatio { get; set; }
+    [JsonProperty("PERatio")] public double? PERatio { get; set; }
 
-    [JsonProperty("PEGRatio")] public decimal? PEGRatio { get; set; }
+    [JsonProperty("PEGRatio")] public double? PEGRatio { get; set; }
 
-    [JsonProperty("BookValue")] public decimal? BookValue { get; set; }
+    [JsonProperty("BookValue")] public double? BookValue { get; set; }
 
-    [JsonProperty("DividendPerShare")] public decimal? DividendPerShare { get; set; }
+    [JsonProperty("DividendPerShare")] public double? DividendPerShare { get; set; }
 
-    [JsonProperty("DividendYield")] public decimal? DividendYield { get; set; }
+    [JsonProperty("DividendYield")] public double? DividendYield { get; set; }
 
-    [JsonProperty("EPS")] public decimal? EPS { get; set; }
+    [JsonProperty("EPS")] public double? EPS { get; set; }
 
-    [JsonProperty("RevenuePerShareTTM")] public decimal? RevenuePerShareTTM { get; set; }
+    [JsonProperty("RevenuePerShareTTM")] public double? RevenuePerShareTTM { get; set; }
 
-    [JsonProperty("ProfitMargin")] public decimal? ProfitMargin { get; set; }
+    [JsonProperty("ProfitMargin")] public double? ProfitMargin { get; set; }
 
-    [JsonProperty("OperatingMarginTTM")] public decimal? OperatingMarginTTM { get; set; }
+    [JsonProperty("OperatingMarginTTM")] public double? OperatingMarginTTM { get; set; }
 
-    [JsonProperty("ReturnOnAssetsTTM")] public decimal? ReturnOnAssetsTTM { get; set; }
+    [JsonProperty("ReturnOnAssetsTTM")] public double? ReturnOnAssetsTTM { get; set; }
 
-    [JsonProperty("ReturnOnEquityTTM")] public decimal? ReturnOnEquityTTM { get; set; }
+    [JsonProperty("ReturnOnEquityTTM")] public double? ReturnOnEquityTTM { get; set; }
 
-    [JsonProperty("RevenueTTM")] public decimal? RevenueTTM { get; set; }
+    [JsonProperty("RevenueTTM")] public double? RevenueTTM { get; set; }
 
-    [JsonProperty("GrossProfitTTM")] public decimal? GrossProfitTTM { get; set; }
+    [JsonProperty("GrossProfitTTM")] public double? GrossProfitTTM { get; set; }
 
-    [JsonProperty("DilutedEPSTTM")] public decimal? DilutedEPSTTM { get; set; }
+    [JsonProperty("DilutedEPSTTM")] public double? DilutedEPSTTM { get; set; }
 
     [JsonProperty("QuarterlyEarningsGrowthYOY")]
-    public decimal? QuarterlyEarningsGrowthYOY { get; set; }
+    public double? QuarterlyEarningsGrowthYOY { get; set; }
 
     [JsonProperty("QuarterlyRevenueGrowthYOY")]
-    public decimal? QuarterlyRevenueGrowthYOY { get; set; }
+    public double? QuarterlyRevenueGrowthYOY { get; set; }
 
-    [JsonProperty("AnalystTargetPrice")] public decimal? AnalystTargetPrice { get; set; }
+    [JsonProperty("AnalystTargetPrice")] public double? AnalystTargetPrice { get; set; }
 
-    [JsonProperty("TrailingPE")] public decimal? TrailingPE { get; set; }
+    [JsonProperty("TrailingPE")] public double? TrailingPE { get; set; }
 
-    [JsonProperty("ForwardPE")] public decimal? ForwardPE { get; set; }
+    [JsonProperty("ForwardPE")] public double? ForwardPE { get; set; }
 
-    [JsonProperty("PriceToSalesRatioTTM")] public decimal? PriceToSalesRatioTTM { get; set; }
+    [JsonProperty("PriceToSalesRatioTTM")] public double? PriceToSalesRatioTTM { get; set; }
 
-    [JsonProperty("PriceToBookRatio")] public decimal? PriceToBookRatio { get; set; }
+    [JsonProperty("PriceToBookRatio")] public double? PriceToBookRatio { get; set; }
 
-    [JsonProperty("EVToRevenue")] public decimal? EVToRevenue { get; set; }
+    [JsonProperty("EVToRevenue")] public double? EVToRevenue { get; set; }
 
-    [JsonProperty("EVToEBITDA")] public decimal? EVToEBITDA { get; set; }
+    [JsonProperty("EVToEBITDA")] public double? EVToEBITDA { get; set; }
 
-    [JsonProperty("Beta")] public decimal? Beta { get; set; }
+    [JsonProperty("Beta")] public double? Beta { get; set; }
 
-    [JsonProperty("52WeekHigh")] public decimal? _52WeekHigh { get; set; }
+    [JsonProperty("52WeekHigh")] public double? _52WeekHigh { get; set; }
 
-    [JsonProperty("52WeekLow")] public decimal? _52WeekLow { get; set; }
+    [JsonProperty("52WeekLow")] public double? _52WeekLow { get; set; }
 
-    [JsonProperty("50DayMovingAverage")] public decimal? _50DayMovingAverage { get; set; }
+    [JsonProperty("50DayMovingAverage")] public double? _50DayMovingAverage { get; set; }
 
-    [JsonProperty("200DayMovingAverage")] public decimal? _200DayMovingAverage { get; set; }
+    [JsonProperty("200DayMovingAverage")] public double? _200DayMovingAverage { get; set; }
 
-    [JsonProperty("SharesOutstanding")] public decimal? SharesOutstanding { get; set; }
+    [JsonProperty("SharesOutstanding")] public double? SharesOutstanding { get; set; }
 
     [JsonProperty("DividendDate")] public DateTime? DividendDate { get; set; }
 
     [JsonProperty("ExDividendDate")] public DateTime? ExDividendDate { get; set; }
 
 
-    public decimal DebtEquity
+    public double DebtEquity
     {
         get
         {
@@ -111,7 +111,7 @@ public class CompanyOverview : EntityInfo
         }
     }
     
-    public decimal? EPSGrowthSomeYears(short some)
+    public double? EPSGrowthSomeYears(short some)
     {
         var earnings = Earnings.AnnualEarnings.OrderByDescending(x => x.FiscalDateEnding!.Value.Year).ToList();
         if (earnings.Count < some+1)
@@ -128,7 +128,7 @@ public class CompanyOverview : EntityInfo
         }
         return earnings[0].ReportedEPS.Value / earnings[some].ReportedEPS.Value;
     }
-    public decimal? RevenueGrowthSomeYears(short some) {
+    public double? RevenueGrowthSomeYears(short some) {
         //throw new NotImplementedException();
         if (IncomeStatement.AnnualReports.Count < some + 1)
         {
