@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json.Nodes;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SaluteStocksAPI.Service;
 
@@ -32,5 +33,12 @@ public class ApiController : ControllerBase
     public async Task<string> GetScreenerModel()
     {
         throw new InvalidOperationException();
+    }
+
+    [Route("distribution/market-cap")]
+    public async Task<string> GetMarketCapDistribution(int pieces)
+    {
+        var distr = _screenerService.Distributions.MarketCap;
+        return JsonConvert.SerializeObject(distr);
     }
 }
