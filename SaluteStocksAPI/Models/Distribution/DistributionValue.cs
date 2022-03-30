@@ -3,9 +3,9 @@ namespace SaluteStocksAPI.Models.Distribution;
 public struct DistributionValue
 {
     public decimal Position;
-    public decimal Value;
+    public int Value;
 
-    public DistributionValue(KeyValuePair<decimal, decimal> kv)
+    public DistributionValue(KeyValuePair<decimal, int> kv)
     {
         Position = kv.Key;
         Value = kv.Value;

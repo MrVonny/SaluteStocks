@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.Distribution;
 
@@ -14,9 +15,10 @@ public class Distributions
 
     public Distribution MarketCap(int pieces)
     {
-        var gps = _context.CompanyOverviews.GroupBy(overview => overview.MarketCapitalization, overview2 => 1);
-            decimal maxval = gps.Max(x => x.Key.Value);
-        var ans = gps.Select(
+        // var gps = _context.CompanyOverviews.GroupBy(overview => overview.MarketCapitalization, overview2 => 1);
+        var maxval =  _context.CompanyOverviews.MaxBy(x => x.MarketCapitalization).MarketCapitalization;
+        var gpsnew = _context.CompanyOverviews.GroupBy(x => (int)x.MarketCapitalization*pieces/maxval);
+        var ans = gpsnew.Select(
             x => new DistributionValue
             {
                 Position = x.Key.Value,
