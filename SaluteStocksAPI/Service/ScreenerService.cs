@@ -9,9 +9,12 @@ public class ScreenerService
 {
     private readonly StocksContext _context;
 
+    public Distributions Distributions { get; }
+
     public ScreenerService(StocksContext context)
     {
         _context = context;
+        Distributions =  new Distributions(_context);
     }
 
     public async Task<List<string>> GetStockSymbols(ScreenerModel screenerModel)
@@ -40,5 +43,6 @@ public class ScreenerService
 
             return await companiesQuery.Select(x => x.Symbol).ToListAsync();
     }
+    
     
 }

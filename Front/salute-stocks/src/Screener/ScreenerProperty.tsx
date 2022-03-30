@@ -173,10 +173,9 @@ const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, o
             <div>
 
                 <Slider min={range.available.from} max={range.available.to}
-                       value={[range.selected.from, range.selected.to]}
-                       onChangeCommitted={onSliderCommitted}
+                        value={[range.selected.from, range.selected.to]}
+                        onChangeCommitted={onSliderCommitted}
                         onChange={onSliderChange}
-                        
                 />
             </div>
             <Row>
