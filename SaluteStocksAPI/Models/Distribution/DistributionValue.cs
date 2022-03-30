@@ -2,6 +2,12 @@ namespace SaluteStocksAPI.Models.Distribution;
 
 public struct DistributionValue
 {
-    public double Position;
-    public double Value;
+    public decimal Position;
+    public decimal Value;
+
+    public DistributionValue(KeyValuePair<decimal, decimal> kv)
+    {
+        Position = kv.Key;
+        Value = kv.Value;
+    }
 }
