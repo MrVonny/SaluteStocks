@@ -35,10 +35,10 @@ public class ApiController : ControllerBase
         throw new InvalidOperationException();
     }
 
-    [Route("distribution/market-cap")]
+    [Route("distribution/market-cap/{pieces}")]
     public async Task<string> GetMarketCapDistribution(int pieces)
     {
-        var distr = await _screenerService.Distributions.MarketCap(40);
+        var distr = await _screenerService.Distributions.MarketCap(pieces);
         return JsonConvert.SerializeObject(distr);
     }
     

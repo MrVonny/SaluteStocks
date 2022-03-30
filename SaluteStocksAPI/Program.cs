@@ -19,6 +19,16 @@ try
     });
 
     // Add services to the container.
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: "CORS",
+            corsPolicyBuilder =>
+            {
+                corsPolicyBuilder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader();
+            });
+    });
 
     builder.Services.AddControllers();
     builder.Services.AddSwaggerGen(c =>
@@ -54,6 +64,8 @@ try
     }
 
     app.UseHttpsRedirection();
+    
+    app.UseCors("CORS");
 
     //app.UseAuthorization();
 
