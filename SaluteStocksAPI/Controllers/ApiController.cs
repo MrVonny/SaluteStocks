@@ -41,4 +41,7 @@ public class ApiController : ControllerBase
         var distr = _screenerService.Distributions.MarketCap;
         return JsonConvert.SerializeObject(distr);
     }
+    
+    //ToDo
+    //distribution/*
 }
