@@ -323,6 +323,12 @@ public class AlphaVantageClient
             Log.Information("Trying to deserialize response.");
             var deserialize = JsonConvert.DeserializeObject<T>(result);
 
+            if(deserialize.Symbol == null)
+            {
+                Log.Warning($"Bad response: {result}");
+                throw new AlphaVantageEmptyResponse(result);
+            }
+
             return deserialize;
         }
         Log.Error("Response is not successful. Status code is {StatusCode}. Response: {Response}", response.StatusCode, response);

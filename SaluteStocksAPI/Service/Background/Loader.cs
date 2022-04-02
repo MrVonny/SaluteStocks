@@ -31,54 +31,62 @@ public class Loader : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var scope = _scopeFactory.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<StocksContext>();
-        var repository = new DataBaseRepository(db);
         try
         {
-            await repository.SetListing(await Client.GetListing());
-        }
-        catch (Exception e)
-        {
-            Log.Error(e, "Failed to update listing");
-        }
-
-
-        await LoadMissingData(stoppingToken);
-
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            await using (db = scope.ServiceProvider.GetRequiredService<StocksContext>())
+            using var scope = _scopeFactory.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<StocksContext>();
+            var repository = new DataBaseRepository(db);
+            try
             {
-                repository = new DataBaseRepository(db);
+                await repository.SetListing(await Client.GetListing());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Failed to update listing");
+            }
 
-                
-                Task[] tasks =
+
+            await LoadMissingData(stoppingToken);
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                await using (db = scope.ServiceProvider.GetRequiredService<StocksContext>())
                 {
+                    repository = new DataBaseRepository(db);
+
+
+                    Task[] tasks =
+                    {
                     RefreshEntity<BalanceSheet>(await repository.GetOldestSymbol<BalanceSheet>()),
                     RefreshEntity<CashFlow>(await repository.GetOldestSymbol<CashFlow>()),
                     RefreshEntity<CompanyOverview>(await repository.GetOldestSymbol<CompanyOverview>()),
                     RefreshEntity<Earnings>(await repository.GetOldestSymbol<Earnings>()),
                     RefreshEntity<IncomeStatement>(await repository.GetOldestSymbol<IncomeStatement>()),
                 };
-                Log.Information("Waiting for the completion of tasks to refresh oldest entities.");
-                try
-                {
-                    Task.WaitAll(tasks);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e,"Error occured in some tasks.");
-                }
-                
-                Log.Information("All entities are refreshed! Success: {Success}. Fail: {Fail}",
-                    tasks.Count(x => x.IsCompletedSuccessfully),
-                    tasks.Count(x=>!x.IsCompletedSuccessfully));
-            }
+                    Log.Information("Waiting for the completion of tasks to refresh oldest entities.");
+                    try
+                    {
+                        Task.WaitAll(tasks);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e, "Error occured in some tasks.");
+                    }
 
-            Log.Information("Delay before refresh oldest entities {Delay}", _settings.CheckUpdateTime);
-            await Task.Delay(_settings.CheckUpdateTime, stoppingToken);
+                    Log.Information("All entities are refreshed! Success: {Success}. Fail: {Fail}",
+                        tasks.Count(x => x.IsCompletedSuccessfully),
+                        tasks.Count(x => !x.IsCompletedSuccessfully));
+                }
+
+                Log.Information("Delay before refresh oldest entities {Delay}", _settings.CheckUpdateTime);
+                await Task.Delay(_settings.CheckUpdateTime, stoppingToken);
+            }
         }
+        catch(Exception e)
+        {
+            Log.Fatal(e, "Error in background service.");
+            throw;
+        }   
     }
 
     private async Task LoadMissingData(CancellationToken stoppingToken)
