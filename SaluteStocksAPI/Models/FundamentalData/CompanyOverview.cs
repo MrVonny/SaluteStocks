@@ -12,7 +12,7 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("Description")] public string Description { get; set; }
 
-    [JsonProperty("CIK")] public double? CIK { get; set; }
+    [JsonProperty("CIK")] public long? CIK { get; set; }
 
     [JsonProperty("Exchange")] public string Exchange { get; set; }
 
@@ -56,9 +56,9 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("ReturnOnEquityTTM")] public double? ReturnOnEquityTTM { get; set; }
 
-    [JsonProperty("RevenueTTM")] public double? RevenueTTM { get; set; }
+    [JsonProperty("RevenueTTM")] public long? RevenueTTM { get; set; }
 
-    [JsonProperty("GrossProfitTTM")] public double? GrossProfitTTM { get; set; }
+    [JsonProperty("GrossProfitTTM")] public long? GrossProfitTTM { get; set; }
 
     [JsonProperty("DilutedEPSTTM")] public double? DilutedEPSTTM { get; set; }
 
@@ -92,7 +92,7 @@ public class CompanyOverview : EntityInfo
 
     [JsonProperty("200DayMovingAverage")] public double? _200DayMovingAverage { get; set; }
 
-    [JsonProperty("SharesOutstanding")] public double? SharesOutstanding { get; set; }
+    [JsonProperty("SharesOutstanding")] public long? SharesOutstanding { get; set; }
 
     [JsonProperty("DividendDate")] public DateTime? DividendDate { get; set; }
 
