@@ -97,8 +97,54 @@ public class CompanyOverview : EntityInfo
     [JsonProperty("DividendDate")] public DateTime? DividendDate { get; set; }
 
     [JsonProperty("ExDividendDate")] public DateTime? ExDividendDate { get; set; }
+
+
+    public double DebtEquity
+    {
+        get
+        {
+            var currentYear = BalanceSheet.AnnualReports.Max(x => x.FiscalDateEnding);
+            var lastReport = BalanceSheet.AnnualReports.Single(y => y.FiscalDateEnding == currentYear);
+            var totalLiabilities = lastReport.TotalLiabilities.Value;
+            var shareholderEquity = lastReport.TotalShareholderEquity.Value;
+            return totalLiabilities / shareholderEquity;
+        }
+    }
     
-    
+    public double? EPSGrowthSomeYears(short some)
+    {
+        var earnings = Earnings.AnnualEarnings.OrderByDescending(x => x.FiscalDateEnding!.Value.Year).ToList();
+        if (earnings.Count < some+1)
+        {
+            return null;
+        }
+        if (earnings[0].FiscalDateEnding!.Value.Year - earnings[some].FiscalDateEnding!.Value.Year != some) // there are missing years in X last AnnualReports
+        {
+            return null;
+        }
+        if (earnings[0].FiscalDateEnding.Value.Year < 2020) // data is too old
+        {
+            return null;
+        }
+        return earnings[0].ReportedEPS.Value / earnings[some].ReportedEPS.Value;
+    }
+    public double? RevenueGrowthSomeYears(short some) {
+        //throw new NotImplementedException();
+        if (IncomeStatement.AnnualReports.Count < some + 1)
+        {
+            return null;
+        }
+
+        
+        var sorted = IncomeStatement.AnnualReports.OrderByDescending(x => x.FiscalDateEnding.Year).ToList();
+         if (sorted[0].FiscalDateEnding.Year >= DateTime.Now.Year - 2 &&
+             sorted[some].FiscalDateEnding.Year >= DateTime.Now.Year - some - 2)
+         {
+             return sorted[0].TotalRevenue.Value / sorted[some].TotalRevenue.Value;
+         }
+
+        return null;
+    } 
     [JsonIgnore]
     public BalanceSheet BalanceSheet { get; set; }
     [JsonIgnore]

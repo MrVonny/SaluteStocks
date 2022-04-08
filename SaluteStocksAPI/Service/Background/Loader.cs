@@ -31,57 +31,65 @@ public class Loader : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var scope = _scopeFactory.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<StocksContext>();
-        var repository = new DataBaseRepository(db);
         try
         {
-            await repository.SetListing(await Client.GetListing());
-        }
-        catch (Exception e)
-        {
-            Log.Error(e, "Failed to update listing");
-        }
-
-
-        LoadMissingData(stoppingToken);
-
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            await using (db = scope.ServiceProvider.GetRequiredService<StocksContext>())
+            using var scope = _scopeFactory.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<StocksContext>();
+            var repository = new DataBaseRepository(db);
+            try
             {
-                repository = new DataBaseRepository(db);
-
-                
-                Task[] tasks =
-                {
-                    RefreshEntity<BalanceSheet>(await repository.GetOldestSymbol<BalanceSheet>(), repository),
-                    RefreshEntity<CashFlow>(await repository.GetOldestSymbol<CashFlow>(), repository),
-                    RefreshEntity<CompanyOverview>(await repository.GetOldestSymbol<CompanyOverview>(), repository),
-                    RefreshEntity<Earnings>(await repository.GetOldestSymbol<Earnings>(), repository),
-                    RefreshEntity<IncomeStatement>(await repository.GetOldestSymbol<IncomeStatement>(), repository),
-                };
-                Log.Information("Waiting for the completion of tasks to refresh oldest entities.");
-                try
-                {
-                    Task.WaitAll(tasks);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e,"Error occured in some tasks.");
-                }
-                
-                Log.Information("All entities are refreshed! Success: {Success}. Fail: {Fail}",
-                    tasks.Count(x => x.IsCompletedSuccessfully),
-                    tasks.Count(x=>!x.IsCompletedSuccessfully));
+                await repository.SetListing(await Client.GetListing());
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Failed to update listing");
             }
 
-            Log.Information("Delay before refresh oldest entities {Delay}", _settings.CheckUpdateTime);
-            await Task.Delay(_settings.CheckUpdateTime, stoppingToken);
+
+            await LoadMissingData(stoppingToken);
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                await using (db = scope.ServiceProvider.GetRequiredService<StocksContext>())
+                {
+                    repository = new DataBaseRepository(db);
+
+
+                    Task[] tasks =
+                    {
+                    RefreshEntity<BalanceSheet>(await repository.GetOldestSymbol<BalanceSheet>()),
+                    RefreshEntity<CashFlow>(await repository.GetOldestSymbol<CashFlow>()),
+                    RefreshEntity<CompanyOverview>(await repository.GetOldestSymbol<CompanyOverview>()),
+                    RefreshEntity<Earnings>(await repository.GetOldestSymbol<Earnings>()),
+                    RefreshEntity<IncomeStatement>(await repository.GetOldestSymbol<IncomeStatement>()),
+                };
+                    Log.Information("Waiting for the completion of tasks to refresh oldest entities.");
+                    try
+                    {
+                        Task.WaitAll(tasks);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e, "Error occured in some tasks.");
+                    }
+
+                    Log.Information("All entities are refreshed! Success: {Success}. Fail: {Fail}",
+                        tasks.Count(x => x.IsCompletedSuccessfully),
+                        tasks.Count(x => !x.IsCompletedSuccessfully));
+                }
+
+                Log.Information("Delay before refresh oldest entities {Delay}", _settings.CheckUpdateTime);
+                await Task.Delay(_settings.CheckUpdateTime, stoppingToken);
+            }
         }
+        catch(Exception e)
+        {
+            Log.Fatal(e, "Error in background service.");
+            throw;
+        }   
     }
 
-    private async void LoadMissingData(CancellationToken stoppingToken)
+    private async Task LoadMissingData(CancellationToken stoppingToken)
     {
         Log.Information("Loading missing data.");
         
@@ -96,19 +104,32 @@ public class Loader : BackgroundService
                     var repository = new DataBaseRepository(db);
                     var symbols = await db.Listing.Select(e => e.Symbol).ToListAsync(cancellationToken: stoppingToken);
 
-                    await LoadMissingEntities<BalanceSheet>();
-                    await LoadMissingEntities<CashFlow>();
-                    await LoadMissingEntities<CompanyOverview>();
-                    await LoadMissingEntities<Earnings>();
-                    await LoadMissingEntities<IncomeStatement>();
-
+                    var tasks = new[]
+                    {
+                        LoadMissingEntities<BalanceSheet>(),
+                        LoadMissingEntities<CashFlow>(),
+                        LoadMissingEntities<CompanyOverview>(),
+                        LoadMissingEntities<Earnings>(),
+                        LoadMissingEntities<IncomeStatement>(),
+                    };
+                    
+                    try
+                    {
+                        Task.WaitAll(tasks);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e,"Error occured in some tasks.");
+                    }
                     async Task LoadMissingEntities<T>() where T : EntityInfo
                     {
                         try
                         {
+                            using var localScope = _scopeFactory.CreateScope();
+                            await using var localdb = localScope.ServiceProvider.GetRequiredService<StocksContext>();
                             Log.Information("Loading missing entities for {Type}", typeof(T));
                             Log.Information("Getting already loaded entities");
-                            var loadedSymbols = await db.Set<T>().Select(x => x.Symbol).Distinct()
+                            var loadedSymbols = await localdb.Set<T>().Where(x=>x.ExistInApi.HasValue).Select(x => x.Symbol).Distinct()
                                 .ToListAsync(cancellationToken: stoppingToken);
                             Log.Information("Already loaded: {Total}", loadedSymbols.Count);
 
@@ -116,7 +137,7 @@ public class Loader : BackgroundService
                             {
                                 try
                                 {
-                                    await RefreshEntity<T>(symbol, repository);
+                                    await RefreshEntity<T>(symbol);
                                 }
                                 catch
                                 {
@@ -142,8 +163,11 @@ public class Loader : BackgroundService
         }
     }
 
-    private async Task RefreshEntity<T>(string symbol, DataBaseRepository repository) where T : EntityInfo
+    private async Task RefreshEntity<T>(string symbol) where T : EntityInfo
     {
+        using var localScope = _scopeFactory.CreateScope();
+        await using var localdb = localScope.ServiceProvider.GetRequiredService<StocksContext>();
+        var repository = new DataBaseRepository(localdb);
         if (symbol is null)
             return;
         Log.Information("Trying to refresh entity {EntityType} with Symbol {Symbol}", typeof(T), symbol);
@@ -158,6 +182,7 @@ public class Loader : BackgroundService
                 4 => await Client.GetIncomeStatement(symbol),
                 _ => throw new ArgumentOutOfRangeException()
             };
+            entity.ExistInApi = true;
 
             if (Types[typeof(T)] != 2)
             {
@@ -177,6 +202,40 @@ public class Loader : BackgroundService
         }
         catch (AlphaVantageEmptyResponse e)
         {
+            if (Types[typeof(T)] != 2)
+            {
+                CompanyEntityInfo entity = Activator.CreateInstance<T>() as CompanyEntityInfo;
+                entity.Symbol = symbol;
+                entity.ExistInApi = false;
+                entity.LastLocalRefresh = DateTime.Now;
+                var companyOverview = entity.CompanyOverview =
+                    await repository.Get<CompanyOverview>(symbol);
+                if (companyOverview == null)
+                {
+                    try
+                    {
+                        companyOverview = await Client.GetCompanyOverview(symbol) ?? throw new InvalidOperationException();
+                        entity.CompanyOverview = companyOverview;
+                        await repository.AddOrUpdate(companyOverview);
+                    }
+                    catch (AlphaVantageEmptyResponse)
+                    {
+                        companyOverview = new CompanyOverview()
+                            { Symbol = symbol, ExistInApi = false, LastLocalRefresh = DateTime.Now };
+                        entity.CompanyOverview = companyOverview;
+                        await repository.AddOrUpdate(companyOverview);
+                    }
+                }
+                await repository.AddOrUpdate(entity as T);
+            }
+            else
+            {
+                await repository.AddOrUpdate(new CompanyOverview()
+                    { Symbol = symbol, ExistInApi = false, LastLocalRefresh = DateTime.Now });
+            }
+
+            
+            
             Log.Warning(e, "Alpha Vantage has no {T} for symbol {Symbol}", typeof(T), symbol);
         }
         catch (AlphaVantageRequestLimit e)

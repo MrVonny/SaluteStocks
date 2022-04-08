@@ -9,6 +9,7 @@ public abstract class EntityInfo
     [Key]
     [JsonProperty("symbol")]
     public string Symbol { get; set; }
+    public bool? ExistInApi { get; set; }
     
     public DateTime? LastLocalRefresh { get; set; }
     public DateTime? LastApiRefresh { get; set; }

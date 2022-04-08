@@ -8,8 +8,11 @@ public class IncomeStatement : CompanyEntityInfo
 {
     [JsonProperty("annualReports")] public List<IncomeStatementAnnualReport> AnnualReports { get; set; }
 
+
+
     [JsonProperty("quarterlyReports")] public List<IncomeStatementQuarterlyReport> QuarterlyReports { get; set; }
 }
+
 
 public class IncomeStatementReport
 {
@@ -20,9 +23,10 @@ public class IncomeStatementReport
     [JsonIgnore]
     public IncomeStatement IncomeStatement { get; set; }
     
+    
     public string Symbol { get; set; }
     
-    [JsonProperty("fiscalDateEnding")] public string FiscalDateEnding { get; set; }
+    [JsonProperty("fiscalDateEnding")] public DateTime FiscalDateEnding { get; set; }
 
     [JsonProperty("reportedCurrency")] public string ReportedCurrency { get; set; }
     /// <summary>

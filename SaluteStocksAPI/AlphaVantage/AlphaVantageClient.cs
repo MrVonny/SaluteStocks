@@ -254,7 +254,6 @@ public class AlphaVantageClient
 
         return await GetAndParseCsvAsync<QuotesPeriodInfo>(uri);
     }
-    
     public async Task<GlobalQuote> GetQuoteEndpoint(string symbol) // list of 1 element
     {
         var keyValuePairs = new List<KeyValuePair<string, string>>
@@ -323,6 +322,12 @@ public class AlphaVantageClient
 
             Log.Information("Trying to deserialize response.");
             var deserialize = JsonConvert.DeserializeObject<T>(result);
+
+            if(deserialize.Symbol == null)
+            {
+                Log.Warning($"Bad response: {result}");
+                throw new AlphaVantageEmptyResponse(result);
+            }
 
             return deserialize;
         }

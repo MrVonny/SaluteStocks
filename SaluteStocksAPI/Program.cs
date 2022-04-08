@@ -15,10 +15,23 @@ try
             .Enrich.WithProcessId()
             .Enrich.WithProcessName()
             .WriteTo.Console()
-            .WriteTo.File($@"Logs/Log_{DateTime.Now:yyyy-MM-dd_hh-mm-ss}.log");
+            .WriteTo.File(Path.Combine("Logs", $"Log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log"));
     });
 
+    builder.Services.Configure<HostOptions>(ops => ops.ShutdownTimeout = TimeSpan.FromHours(12));
+    
+
     // Add services to the container.
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: "CORS",
+            corsPolicyBuilder =>
+            {
+                corsPolicyBuilder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader();
+            });
+    });
 
     builder.Services.AddControllers();
     builder.Services.AddSwaggerGen(c =>
@@ -38,8 +51,8 @@ try
     builder.Services.AddHostedService(provider => new Loader(
         new LoaderSettings
         {
-            CheckUpdateTime = TimeSpan.FromSeconds(20),
-            LoadMissingDataDelay = TimeSpan.FromMinutes(5)
+            CheckUpdateTime = TimeSpan.FromSeconds(30),
+            LoadMissingDataDelay = TimeSpan.FromMinutes(2)
         }, provider.GetService<IServiceScopeFactory>()));
 
     var app = builder.Build();
@@ -54,6 +67,8 @@ try
     }
 
     app.UseHttpsRedirection();
+    
+    app.UseCors("CORS");
 
     //app.UseAuthorization();
 

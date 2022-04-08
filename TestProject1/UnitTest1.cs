@@ -1,19 +1,46 @@
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
+using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.FundamentalData;
+using SaluteStocksAPI.Screener;
+using SaluteStocksAPI.Service;
 
 namespace TestProject1;
 
-[TestFixture] public class Tests
+[TestFixture]
+public class BaseTest
 {
+    protected StocksContext StocksContext = null;
     protected AlphaVantageClient Client = AlphaVantageClientFactory.Create();
+
     [SetUp]
-    public void Setup()
+    public virtual void SetUp()
     {
-        
+        var optionsBuilder = new DbContextOptionsBuilder<StocksContext>();
+        IConfiguration config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddEnvironmentVariables()
+            .Build();
+
+        string connectionString = config.GetConnectionString("MSSQL");
+        var options = optionsBuilder
+            .UseSqlServer(connectionString)
+            .Options;
+
+        StocksContext = new StocksContext(options);
     }
+}
+[TestFixture]
+public class Tests : BaseTest
+{
+    
 
     [Test]
     public async Task GetSearchResults()
@@ -119,5 +146,19 @@ namespace TestProject1;
     {
         var earningsCalendar = await Client.GetEarningsCalendar();
         Assert.That(earningsCalendar, Is.Not.Empty);
+    }
+
+    
+    [Test]
+    public async Task WhereEPSTest()
+    {
+        List<string> symbolList;
+        await using (StocksContext)
+        {
+            var screenerService = new ScreenerService(StocksContext);
+            symbolList = await screenerService.GetStockSymbols(new ScreenerModel());
+            Assert.That( symbolList, Is.Not.Empty);
+            Assert.Greater(symbolList.Count, 500);
+        }
     }
 }
