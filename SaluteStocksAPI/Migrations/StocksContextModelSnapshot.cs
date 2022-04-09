@@ -17,7 +17,7 @@ namespace SaluteStocksAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -33,8 +33,8 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<DateTime?>("FiscalDateEnding")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("ReportedEPS")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ReportedEPS")
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
@@ -75,122 +75,122 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("AccumulatedDepreciationAmortizationPPE")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("AccumulatedDepreciationAmortizationPPE")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CapitalLeaseObligations")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CapitalLeaseObligations")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashAndCashEquivalentsAtCarryingValue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashAndCashEquivalentsAtCarryingValue")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashAndShortTermInvestments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashAndShortTermInvestments")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CommonStockSharesOutstanding")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CommonStockSharesOutstanding")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentAccountsPayable")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentAccountsPayable")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentLongTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentLongTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentNetReceivables")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentNetReceivables")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DeferredRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DeferredRevenue")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("FiscalDateEnding")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Goodwill")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Goodwill")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IntangibleAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IntangibleAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IntangibleAssetsExcludingGoodwill")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IntangibleAssetsExcludingGoodwill")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Inventory")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Inventory")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Investments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Investments")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("LongTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("LongTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("LongTermDebtNoncurrent")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("LongTermDebtNoncurrent")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("LongTermInvestments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("LongTermInvestments")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherNonCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherNonCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherNonCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherNonCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PropertyPlantEquipment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PropertyPlantEquipment")
+                        .HasColumnType("float");
 
                     b.Property<string>("ReportedCurrency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("RetainedEarnings")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("RetainedEarnings")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ShortLongTermDebtTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ShortLongTermDebtTotal")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ShortTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ShortTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ShortTermInvestments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ShortTermInvestments")
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal?>("TotalAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalNonCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalNonCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalNonCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalNonCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalShareholderEquity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalShareholderEquity")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TreasuryStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TreasuryStock")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -207,122 +207,122 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("AccumulatedDepreciationAmortizationPPE")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("AccumulatedDepreciationAmortizationPPE")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CapitalLeaseObligations")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CapitalLeaseObligations")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashAndCashEquivalentsAtCarryingValue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashAndCashEquivalentsAtCarryingValue")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashAndShortTermInvestments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashAndShortTermInvestments")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CommonStockSharesOutstanding")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CommonStockSharesOutstanding")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentAccountsPayable")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentAccountsPayable")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentLongTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentLongTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CurrentNetReceivables")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CurrentNetReceivables")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DeferredRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DeferredRevenue")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("FiscalDateEnding")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Goodwill")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Goodwill")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IntangibleAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IntangibleAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IntangibleAssetsExcludingGoodwill")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IntangibleAssetsExcludingGoodwill")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Inventory")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Inventory")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Investments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Investments")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("LongTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("LongTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("LongTermDebtNoncurrent")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("LongTermDebtNoncurrent")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("LongTermInvestments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("LongTermInvestments")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherNonCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherNonCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherNonCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherNonCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PropertyPlantEquipment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PropertyPlantEquipment")
+                        .HasColumnType("float");
 
                     b.Property<string>("ReportedCurrency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("RetainedEarnings")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("RetainedEarnings")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ShortLongTermDebtTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ShortLongTermDebtTotal")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ShortTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ShortTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ShortTermInvestments")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ShortTermInvestments")
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal?>("TotalAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalNonCurrentAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalNonCurrentAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalNonCurrentLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalNonCurrentLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TotalShareholderEquity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalShareholderEquity")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("TreasuryStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TreasuryStock")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -360,89 +360,89 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("CapitalExpenditures")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CapitalExpenditures")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashflowFromFinancing")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashflowFromFinancing")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashflowFromInvestment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashflowFromInvestment")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInCashAndCashEquivalents")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInCashAndCashEquivalents")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInExchangeRate")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInInventory")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInInventory")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInOperatingAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInOperatingAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInOperatingLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInOperatingLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInReceivables")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInReceivables")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DepreciationDepletionAndAmortization")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DepreciationDepletionAndAmortization")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendPayout")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPayout")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendPayoutCommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPayoutCommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendPayoutPreferredStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPayoutPreferredStock")
+                        .HasColumnType("float");
 
                     b.Property<string>("FiscalDateEnding")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("NetIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OperatingCashFlow")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingCashFlow")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForOperatingActivities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForOperatingActivities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForRepurchaseOfCommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForRepurchaseOfCommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForRepurchaseOfEquity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForRepurchaseOfEquity")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForRepurchaseOfPreferredStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForRepurchaseOfPreferredStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromIssuanceOfCommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromIssuanceOfCommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromIssuanceOfPreferredStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromIssuanceOfPreferredStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromOperatingActivities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromOperatingActivities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromRepaymentsOfShortTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromRepaymentsOfShortTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromRepurchaseOfEquity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromRepurchaseOfEquity")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromSaleOfTreasuryStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromSaleOfTreasuryStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProfitLoss")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProfitLoss")
+                        .HasColumnType("float");
 
                     b.Property<string>("ReportedCurrency")
                         .HasColumnType("nvarchar(max)");
@@ -465,89 +465,89 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("CapitalExpenditures")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CapitalExpenditures")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashflowFromFinancing")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashflowFromFinancing")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CashflowFromInvestment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CashflowFromInvestment")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInCashAndCashEquivalents")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInCashAndCashEquivalents")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInExchangeRate")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInInventory")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInInventory")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInOperatingAssets")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInOperatingAssets")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInOperatingLiabilities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInOperatingLiabilities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ChangeInReceivables")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ChangeInReceivables")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DepreciationDepletionAndAmortization")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DepreciationDepletionAndAmortization")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendPayout")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPayout")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendPayoutCommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPayoutCommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendPayoutPreferredStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPayoutPreferredStock")
+                        .HasColumnType("float");
 
                     b.Property<string>("FiscalDateEnding")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("NetIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OperatingCashFlow")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingCashFlow")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForOperatingActivities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForOperatingActivities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForRepurchaseOfCommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForRepurchaseOfCommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForRepurchaseOfEquity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForRepurchaseOfEquity")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PaymentsForRepurchaseOfPreferredStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PaymentsForRepurchaseOfPreferredStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromIssuanceOfCommonStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromIssuanceOfCommonStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromIssuanceOfPreferredStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromIssuanceOfPreferredStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromOperatingActivities")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromOperatingActivities")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromRepaymentsOfShortTermDebt")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromRepaymentsOfShortTermDebt")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromRepurchaseOfEquity")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromRepurchaseOfEquity")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProceedsFromSaleOfTreasuryStock")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProceedsFromSaleOfTreasuryStock")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProfitLoss")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProfitLoss")
+                        .HasColumnType("float");
 
                     b.Property<string>("ReportedCurrency")
                         .HasColumnType("nvarchar(max)");
@@ -570,20 +570,20 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("AnalystTargetPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("AnalystTargetPrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("AssetType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Beta")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Beta")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("BookValue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("BookValue")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CIK")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("CIK")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
@@ -594,29 +594,29 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("DilutedEPSTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DilutedEPSTTM")
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("DividendDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("DividendPerShare")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendPerShare")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DividendYield")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DividendYield")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("EBITDA")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("EBITDA")
+                        .HasColumnType("bigint");
 
-                    b.Property<decimal?>("EPS")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("EPS")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("EVToEBITDA")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("EVToEBITDA")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("EVToRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("EVToRevenue")
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("ExDividendDate")
                         .HasColumnType("datetime2");
@@ -630,11 +630,11 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<string>("FiscalYearEnd")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("ForwardPE")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ForwardPE")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("GrossProfitTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("GrossProfitTTM")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Industry")
                         .HasColumnType("nvarchar(max)");
@@ -650,68 +650,68 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<DateTime?>("LatestQuarter")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("MarketCapitalization")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("MarketCapitalization")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("OperatingMarginTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingMarginTTM")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PEGRatio")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PEGRatio")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PERatio")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PERatio")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PriceToBookRatio")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PriceToBookRatio")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("PriceToSalesRatioTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("PriceToSalesRatioTTM")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ProfitMargin")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ProfitMargin")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("QuarterlyEarningsGrowthYOY")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("QuarterlyEarningsGrowthYOY")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("QuarterlyRevenueGrowthYOY")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("QuarterlyRevenueGrowthYOY")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ReturnOnAssetsTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ReturnOnAssetsTTM")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("ReturnOnEquityTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ReturnOnEquityTTM")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("RevenuePerShareTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("RevenuePerShareTTM")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("RevenueTTM")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("RevenueTTM")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Sector")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("SharesOutstanding")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long?>("SharesOutstanding")
+                        .HasColumnType("bigint");
 
-                    b.Property<decimal?>("TrailingPE")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TrailingPE")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("_200DayMovingAverage")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("_200DayMovingAverage")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("_50DayMovingAverage")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("_50DayMovingAverage")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("_52WeekHigh")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("_52WeekHigh")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("_52WeekLow")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("_52WeekLow")
+                        .HasColumnType("float");
 
                     b.HasKey("Symbol");
 
@@ -768,86 +768,86 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("ComprehensiveIncomeNetOfTax")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ComprehensiveIncomeNetOfTax")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CostOfRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CostOfRevenue")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CostofGoodsAndServicesSold")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CostofGoodsAndServicesSold")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Depreciation")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Depreciation")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DepreciationAndAmortization")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DepreciationAndAmortization")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Ebit")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Ebit")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Ebitda")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Ebitda")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("FiscalDateEnding")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("GrossProfit")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("GrossProfit")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IncomeBeforeTax")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IncomeBeforeTax")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IncomeTaxExpense")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IncomeTaxExpense")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InterestAndDebtExpense")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InterestAndDebtExpense")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InterestExpense")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InterestExpense")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InterestIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InterestIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InvestmentIncomeNet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InvestmentIncomeNet")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NetIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NetIncomeFromContinuingOperations")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetIncomeFromContinuingOperations")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NetInterestIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetInterestIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NonInterestIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NonInterestIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OperatingExpenses")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingExpenses")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OperatingIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherNonOperatingIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherNonOperatingIncome")
+                        .HasColumnType("float");
 
                     b.Property<string>("ReportedCurrency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("ResearchAndDevelopment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ResearchAndDevelopment")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("SellingGeneralAndAdministrative")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("SellingGeneralAndAdministrative")
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal?>("TotalRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalRevenue")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -864,86 +864,86 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("ComprehensiveIncomeNetOfTax")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ComprehensiveIncomeNetOfTax")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CostOfRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CostOfRevenue")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("CostofGoodsAndServicesSold")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("CostofGoodsAndServicesSold")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Depreciation")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Depreciation")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("DepreciationAndAmortization")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("DepreciationAndAmortization")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Ebit")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Ebit")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Ebitda")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Ebitda")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("FiscalDateEnding")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("GrossProfit")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("GrossProfit")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IncomeBeforeTax")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IncomeBeforeTax")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("IncomeTaxExpense")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("IncomeTaxExpense")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InterestAndDebtExpense")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InterestAndDebtExpense")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InterestExpense")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InterestExpense")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InterestIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InterestIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("InvestmentIncomeNet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("InvestmentIncomeNet")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NetIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NetIncomeFromContinuingOperations")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetIncomeFromContinuingOperations")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NetInterestIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NetInterestIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("NonInterestIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("NonInterestIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OperatingExpenses")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingExpenses")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OperatingIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OperatingIncome")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("OtherNonOperatingIncome")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("OtherNonOperatingIncome")
+                        .HasColumnType("float");
 
                     b.Property<string>("ReportedCurrency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("ResearchAndDevelopment")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ResearchAndDevelopment")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("SellingGeneralAndAdministrative")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("SellingGeneralAndAdministrative")
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal?>("TotalRevenue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalRevenue")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -997,8 +997,8 @@ namespace SaluteStocksAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal?>("EstimatedEPS")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("EstimatedEPS")
+                        .HasColumnType("float");
 
                     b.Property<DateTime?>("FiscalDateEnding")
                         .HasColumnType("datetime2");
@@ -1006,14 +1006,14 @@ namespace SaluteStocksAPI.Migrations
                     b.Property<DateTime?>("ReportedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("ReportedEPS")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("ReportedEPS")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("Surprise")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("Surprise")
+                        .HasColumnType("float");
 
-                    b.Property<decimal?>("SurprisePercentage")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("SurprisePercentage")
+                        .HasColumnType("float");
 
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
