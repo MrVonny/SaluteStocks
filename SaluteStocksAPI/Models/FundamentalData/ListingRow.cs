@@ -4,10 +4,9 @@ using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public class ListingRow : EntityInfo
 {
-    [Key]
-    public string Symbol { get; set; }
     public string Name { get; set; }
     public string Exchange { get; set; }
     public string AssetType { get; set; }

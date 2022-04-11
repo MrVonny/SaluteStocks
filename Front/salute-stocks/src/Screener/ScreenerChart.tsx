@@ -67,7 +67,7 @@ const ScreenerChart: React.FC<ScreenerChartProps> = ({availableRange, selectedRa
 
     useEffect(() => {
         if (!state.IsLoaded)
-            fetch("https://salut-stocks.xyz/api/distribution/market-cap/50")
+            fetch("https://salut-stocks.xyz/api/distribution/market-cap/40")
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -91,12 +91,12 @@ const ScreenerChart: React.FC<ScreenerChartProps> = ({availableRange, selectedRa
                 rootComponent={ChartRoot}
             >
                 <ArgumentScale factory={scalePoint as FactoryFn} />
-                <SplineSeries
+                <AreaSeries
                     valueField="Value"
                     argumentField="Position"
                     color={colorValues.success}
                 />
-                <SplineSeries
+                <AreaSeries
                     valueField="unselected"
                     argumentField="position"
                     color={colorValues.secondary}

@@ -18,6 +18,9 @@ try
             .WriteTo.File(Path.Combine("Logs", $"Log_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log"));
     });
 
+    builder.Services.Configure<HostOptions>(ops => ops.ShutdownTimeout = TimeSpan.FromHours(12));
+    
+
     // Add services to the container.
     builder.Services.AddCors(options =>
     {
@@ -42,6 +45,7 @@ try
 
     //DB repository
     builder.Services.AddScoped<IDataBaseRepository, DataBaseRepository>();
+    builder.Services.AddScoped<DataBaseRepository>();
     //Screener
     builder.Services.AddScoped<ScreenerService>();
     //Loader background service
