@@ -16,7 +16,7 @@ public static class CompanyOverviewExtension
     }
     public static IQueryable<CompanyOverview> WhereCountry(this IQueryable<CompanyOverview> queryable, params string[] countries)
     {
-        return countries is { Length: > 0 } ? queryable.Where(x => countries.Contains(x.Currency)) : queryable;
+        return countries is { Length: > 0 } ? queryable.Where(x => countries.Contains(x.Country)) : queryable;
     }
     #endregion
     

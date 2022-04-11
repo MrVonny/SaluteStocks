@@ -24,14 +24,12 @@ public class Distributions
         
         var selectedGroups = _context.CompanyOverviews.Where(x=>x.MarketCapitalization.HasValue)
             .GroupBy(x => (long) (Math.Log(x.MarketCapitalization.Value/minValue)/Math.Log(mult)))
-            .Select(x => new  {Position = x.Key, Value = x.Count()});
-        var res = (await selectedGroups.ToListAsync()).Select(x =>
-            new DistributionValue(new KeyValuePair<double, int>(x.Position, x.Value)));
-        
+            .Select(x => new  DistributionValue(){Position = x.Key, Value = x.Count()});
+
         return new Distribution()
         {
             Property = "api shit",
-            Values = res.ToList()
+            Values = await selectedGroups.ToListAsync()
         };
 
     }
