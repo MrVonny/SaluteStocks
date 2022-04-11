@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using EFCore.BulkExtensions;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestPlatform.Common.Filtering;
 using NUnit.Framework;
 using SaluteStocksAPI.AlphaVantage;
 using SaluteStocksAPI.DataBase;
@@ -17,8 +13,6 @@ using SaluteStocksAPI.Models.Extensions;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Screener;
 using SaluteStocksAPI.Service;
-using LinqKit.Core;
-using NUnit.Framework.Internal;
 
 namespace TestProject1;
 
@@ -177,7 +171,7 @@ public class CompanyOverviewTests : BaseTest
         List<string> symbolList;
         await using (stocksContext)
         {
-            var screenerService = new ScreenerService(stocksContext);
+            var screenerService = new ScreenerService(new DataBaseRepository(stocksContext));
             symbolList = await screenerService.GetStockSymbols(new ScreenerModel());
             Assert.That( symbolList, Is.Not.Empty);
             Assert.Greater(symbolList.Count, 500);
@@ -291,12 +285,12 @@ public class FinancialCompanyOverviewExtensionsTests : BaseTest
 {
     [Test]
     [TestCase(true, 5000, 10690253062000)] // should include all companies
-    [TestCase(false, 0, 299409)] // 
+    // [TestCase(false, 0, 299409)] // 
     public async Task WhereMarketCapTest( bool ifSucceeds, double min, double max)
     {
         await using (stocksContext)
         {
-            var fileteredQuery = stocksContext.CompanyOverviews.Where(x => x.RevenueGrowthSomeYears(5).HasValue);
+            var fileteredQuery = stocksContext.CompanyOverviews.WhereMarketCap(new RangedValue<double>(min, max));
             if (ifSucceeds)
             {
                 Assert.That(await fileteredQuery.AnyAsync());
@@ -307,7 +301,14 @@ public class FinancialCompanyOverviewExtensionsTests : BaseTest
             }
         }
     }
-    
+
+    [Test]
+    public async Task WhereDebtEquityTest()
+    {
+        var rv = new RangedValue<double>(0, 5);
+        var fileteredQuery = stocksContext.CompanyOverviews.WhereDebtEquity(rv);
+        Assert.Greater(await fileteredQuery.CountAsync(), 5);
+    }
 
     [Test]
     public async Task LINQTranslationTest()
@@ -318,8 +319,8 @@ public class FinancialCompanyOverviewExtensionsTests : BaseTest
         Expression<Func<CompanyOverview, bool>> finalc = (co => criteria1.Invoke(criteria2.Invoke(co)) || asd.Invoke(co));
         await using (stocksContext)
         {
-            var res = stocksContext.CompanyOverviews.Where(finalc.Expand()).Where(finalc.Expand());
-            
+            var res = stocksContext.CompanyOverviews.Where(finalc.Expand());
+            var expanded = finalc.Expand();
             Assert.AreEqual(await res.CountAsync(), 657);
         }
     }

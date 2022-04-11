@@ -35,25 +35,26 @@ public class CashFlowReport
     /// Общая сумма денежных средств, выплаченных за операционную деятельность в текущем периоде.
     /// </summary>
     [JsonProperty("paymentsForOperatingActivities")]
-    public double? PaymentsForOperatingActivities { get; set; }
+    public long? PaymentsForOperatingActivities { get; set; }
 
     /// <summary>
     /// Общая сумма денежных средств, полученных от операционной деятельности в текущем периоде.
+    /// Очень много нулов в базе
     /// </summary>
     [JsonProperty("proceedsFromOperatingActivities")]
-    public double? ProceedsFromOperatingActivities { get; set; }
+    public long? ProceedsFromOperatingActivities { get; set; }
 
     /// <summary>
     /// Увеличение (уменьшение) в течение отчетного периода совокупной суммы обязательств, возникающих в результате деятельности, приносящей операционный доход.
     /// </summary>
     [JsonProperty("changeInOperatingLiabilities")]
-    public double? ChangeInOperatingLiabilities { get; set; }
+    public long? ChangeInOperatingLiabilities { get; set; }
 
     /// <summary>
     /// Увеличение (уменьшение) в течение отчетного периода совокупной суммы активов, используемых для получения операционных доходов.
     /// </summary>
     [JsonProperty("changeInOperatingAssets")]
-    public double? ChangeInOperatingAssets { get; set; }
+    public long? ChangeInOperatingAssets { get; set; }
 
     /// <summary>
     /// Совокупный расход, признанный в текущем периоде, который распределяет стоимость материальных активов, нематериальных активов или истощающихся активов на периоды, которые получают выгоду от использования активов.
@@ -69,23 +70,23 @@ public class CashFlowReport
     /// <summary>
     /// Увеличение (уменьшение) в течение отчетного периода общей суммы к оплате в течение одного года (или одного операционного цикла) со всех сторон, связанное с лежащими в основе операциями, классифицируемыми как операционная деятельность.
     /// </summary>
-    [JsonProperty("changeInReceivables")] public double? ChangeInReceivables { get; set; }
+    [JsonProperty("changeInReceivables")] public long? ChangeInReceivables { get; set; }
 
     /// <summary>
     /// Увеличение (уменьшение) в течение отчетного периода совокупной стоимости всех товарно-материальных запасов, имеющихся у отчитывающейся организации, связанное с базовыми операциями, классифицируемыми как операционная деятельность.
     /// </summary>
-    [JsonProperty("changeInInventory")] public double? ChangeInInventory { get; set; }
+    [JsonProperty("changeInInventory")] public long? ChangeInInventory { get; set; }
 
     /// <summary>
     /// Консолидированная прибыль или убыток за период за вычетом налога на прибыль, включая часть, относящуюся к неконтролирующей доле участия.
     /// </summary>
-    [JsonProperty("profitLoss")] public double? ProfitLoss { get; set; }
+    [JsonProperty("profitLoss")] public long? ProfitLoss { get; set; }
 
     /// <summary>
     /// Сумма притока (оттока) денежных средств от инвестиционной деятельности, включая прекращенную деятельность. Денежные потоки от инвестиционной деятельности включают в себя выдачу и получение кредитов, а также приобретение и продажу долговых или долевых инструментов, а также основных средств и других производственных активов.
     /// </summary>
     [JsonProperty("cashflowFromInvestment")]
-    public double? CashflowFromInvestment { get; set; }
+    public long? CashflowFromInvestment { get; set; }
 
     /// <summary>
     /// Сумма притока (оттока) денежных средств от финансовой деятельности, включая прекращенную деятельность. Денежные потоки от финансовой деятельности включают в себя получение ресурсов от собственников и предоставление им дохода и возврата их инвестиций; заимствование денег и погашение заемных сумм или погашение обязательства; получение и оплата других ресурсов, полученных от кредиторов по долгосрочному кредиту.
@@ -97,30 +98,31 @@ public class CashFlowReport
     /// Чистый приток или отток денежных средств по займам с первоначальным сроком погашения в течение одного года или обычного операционного цикла, если он дольше.
     /// </summary>
     [JsonProperty("proceedsFromRepaymentsOfShortTermDebt")]
-    public double? ProceedsFromRepaymentsOfShortTermDebt { get; set; }
+    public long? ProceedsFromRepaymentsOfShortTermDebt { get; set; }
 
     /// <summary>
     /// Отток денежных средств для выкупа обыкновенных акций в течение периода.
     /// </summary>
     [JsonProperty("paymentsForRepurchaseOfCommonStock")]
-    public double? PaymentsForRepurchaseOfCommonStock { get; set; }
+    public long? PaymentsForRepurchaseOfCommonStock { get; set; }
 
     /// <summary>
     /// Отток денежных средств для выкупа обыкновенных и привилегированных акций.
     /// </summary>
     [JsonProperty("paymentsForRepurchaseOfEquity")]
-    public double? PaymentsForRepurchaseOfEquity { get; set; }
+    public long? PaymentsForRepurchaseOfEquity { get; set; }
 
     /// <summary>
     /// Отток денежных средств для повторного приобретения привилегированных акций в течение периода.
+    /// Очень много нулов в базе
     /// </summary>
     [JsonProperty("paymentsForRepurchaseOfPreferredStock")]
-    public double? PaymentsForRepurchaseOfPreferredStock { get; set; }
+    public long? PaymentsForRepurchaseOfPreferredStock { get; set; }
 
     /// <summary>
     /// Отток денежных средств в виде распределения капитала и дивидендов владельцам обыкновенных акций, владельцев привилегированных акций и неконтролирующих долей участия.
     /// </summary>
-    [JsonProperty("dividendPayout")] public double? DividendPayout { get; set; }
+    [JsonProperty("dividendPayout")] public long? DividendPayout { get; set; }
 
     /// <summary>
     /// Сумма оттока денежных средств в виде дивидендов по обыкновенным обыкновенным акциям материнской компании.
@@ -130,27 +132,29 @@ public class CashFlowReport
 
     /// <summary>
     /// Сумма оттока денежных средств в виде обыкновенных дивидендов держателям привилегированных акций материнской компании.
+    /// Очень много нулов в базе.
     /// </summary>
     [JsonProperty("dividendPayoutPreferredStock")]
-    public double? DividendPayoutPreferredStock { get; set; }
+    public long? DividendPayoutPreferredStock { get; set; }
 
     /// <summary>
     /// Приток денежных средств от дополнительного вклада в капитал предприятия.
     /// </summary>
     [JsonProperty("proceedsFromIssuanceOfCommonStock")]
-    public double? ProceedsFromIssuanceOfCommonStock { get; set; }
+    public long? ProceedsFromIssuanceOfCommonStock { get; set; }
 
     /// <summary>
     /// Приток денежных средств, связанный с ценным инструментом, который либо представляет кредитора, либо отношения собственности с держателем инвестиционной ценной бумаги со сроком погашения более одного года или обычного операционного цикла, если он дольше. Включает поступления от (а) долга, (б) обязательств по капитальной аренде, (в) обязательных погашаемых капитальных ценных бумаг и (г) любой комбинации (а), (б) или (в).
     /// </summary>
     [JsonProperty("proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet")]
-    public double? ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet { get; set; }
+    public long? ProceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet { get; set; }
 
     /// <summary>
     /// Доходы от выпуска акций, предусматривающих выплату определенного дивиденда акционерам до любых дивидендов держателю обыкновенных акций, который имеет преимущество перед держателями обыкновенных акций в случае ликвидации, и от предоставления прав на покупку обыкновенных акций по заранее установленной цене.
+    /// Очеь много нулов в базе
     /// </summary>
     [JsonProperty("proceedsFromIssuanceOfPreferredStock")]
-    public double? ProceedsFromIssuanceOfPreferredStock { get; set; }
+    public long? ProceedsFromIssuanceOfPreferredStock { get; set; }
 
     /// <summary>
     /// Чистый приток или отток денежных средств в результате операции с акциями предприятия.
@@ -160,23 +164,25 @@ public class CashFlowReport
 
     /// <summary>
     /// Приток денежных средств от выпуска акций, которые ранее были выкуплены организацией.
+    /// ~1% базы заполнен 
     /// </summary>
     [JsonProperty("proceedsFromSaleOfTreasuryStock")]
-    public double? ProceedsFromSaleOfTreasuryStock { get; set; }
+    public long? ProceedsFromSaleOfTreasuryStock { get; set; }
 
     /// <summary>
     /// Сумма увеличения (уменьшения) денежных средств и их эквивалентов. Денежные средства и их эквиваленты представляют собой сумму наличной валюты, а также депозиты до востребования в банках или финансовых учреждениях. Включает другие виды счетов, которые имеют общие характеристики депозитов до востребования. Также включает краткосрочные, высоколиквидные инвестиции, которые легко конвертируются в известные суммы денежных средств и настолько близки к сроку погашения, что представляют незначительный риск изменения стоимости из-за изменений процентных ставок. Включает эффект от изменения обменного курса.
     /// </summary>
     [JsonProperty("changeInCashAndCashEquivalents")]
-    public double? ChangeInCashAndCashEquivalents { get; set; }
+    public long? ChangeInCashAndCashEquivalents { get; set; }
 
     /// <summary>
     /// Сумма увеличения (уменьшения) под влиянием изменения обменного курса денежных средств и их эквивалентов в иностранной валюте.
     /// </summary>
-    [JsonProperty("changeInExchangeRate")] public double? ChangeInExchangeRate { get; set; }
+    [JsonProperty("changeInExchangeRate")] public long? ChangeInExchangeRate { get; set; }
 
     /// <summary>
     /// Часть прибыли или убытка за период за вычетом налога на прибыль, приходящаяся на материнскую компанию.
+    /// Нету ни одного нула.
     /// </summary>
     [JsonProperty("netIncome")] public double? NetIncome { get; set; }
 }
