@@ -99,6 +99,7 @@ public class CompanyOverview : EntityInfo
     [JsonProperty("ExDividendDate")] public DateTime? ExDividendDate { get; set; }
 
 
+    
     public double DebtEquity
     {
         get
