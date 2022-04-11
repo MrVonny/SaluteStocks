@@ -99,56 +99,54 @@ public class Loader : BackgroundService
             try
             {
                 using var scope = _scopeFactory.CreateScope();
-                await using (var db = scope.ServiceProvider.GetRequiredService<StocksContext>())
-                {
-                    var repository = new DataBaseRepository(db);
-                    var symbols = await db.Listing.Select(e => e.Symbol).ToListAsync(cancellationToken: stoppingToken);
+                await using var db = scope.ServiceProvider.GetRequiredService<StocksContext>();
+                var repository = new DataBaseRepository(db);
+                var symbols = await db.Listing.Select(e => e.Symbol).ToListAsync(cancellationToken: stoppingToken);
 
-                    var tasks = new[]
-                    {
-                        LoadMissingEntities<BalanceSheet>(),
-                        LoadMissingEntities<CashFlow>(),
-                        LoadMissingEntities<CompanyOverview>(),
-                        LoadMissingEntities<Earnings>(),
-                        LoadMissingEntities<IncomeStatement>(),
-                    };
+                var tasks = new[]
+                {
+                    LoadMissingEntities<BalanceSheet>(),
+                    LoadMissingEntities<CashFlow>(),
+                    LoadMissingEntities<CompanyOverview>(),
+                    LoadMissingEntities<Earnings>(),
+                    LoadMissingEntities<IncomeStatement>(),
+                };
                     
+                try
+                {
+                    Task.WaitAll(tasks);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e,"Error occured in some tasks.");
+                }
+                async Task LoadMissingEntities<T>() where T : EntityInfo
+                {
                     try
                     {
-                        Task.WaitAll(tasks);
+                        using var localScope = _scopeFactory.CreateScope();
+                        await using var localdb = localScope.ServiceProvider.GetRequiredService<StocksContext>();
+                        Log.Information("Loading missing entities for {Type}", typeof(T));
+                        Log.Information("Getting already loaded entities");
+                        var loadedSymbols = await localdb.Set<T>().Where(x=>x.ExistInApi.HasValue).Select(x => x.Symbol).Distinct()
+                            .ToListAsync(cancellationToken: stoppingToken);
+                        Log.Information("Already loaded: {Total}", loadedSymbols.Count);
+
+                        foreach (var symbol in symbols.Where(s => !loadedSymbols.Contains(s)))
+                        {
+                            try
+                            {
+                                await RefreshEntity<T>(symbol);
+                            }
+                            catch
+                            {
+                                // ignored
+                            }
+                        }
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e,"Error occured in some tasks.");
-                    }
-                    async Task LoadMissingEntities<T>() where T : EntityInfo
-                    {
-                        try
-                        {
-                            using var localScope = _scopeFactory.CreateScope();
-                            await using var localdb = localScope.ServiceProvider.GetRequiredService<StocksContext>();
-                            Log.Information("Loading missing entities for {Type}", typeof(T));
-                            Log.Information("Getting already loaded entities");
-                            var loadedSymbols = await localdb.Set<T>().Where(x=>x.ExistInApi.HasValue).Select(x => x.Symbol).Distinct()
-                                .ToListAsync(cancellationToken: stoppingToken);
-                            Log.Information("Already loaded: {Total}", loadedSymbols.Count);
-
-                            foreach (var symbol in symbols.Where(s => !loadedSymbols.Contains(s)))
-                            {
-                                try
-                                {
-                                    await RefreshEntity<T>(symbol);
-                                }
-                                catch
-                                {
-                                    // ignored
-                                }
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Error(e, "Failed to load missing entities for {Type}", typeof(T));
-                        }
+                        Log.Error(e, "Failed to load missing entities for {Type}", typeof(T));
                     }
                 }
             }

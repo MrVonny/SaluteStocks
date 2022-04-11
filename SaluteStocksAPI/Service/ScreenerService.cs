@@ -7,19 +7,19 @@ namespace SaluteStocksAPI.Service;
 
 public class ScreenerService
 {
-    private readonly StocksContext _context;
+    private readonly DataBaseRepository _repository;
 
     public Distributions Distributions { get; }
 
-    public ScreenerService(StocksContext context)
+    public ScreenerService(DataBaseRepository repository)
     {
-        _context = context;
-        Distributions =  new Distributions(_context);
+        _repository = repository;
+        Distributions =  new Distributions(repository);
     }
 
     public async Task<List<string>> GetStockSymbols(ScreenerModel screenerModel)
     {
-        var companiesQuery = _context.CompanyOverviews
+        var companiesQuery = _repository.CompanyOverviews
             .AsNoTracking()
             //Currency
             .WhereCurrency(screenerModel.Currency)

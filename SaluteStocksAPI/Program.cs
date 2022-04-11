@@ -45,6 +45,7 @@ try
 
     //DB repository
     builder.Services.AddScoped<IDataBaseRepository, DataBaseRepository>();
+    builder.Services.AddScoped<DataBaseRepository>();
     //Screener
     builder.Services.AddScoped<ScreenerService>();
     //Loader background service

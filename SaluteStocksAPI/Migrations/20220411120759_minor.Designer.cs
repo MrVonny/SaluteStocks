@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaluteStocksAPI.DataBase;
 
@@ -11,9 +12,10 @@ using SaluteStocksAPI.DataBase;
 namespace SaluteStocksAPI.Migrations
 {
     [DbContext(typeof(StocksContext))]
-    partial class StocksContextModelSnapshot : ModelSnapshot
+    [Migration("20220411120759_minor")]
+    partial class minor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +66,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("BalanceSheetsRaw");
+                    b.ToTable("BalanceSheet");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.BalanceSheetAnnualReport", b =>
@@ -349,7 +351,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("CashFlowsRaw");
+                    b.ToTable("CashFlow");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.CashFlowAnnualReport", b =>
@@ -715,7 +717,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("CompanyOverviewsRaw");
+                    b.ToTable("CompanyOverview");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.Earnings", b =>
@@ -736,7 +738,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("EarningsRaw");
+                    b.ToTable("Earnings");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatement", b =>
@@ -757,7 +759,7 @@ namespace SaluteStocksAPI.Migrations
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("IncomeStatementsRaw");
+                    b.ToTable("IncomeStatement");
                 });
 
             modelBuilder.Entity("SaluteStocksAPI.Models.FundamentalData.IncomeStatementAnnualReport", b =>

@@ -6,7 +6,7 @@ using Serilog;
 
 namespace SaluteStocksAPI.Service;
 
-class DataBaseRepository : IDataBaseRepository
+public class DataBaseRepository : IDataBaseRepository
 {
     private readonly StocksContext _context;
 
@@ -14,6 +14,12 @@ class DataBaseRepository : IDataBaseRepository
     {
         _context = context;
     }
+    
+    public IQueryable<BalanceSheet> BalanceSheets =>_context.BalanceSheets.Where(x => x.ExistInApi == true);
+    public IQueryable<CashFlow> CashFlows => _context.CashFlows.Where(x => x.ExistInApi == true);
+    public IQueryable<CompanyOverview> CompanyOverviews => _context.CompanyOverviews.Where(x => x.ExistInApi == true);
+    public IQueryable<Earnings> Earnings => _context.Earnings.Where(x => x.ExistInApi == true);
+    public IQueryable<IncomeStatement> IncomeStatements => _context.IncomeStatements.Where(x => x.ExistInApi == true);
 
     public async Task SetListing(List<ListingRow> listing)
     {
