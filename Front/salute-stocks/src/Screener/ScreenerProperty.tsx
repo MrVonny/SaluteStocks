@@ -14,12 +14,13 @@ import {
     TextBoxSubTitle
 } from "@sberdevices/plasma-ui"
 import {Range, ScreenerPropertyRangeStorage, screenerState} from "../Storage";
-import {Slider} from "@sberdevices/plasma-ui/components/Slider/Double";
 import { colorValues } from '@sberdevices/plasma-tokens';
 import {IconClose} from "@sberdevices/plasma-icons";
 import {Label, SubTitle, Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
 import {useRecoilState, RecoilState, useRecoilValue} from "recoil";
-import {ScreenerChart} from "./ScreenerChart";
+import {Distribution, DistributionValue, ScreenerChart} from "./ScreenerChart";
+import {createInterpolatorWithFallback} from "./Interpolation/Index";
+import {Slider} from "@mui/material";
 
 type ScreenerPropertyProps = {
     title: string,
@@ -144,16 +145,65 @@ export const ScreenerRangeProperty : React.FC<ScreenerRangePropertyProps> =
     />
 }
 
+function intepolateDist(distribution: Distribution) : Distribution
+{
+    const interpolator = createInterpolatorWithFallback("akima",
+        distribution.Values.map(x=>x.Position),
+        distribution.Values.map(x=>x.Value));
+
+    const from = distribution.Values[0].Position;
+    const to = distribution.Values[distribution.Values.length-1].Position;
+
+    let interpolatedValues = Array.from(new Array(STEPS), (x, i) => ({
+        Position: from + i * (to - from)/STEPS,
+        Value: interpolator(from + i * (to - from)/STEPS)
+    }) as DistributionValue)
+
+    return {Values: interpolatedValues } as Distribution
+
+}
+
+const STEPS = 200;
+
 const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, onApplyClick}) => {
 
     const [range, setRangeState] = useRecoilState(rangeState)
-    const [localRange, setLocalRange] = useState(range as ScreenerPropertyRangeStorage)
-    const onSliderCommitted = (values: Number[]) => {
-        setRangeState({...range, selected: {from: values[0], to: values[1]} as Range})
+    const [state, setState] = useState(range as ScreenerPropertyRangeStorage)
+    const onSliderCommitted = (event: Event | React.SyntheticEvent, values: number[] | number) => {
+        const val = values as number[];
+        setRangeState({...range, selected: {from: val[0], to: val[1]} as Range})
     }
-    const onSliderChange = (values: number[]) => {
-        setLocalRange({...localRange, selected: {from: values[0], to: values[1]} as Range})
+    const onSliderChange = (event: Event, values: number[] | number) => {
+        const val = values as number[];
+        setState({...state, selected: {from: val[0], to: val[1]} as Range})
     }
+
+    useEffect(() => {
+        if (!state.isLoaded)
+            fetch("https://salut-stocks.xyz/api/distribution/market-cap/20")
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        const res = result as Distribution;
+                        setState({...state,
+                            distribution: intepolateDist(res),
+                            isLoaded: true,
+                            available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
+                            selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
+                        });
+                        setRangeState({...range,
+                            available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
+                            selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
+                        })
+                        console.log(res);
+                    },
+                    // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+                    // чтобы не перехватывать исключения из ошибок в самих компонентах.
+                    (error) => {
+                        console.log(error);
+                    }
+                )
+    }, [state])
 
     return(
         <>
@@ -162,20 +212,21 @@ const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, o
                 marginRight: -0
             }}>
 
-                <Col size={1} style={{textAlign: "left"}}><TextBox>{localRange.selected.from.toString()}</TextBox></Col>
+                <Col size={1} style={{textAlign: "left"}}><TextBox>{state.selected.from.toString()}</TextBox></Col>
                 <Col size={1} offsetXL={10} offsetL={6} offsetM={4} offsetS={2}
-                     style={{textAlign: "right"}}><TextBox>{localRange.selected.to.toString()}</TextBox></Col>
+                     style={{textAlign: "right"}}><TextBox>{state.selected.to.toString()}</TextBox></Col>
             </Row>
+            <ScreenerChart availableRange={state.available} selectedRange={state.selected} distribution={state.distribution ?? { Values: []}}/>
 
-            <ScreenerChart availableRange={localRange.available} selectedRange={localRange.selected}>
 
-            </ScreenerChart>
             <div>
 
-                <Slider min={range.available.from} max={range.available.to}
-                        value={[range.selected.from, range.selected.to]}
-                        onChangeCommitted={onSliderCommitted}
+                <Slider min={range.available.from}
+                        max={range.available.to}
+                        step={(range.available.to - range.available.from)/STEPS}
+                        value={[state.selected.from, state.selected.to]}
                         onChange={onSliderChange}
+                        onChangeCommitted={onSliderCommitted}
                 />
             </div>
             <Row>

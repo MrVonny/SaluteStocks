@@ -1,4 +1,5 @@
 import {atom, selector} from "recoil";
+import {Distribution} from "./Screener/ScreenerChart";
 
 
 export declare type Range = {
@@ -9,6 +10,8 @@ export declare type Range = {
 export declare type ScreenerPropertyRangeStorage = {
     available: Range;
     selected: Range;
+    distribution : Distribution;
+    isLoaded : boolean;
 }
 
 export declare type Screener = {
