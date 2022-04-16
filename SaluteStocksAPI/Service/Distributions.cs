@@ -16,21 +16,33 @@ public class Distributions
 
     public async Task<Distribution> MarketCap(int pieces)
     {
+        pieces--;
         const double logBase = 5;
         // var gps = _context.CompanyOverviews.GroupBy(overview => overview.MarketCapitalization, overview2 => 1);
         var maxValue = (await _repostiroty.CompanyOverviews.MaxAsync(x => x.MarketCapitalization))!.Value;
         var minValue = (await _repostiroty.CompanyOverviews.MinAsync(x => x.MarketCapitalization))!.Value;
 
         double mult = Math.Pow(maxValue / minValue, 1.0 / pieces);
-        
-        var selectedGroups = _repostiroty.CompanyOverviews.Where(x=>x.MarketCapitalization.HasValue)
-            .GroupBy(x => (long) (Math.Log(x.MarketCapitalization.Value/minValue)/Math.Log(mult)))
-            .Select(x => new  DistributionValue(){Position = x.Key, Value = x.Count()});
 
+        var selectedGroups = _repostiroty.CompanyOverviews.Where(x => x.MarketCapitalization.HasValue)
+            .GroupBy(x => (int) (Math.Log(x.MarketCapitalization.Value / minValue) / Math.Log(mult)))
+            .Select(x => new DistributionValue() {Position = x.Key, Value = x.Count()});
+        var ansWithoutZeroes = await selectedGroups.ToListAsync();
+        var ans = new List<DistributionValue>(pieces + 1);
+        int counter = 0;
+        foreach (DistributionValue val in ansWithoutZeroes)
+        {
+            for (; counter < val.Position; counter++)
+            {
+                ans.Add(new DistributionValue(counter, 0));
+            }
+            ans.Add(new DistributionValue(counter, val.Value));
+            counter++;
+        }
         return new Distribution()
         {
             Property = "api shit",
-            Values = await selectedGroups.ToListAsync()
+            Values = ans
         };
 
     }

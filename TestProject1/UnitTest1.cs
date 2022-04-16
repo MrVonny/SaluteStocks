@@ -7,8 +7,10 @@ using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using SaluteStocksAPI.AlphaVantage;
 using SaluteStocksAPI.DataBase;
+using SaluteStocksAPI.Models.Distribution;
 using SaluteStocksAPI.Models.Extensions;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Screener;
@@ -234,9 +236,13 @@ public class CommonCompanyOverviewExtensionsTests : BaseTest
             else
             {
                 Assert.That(!await fileteredQuery.AnyAsync());
+                
             }
+
+            
         }
     }
+    
     
     [Test]
     [TestCase(true, "USA")]
@@ -322,6 +328,26 @@ public class FinancialCompanyOverviewExtensionsTests : BaseTest
             var res = stocksContext.CompanyOverviews.Where(finalc.Expand());
             var expanded = finalc.Expand();
             Assert.AreEqual(await res.CountAsync(), 657);
+        }
+    }
+}
+
+
+[TestFixture]
+public class OtherDBAPITests : BaseTest
+{
+    [Test]
+    [TestCase(120)]
+    [TestCase(13)]
+    public async Task MarketCapDistributionTest(int pieces )
+    {
+        
+        await using (stocksContext)
+        {
+            ScreenerService service = new ScreenerService(new DataBaseRepository(stocksContext));
+            var dist = await service.Distributions.MarketCap(pieces);
+            Assert.AreEqual(dist.Values.Count, pieces);
+            Assert.NotZero(dist.Values.Last().Value);
         }
     }
 }
