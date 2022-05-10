@@ -6,18 +6,15 @@ using NUnit.Framework.Internal;
 
 namespace TestProject1;
 
-[TestFixture]public class UnitTest2
+[TestFixture]
+public class InternalClassesTests
 {
     [SetUp]
     public void Setup()
     {
         
     }
-
-    private const decimal a = (decimal) 123.208433; 
-    private const decimal c = (decimal) 123.208433; 
-    private const decimal b = (decimal) 123.208433; 
-
+    
     [Test]
     [TestCase(123, 543, 123)]
     [TestCase("01/20/2010", "05/01/2021", "05/01/2012")]

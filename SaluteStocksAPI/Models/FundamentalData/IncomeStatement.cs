@@ -21,7 +21,7 @@ public class IncomeStatementReport
     public int Id { get; set; }
     
     [JsonIgnore]
-    public IncomeStatement IncomeStatement { get; set; }
+    public IncomeStatement IncomeStatement { get; set; } //wtf
     
     
     public string Symbol { get; set; }
@@ -37,7 +37,7 @@ public class IncomeStatementReport
     /// <summary>
     ///Сумма выручки, признанной за проданные товары, оказанные услуги, страховые взносы или другую деятельность, которая представляет собой процесс получения дохода. Включает, помимо прочего, инвестиционный и процентный доход до вычета процентных расходов, когда они признаются в составе выручки, а также прибыль (убыток) от продаж и торговых операций.
     /// </summary>
-    [JsonProperty("totalRevenue")] public double? TotalRevenue { get; set; }
+    [JsonProperty("totalRevenue")] public long? TotalRevenue { get; set; }
 
     /// <summary>
     /// Совокупная стоимость произведенных и реализованных товаров и оказанных услуг за отчетный период.
@@ -65,7 +65,7 @@ public class IncomeStatementReport
     /// Совокупные затраты, понесенные (1) в ходе запланированного поиска или критического исследования, направленного на открытие новых знаний в надежде, что такие знания будут полезны при разработке нового продукта или услуги, нового процесса или метода или при значительном улучшении к существующему продукту или процессу; или (2) для преобразования результатов исследований или других знаний в план или дизайн нового продукта или процесса или для значительного улучшения существующего продукта или процесса, предназначенного для продажи или использования организацией, в течение отчетного периода, отнесенного к исследованиям и проекты разработки, включая затраты на разработку компьютерного программного обеспечения до момента достижения технологической осуществимости, а также затраты, отнесенные при учете объединения бизнеса на незавершенные проекты, которые, как считается, не имеют альтернативного использования в будущем.
     /// </summary>
     [JsonProperty("researchAndDevelopment")]
-    public double? ResearchAndDevelopment { get; set; }
+    public long? ResearchAndDevelopment { get; set; }
 
     /// <summary>
     /// Как правило, текущие расходы, связанные с обычными операциями, за исключением той части этих расходов, которая может быть явно связана с производством и включена в себестоимость продаж или услуг. Включает коммерческие, общие и административные расходы.
@@ -75,7 +75,7 @@ public class IncomeStatementReport
     /// <summary>
     /// Сумма после начисления (амортизации) дисконта (премии) и инвестиционных расходов, процентного дохода и дохода в виде дивидендов по недействующим ценным бумагам.
     /// </summary>
-    [JsonProperty("investmentIncomeNet")] public double? InvestmentIncomeNet { get; set; }
+    [JsonProperty("investmentIncomeNet")] public long? InvestmentIncomeNet { get; set; }
 
     /// <summary>
     /// Чистая сумма операционных процентных доходов (расходов).
@@ -85,7 +85,7 @@ public class IncomeStatementReport
     /// <summary>
     /// Сумма процентного дохода.
     /// </summary>
-    [JsonProperty("interestIncome")] public double? InterestIncome { get; set; }
+    [JsonProperty("interestIncome")] public long? InterestIncome { get; set; }
 
     /// <summary>
     /// Сумма стоимости заемных средств, учитываемая как процентный расход.
@@ -95,24 +95,24 @@ public class IncomeStatementReport
     /// <summary>
     /// Общая сумма непроцентного дохода, который может быть получен из: (1) сборов и комиссий; (2) заработанные премии; (3) сборы за страховой полис; (4) продажа или распоряжение активами; и (5) другие источники, не указанные иначе.
     /// </summary>
-    [JsonProperty("nonInterestIncome")] public double? NonInterestIncome { get; set; }
+    [JsonProperty("nonInterestIncome")] public long? NonInterestIncome { get; set; }
 
     /// <summary>
     /// Сумма доходов (расходов) по внереализационной деятельности, классифицированная как прочее.
     /// </summary>
     [JsonProperty("otherNonOperatingIncome")]
-    public double? OtherNonOperatingIncome { get; set; }
+    public long? OtherNonOperatingIncome { get; set; }
 
     /// <summary>
     /// Сумма расходов, признанных в текущем периоде и отражающая распределение стоимости материальных активов в течение срока их полезного использования. Включает производственную и непроизводственную амортизацию.
     /// </summary>
-    [JsonProperty("depreciation")] public double? Depreciation { get; set; }
+    [JsonProperty("depreciation")] public long? Depreciation { get; set; }
 
     /// <summary>
     /// расходы текущего периода, отнесенные на счет доходов от долгосрочных материальных активов, не используемых в производстве и не предназначенных для перепродажи, для распределения или признания стоимости таких активов в течение срока их полезного использования; или отражать уменьшение балансовой стоимости нематериального актива в течение срока действия такого актива; или отразить потребление в течение периода актива, который не используется в производстве.
     /// </summary>
     [JsonProperty("depreciationAndAmortization")]
-    public double? DepreciationAndAmortization { get; set; }
+    public long? DepreciationAndAmortization { get; set; }
 
     /// <summary>
     /// Часть прибыли или убытка за период до налогообложения, относящаяся к материнской компании.
@@ -122,13 +122,13 @@ public class IncomeStatementReport
     /// <summary>
     /// Сумма текущего расхода (дохода) по налогу на прибыль и расхода (дохода) по отложенному налогу на прибыль, относящихся к продолжающейся деятельности.
     /// </summary>
-    [JsonProperty("incomeTaxExpense")] public double? IncomeTaxExpense { get; set; }
+    [JsonProperty("incomeTaxExpense")] public long? IncomeTaxExpense { get; set; }
 
     /// <summary>
     /// Процентные и долговые расходы, связанные с внереализационной финансовой деятельностью предприятия.
     /// </summary>
     [JsonProperty("interestAndDebtExpense")]
-    public double? InterestAndDebtExpense { get; set; }
+    public long? InterestAndDebtExpense { get; set; }
 
     /// <summary>
     /// Сумма после налогообложения дохода (убытка) от продолжающейся деятельности, относящаяся к материнской компании.
@@ -140,12 +140,12 @@ public class IncomeStatementReport
     /// Сумма после налогообложения увеличения (уменьшения) собственного капитала в результате операций и других событий и обстоятельств из чистой прибыли и прочего совокупного дохода, относящаяся к материнской компании. Исключая изменения в собственном капитале в результате инвестиций владельцев и выплат собственникам.
     /// </summary>
     [JsonProperty("comprehensiveIncomeNetOfTax")]
-    public double? ComprehensiveIncomeNetOfTax { get; set; }
+    public long? ComprehensiveIncomeNetOfTax { get; set; }
 
     /// <summary>
     /// Часть прибыли или убытка за период до налогообложения и процентных расходов, приходящаяся на материнскую компанию.
     /// </summary>
-    [JsonProperty("ebit")] public double? Ebit { get; set; }
+    [JsonProperty("ebit")] public long? Ebit { get; set; }
 
     /// <summary>
     /// Часть прибыли или убытка за период до налогообложения, процентных расходов и износа и амортизации, приходящаяся на материнскую компанию.

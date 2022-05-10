@@ -1,9 +1,25 @@
+using System.Linq.Expressions;
+using LinqKit;
 using SaluteStocksAPI.Models.FundamentalData;
 using SaluteStocksAPI.Screener;
 namespace SaluteStocksAPI.Models.Extensions;
 
 public static class CompanyOverviewExtension
 {
+    #region Basic
+
+    private static Expression<Func<CompanyOverview, BalanceSheetAnnualReport>> LastReportExpression =>
+        co => co.BalanceSheet.AnnualReports[0];
+
+    private static Expression<Func<CompanyOverview, double?>> DebtEquityExpression =>
+        overview => ( LastReportExpression.Invoke(overview).TotalLiabilities )/
+                    (LastReportExpression.Invoke(overview).TotalShareholderEquity);
+
+    private static Expression<Func<double, bool>> IsInRangeExpression(RangedValue<double> rv)
+    {
+        return d => d >= rv.Min && d <= rv.Max;
+    }
+    #endregion
     #region Common
     public static IQueryable<CompanyOverview> WhereCurrency(this IQueryable<CompanyOverview> queryable, params string[] currencies)
     {
@@ -16,14 +32,14 @@ public static class CompanyOverviewExtension
     }
     public static IQueryable<CompanyOverview> WhereCountry(this IQueryable<CompanyOverview> queryable, params string[] countries)
     {
-        return countries is { Length: > 0 } ? queryable.Where(x => countries.Contains(x.Currency)) : queryable;
+        return countries is { Length: > 0 } ? queryable.Where(x => countries.Contains(x.Country)) : queryable;
     }
     #endregion
     
     #region Financial
     public static IQueryable<CompanyOverview> WhereMarketCap(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.MarketCapitalization.HasValue || rangedValue.Value.IsInRange(x.MarketCapitalization.Value)) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.MarketCapitalization.HasValue ) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereEbitda(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
@@ -33,7 +49,10 @@ public static class CompanyOverviewExtension
     
     public static IQueryable<CompanyOverview> WhereDebtEquity(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => rangedValue.Value.IsInRange(x.DebtEquity)) : queryable;
+        Expression<Func<CompanyOverview, bool>> finalExpression = overview =>
+            !DebtEquityExpression.Invoke(overview).HasValue ||
+            IsInRangeExpression(rangedValue.Value).Invoke(DebtEquityExpression.Invoke(overview).Value);
+        return rangedValue.HasValue ? queryable.Where(finalExpression.Expand()) : queryable;
     }
     //ToDo: реализовать оставшиеся методы
     

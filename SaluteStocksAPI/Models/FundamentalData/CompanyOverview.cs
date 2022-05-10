@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Linq.Expressions;
+using Newtonsoft.Json;
 using SaluteStocksAPI.DataBase;
 
 namespace SaluteStocksAPI.Models.FundamentalData;
@@ -33,7 +34,6 @@ public class CompanyOverview : EntityInfo
     [JsonProperty("MarketCapitalization")] public long? MarketCapitalization { get; set; }
 
     [JsonProperty("EBITDA")] public long? EBITDA { get; set; }
-
     [JsonProperty("PERatio")] public double? PERatio { get; set; }
 
     [JsonProperty("PEGRatio")] public double? PEGRatio { get; set; }
@@ -99,6 +99,7 @@ public class CompanyOverview : EntityInfo
     [JsonProperty("ExDividendDate")] public DateTime? ExDividendDate { get; set; }
 
 
+    
     public double DebtEquity
     {
         get
@@ -111,24 +112,31 @@ public class CompanyOverview : EntityInfo
         }
     }
     
+    
     public double? EPSGrowthSomeYears(short some)
     {
         var earnings = Earnings.AnnualEarnings.OrderByDescending(x => x.FiscalDateEnding!.Value.Year).ToList();
-        if (earnings.Count < some+1)
+        if (earnings.Count < some + 1)
         {
             return null;
         }
-        if (earnings[0].FiscalDateEnding!.Value.Year - earnings[some].FiscalDateEnding!.Value.Year != some) // there are missing years in X last AnnualReports
+
+        if (earnings[0].FiscalDateEnding!.Value.Year - earnings[some].FiscalDateEnding!.Value.Year !=
+            some) // there are missing years in X last AnnualReports
         {
             return null;
         }
+
         if (earnings[0].FiscalDateEnding.Value.Year < 2020) // data is too old
         {
             return null;
         }
-        return earnings[0].ReportedEPS.Value / earnings[some].ReportedEPS.Value;
+
+        return earnings[some].ReportedEPS.Value / earnings[0].ReportedEPS.Value - 1;
     }
+
     public double? RevenueGrowthSomeYears(short some) {
+        
         //throw new NotImplementedException();
         if (IncomeStatement.AnnualReports.Count < some + 1)
         {
@@ -154,3 +162,4 @@ public class CompanyOverview : EntityInfo
     [JsonIgnore]
     public IncomeStatement IncomeStatement { get; set; }
 }
+

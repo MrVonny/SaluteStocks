@@ -56,7 +56,7 @@ public class BalanceSheetReport
     /// <summary>
     /// Общая сумма, причитающаяся предприятию в течение одного года с отчетной даты (или одного операционного цикла, если он дольше) из внешних источников, включая торговую дебиторскую задолженность, векселя и ссуды к получению, а также любые другие виды дебиторской задолженности, за вычетом резервов устанавливается с целью сокращения такой дебиторской задолженности до суммы, приблизительно равной ее чистой стоимости реализации.
     /// </summary>
-    [JsonProperty("currentNetReceivables")] public double? CurrentNetReceivables { get; set; }
+    [JsonProperty("currentNetReceivables")] public long? CurrentNetReceivables { get; set; }        
 
     /// <summary>
     /// Сумма балансовой стоимости на отчетную дату всех активов, которые, как ожидается, будут реализованы в виде денежных средств, проданы или потреблены через один год или по истечении обычного операционного цикла, если он дольше.
@@ -68,13 +68,13 @@ public class BalanceSheetReport
     /// Сумма после накопленного износа, истощения и амортизации материальных активов, используемых в ходе обычной деятельности для производства товаров и услуг и не предназначенных для перепродажи. Примеры включают, помимо прочего, землю, здания, машины и оборудование, офисное оборудование, а также мебель и приспособления.
     /// </summary>
     [JsonProperty("propertyPlantEquipment")]
-    public double? PropertyPlantEquipment { get; set; }
+    public long? PropertyPlantEquipment { get; set; }
 
     /// <summary>
     /// Сумма накопленного износа, истощения и амортизации физических активов, используемых в ходе обычной деятельности для производства товаров и услуг.
     /// </summary>
     [JsonProperty("accumulatedDepreciationAmortizationPPE")]
-    public double? AccumulatedDepreciationAmortizationPPE { get; set; }
+    public long? AccumulatedDepreciationAmortizationPPE { get; set; }
     
     /// <summary>
     /// Балансовая стоимость нематериальных активов с ограниченным сроком службы, нематериальных активов с неопределенным сроком службы и деловой репутации. Деловая репутация представляет собой актив, представляющий собой будущие экономические выгоды от других активов, приобретенных при объединении бизнеса, которые не идентифицируются и не признаются отдельно. Нематериальные активы – это активы, не включающие финансовые активы, не имеющие физического содержания.
@@ -95,7 +95,7 @@ public class BalanceSheetReport
     /// <summary>
     /// Сумма балансовой стоимости на отчетную дату всех инвестиций.
     /// </summary>
-    [JsonProperty("investments")] public double? Investments { get; set; }
+    [JsonProperty("investments")] public long? Investments { get; set; }
 
     /// <summary>
     /// Общая сумма инвестиций, которые предполагается удерживать в течение длительного периода времени (дольше одного операционного цикла).
@@ -133,17 +133,17 @@ public class BalanceSheetReport
     /// Балансовая стоимость на отчетную дату принятых обязательств (и по которым обычно выставляются счета-фактуры) и подлежащих уплате поставщикам за полученные товары и услуги, которые используются в бизнесе предприятия. Используется для отражения текущей части обязательств (со сроком погашения в течение одного года или в течение обычного операционного цикла, если он дольше).
     /// </summary>
     [JsonProperty("currentAccountsPayable")]
-    public double? CurrentAccountsPayable { get; set; }
+    public long? CurrentAccountsPayable { get; set; }
 
     /// <summary>
     /// Сумма доходов будущих периодов и обязательств по передаче продукции и услуг покупателю, за которые было получено или подлежит получению возмещение.
     /// </summary>
-    [JsonProperty("deferredRevenue")] public double? DeferredRevenue { get; set; }
+    [JsonProperty("deferredRevenue")] public long? DeferredRevenue { get; set; }
 
     /// <summary>
     /// Сумма краткосрочной задолженности и текущий срок погашения долгосрочной задолженности и обязательств по капитальной аренде, подлежащих погашению в течение одного года или обычного операционного цикла, если он дольше.
     /// </summary>
-    [JsonProperty("currentDebt")] public double? CurrentDebt { get; set; }
+    [JsonProperty("currentDebt")] public long? CurrentDebt { get; set; }
 
     /// <summary>
     /// Отражает общую балансовую стоимость на отчетную дату долга с первоначальным сроком погашения менее одного года или обычного операционного цикла, если он дольше.
@@ -176,7 +176,7 @@ public class BalanceSheetReport
     /// Сумма после неамортизированной (дисконтной) премии и затрат на выпуск долговых обязательств по долгосрочным долговым обязательствам, классифицируемым как долгосрочные, за исключением сумм, подлежащих погашению в течение одного года или обычного операционного цикла, если он дольше. Включает, помимо прочего, векселя к оплате, облигации к оплате, долговые обязательства, ипотечные кредиты и коммерческие бумаги. Исключая обязательства по капитальной аренде.
     /// </summary>
     [JsonProperty("longTermDebtNoncurrent")]
-    public double? LongTermDebtNoncurrent { get; set; }
+    public long? LongTermDebtNoncurrent { get; set; }
 
     /// <summary>
     /// не нашел на https://documentation.alphavantage.co/FundamentalDataDocs/gaap_documentation.html#BalanceSheet
@@ -221,7 +221,7 @@ public class BalanceSheetReport
     /// Наилучшая оценка Обыкновенных акций, находящихся в обращении. Если компания не сообщает стоимость на конец периода, сумма по умолчанию равна отчетной стоимости средневзвешенных акций в обращении за квартал без разбавления (us-gaap::WeightedAverageNumberOfSharesOutstandingBasic).
     /// </summary>
     [JsonProperty("commonStockSharesOutstanding")]
-    public double? CommonStockSharesOutstanding { get; set; }
+    public long? CommonStockSharesOutstanding { get; set; }
 }
 
 public class BalanceSheetAnnualReport : BalanceSheetReport
