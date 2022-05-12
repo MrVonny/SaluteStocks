@@ -1,22 +1,87 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../App.css';
-import {Checkbox, Col, Container, Row} from '@sberdevices/plasma-ui';
-import {useRecoilState, useRecoilValue} from "recoil";
+import {Checkbox, Col, Container, RectSkeleton, Row} from '@sberdevices/plasma-ui';
+import {RecoilState, useRecoilState, useRecoilValue} from "recoil";
 import {
     debtEquityState,
     ebitdaState,
     epsGrowth1YearState, epsGrowth3YearState,
     marketCapState,
     peRatioState,
-    Range,
+    Range, ScreenerPropertyRangeStorage,
     screenerState
 } from "../Storage";
 import {ScreenerSector} from "./ScreenerSector";
-import {ScreenerRangeProperty, ScreenerPropertyType} from "./ScreenerProperty";
+import {ScreenerRangeProperty, ScreenerPropertyType, InterpolateDist} from "./ScreenerProperty";
+import {
+    DebtEquityProperty,
+    EbidtaProperty,
+    EpsGrowth1YearProperty, EpsGrowth3YearProperty,
+    MarketCapProperty,
+    PeRatioProperty
+} from "./Properties/Properties";
+import {Distribution} from "./ScreenerChart";
+
+
+type ScreenerComponentState = {
+    isLoaded : boolean;
+}
+
 
 
 const Screener = () => {
-    const screenerVal = useRecoilValue(screenerState);
+    const [screenerVal, SetScreenerRecoilState] = useRecoilState(screenerState);
+    const [state, setState] = React.useState({
+        isLoaded: false
+    } as ScreenerComponentState);
+
+    const [marketCapStateRecoil, setMarketCapStateRecoil] = useRecoilState(marketCapState);
+
+    useEffect(() => {
+        if (!state.isLoaded)/*salut-stocks.xyz*/
+        {
+            fetch("https://localhost:5001/api/screener-model")
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        console.log(result);
+                        SetScreenerRecoilState(result);
+                        setState({...state, isLoaded: true});
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+
+            let LoadDistribution = (name : string, state : any, setState : any) =>
+            {
+                fetch(`https://localhost:5001/api/distribution/${name}/100`)
+                    .then(res => res.json())
+                    .then(
+                        (result) => {
+                            const res = result as Distribution;
+                            setState({...state,
+                                distribution: res,
+                                isDistributionLoaded: true,
+                                isRangeLoaded: true,
+                                available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
+                                selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
+                            });
+                            console.log(res);
+                        },
+                        (error) => {
+                            setState({...state,
+                                isLoaded: true,
+                            });
+                        }
+                    )
+            }
+            LoadDistribution("market-cap", marketCapStateRecoil, setMarketCapStateRecoil);
+
+        }
+
+    }, [state])
+
     return (
         <Container>
             <ScreenerSector title={"Валюта"}>
@@ -30,63 +95,26 @@ const Screener = () => {
             <ScreenerSector title={"Финансовые показатели"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerRangeProperty title={"Market Cap"}
-                                               subtitle={"Стоиость компании"}
-                                               description={"Стоиость компании на фондовом рынке"}
-                                               rangeState={marketCapState}
-                                               unit="млдр, $"
-                        />
-
+                        <MarketCapProperty/>
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerRangeProperty title={"EBITDA"}
-                                          subtitle={"Сколько копмпания зарабатывает"}
-                                          description={"Приыбль до вычета расходов, не связанных с операционной деятельностью компании"}
-                                               rangeState={ebitdaState}
-                                          unit="млдр, $"
-
-                        />
-
+                        <EbidtaProperty/>
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerRangeProperty title={"Debt / Equity"}
-                                          subtitle={"Чем больше %, тем выше долг компании"}
-                                          description={"Соотношение заёмного капитала компании к собственному"}
-                                          rangeState={debtEquityState}
-                                          unit="%"
-
-                        />
-
+                        <DebtEquityProperty/>
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerRangeProperty title={"P / E"}
-                                          subtitle={"Через сколько лет окупится акция"}
-                                          description={"Отношения цены акции к прибыли, которая приходится на одну акцию"}
-                                               rangeState={peRatioState}
-
-                        />
-
+                        <PeRatioProperty/>
                     </Col>
                 </Row>
             </ScreenerSector>
             <ScreenerSector title={"Динамика"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerRangeProperty title={"Рост EPS за 1 год"}
-                                          subtitle={""}
-                                          description={"Процентный рост EPS за год"}
-                                          rangeState={epsGrowth1YearState}
-                                          unit="%"
-                        />
-
+                        <EpsGrowth1YearProperty/>
                     </Col>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <ScreenerRangeProperty title={"Рост EPS за 3 года"}
-                                          subtitle={""}
-                                          description={"Процентный рост EPS за 3 года"}
-                                               rangeState={epsGrowth3YearState}
-                                          unit="%"
-                        />
+                        <EpsGrowth3YearProperty/>
                     </Col>
                 </Row>
             </ScreenerSector>

@@ -9,12 +9,12 @@ import {
     Container,
     H1,
     H2,
-    H3, Row, Sheet, TextBox,
+    H3, LineSkeleton, RectSkeleton, Row, Sheet, TextBox,
     TextBoxBigTitle, TextBoxLabel,
     TextBoxSubTitle
 } from "@sberdevices/plasma-ui"
 import {Range, ScreenerPropertyRangeStorage, screenerState} from "../Storage";
-import { colorValues } from '@sberdevices/plasma-tokens';
+import {colorValues, headline3} from '@sberdevices/plasma-tokens';
 import {IconClose} from "@sberdevices/plasma-icons";
 import {Label, SubTitle, Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
 import {useRecoilState, RecoilState, useRecoilValue} from "recoil";
@@ -63,6 +63,8 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
         isSelected: false,
     } as ScreenerPropertyState);
 
+    const [recoilState] = useRecoilState(rangeState!);
+
     const onApplyClick = () => {
         setState({...state, isSelected: true, isSheetOpen: false});
     }
@@ -93,7 +95,7 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                   onClick={(event) => {
                 setState({...state, isSheetOpen: true})
             }}>
-                <CardContent>
+                {recoilState.isRangeLoaded ? <CardContent>
                     {state.isSelected ?
                         <div style={{
                             right: 10,
@@ -119,9 +121,11 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                         </TextBoxBigTitle>
                     </CellContent>
                     <Cell content={<TextBoxSubTitle>{subtitle}</TextBoxSubTitle>}/>
-                </CardContent>
+                </CardContent> : <RectSkeleton width="100%" height="12rem"/>}
+                    
             </Card>
 
+            {recoilState.isRangeLoaded ?
             <Sheet isOpen={state.isSheetOpen} onClose={() => setState({...state, isSheetOpen: false})}>
                 <TextBoxBigTitle>{title} ({unit})</TextBoxBigTitle>
                 <TextBoxSubTitle>{description}</TextBoxSubTitle>
@@ -129,6 +133,7 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                     {renderSwitch(type)}
                 </Container>
             </Sheet>
+                : ""}
         </>
     );
 }
@@ -145,7 +150,7 @@ export const ScreenerRangeProperty : React.FC<ScreenerRangePropertyProps> =
     />
 }
 
-function intepolateDist(distribution: Distribution) : Distribution
+export function InterpolateDist(distribution: Distribution) : Distribution
 {
     const interpolator = createInterpolatorWithFallback("akima",
         distribution.Values.map(x=>x.Position),
@@ -163,47 +168,55 @@ function intepolateDist(distribution: Distribution) : Distribution
 
 }
 
-const STEPS = 200;
+const STEPS = 100;
 
 const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, onApplyClick}) => {
 
     const [range, setRangeState] = useRecoilState(rangeState)
-    const [state, setState] = useState(range as ScreenerPropertyRangeStorage)
-    const onSliderCommitted = (event: Event | React.SyntheticEvent, values: number[] | number) => {
-        const val = values as number[];
-        setRangeState({...range, selected: {from: val[0], to: val[1]} as Range})
-    }
+    const [state, setState] = useState({...range, fromLabel: range.selected.from.toFixed(4).toString(), toLabel: range.selected.from.toFixed(4).toString()})
     const onSliderChange = (event: Event, values: number[] | number) => {
         const val = values as number[];
-        setState({...state, selected: {from: val[0], to: val[1]} as Range})
+        setState({...range,
+            selected: {from: val[0], to: val[1]} as Range,
+            fromLabel: range.distribution.Values.at(val[0])?.Position.toFixed(4).toString() ?? "",
+            toLabel: range.distribution.Values.at(val[1])?.Position.toFixed(4).toString() ?? ""})
+    }
+    const onSliderCommitted = (event: Event | React.SyntheticEvent, values: number[] | number) => {
+        const val = values as number[];
+        setRangeState({
+            ...range,
+            selected: {
+                from: range.distribution.Values.at(val[0])?.Position ?? range.selected.from,
+                to: range.distribution.Values.at(val[1])?.Position ?? range.selected.to} as Range
+        });
     }
 
-    useEffect(() => {
-        if (!state.isLoaded)
-            fetch("https://salut-stocks.xyz/api/distribution/market-cap/20")
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        const res = result as Distribution;
-                        setState({...state,
-                            distribution: intepolateDist(res),
-                            isLoaded: true,
-                            available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
-                            selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
-                        });
-                        setRangeState({...range,
-                            available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
-                            selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
-                        })
-                        console.log(res);
-                    },
-                    // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
-                    // чтобы не перехватывать исключения из ошибок в самих компонентах.
-                    (error) => {
-                        console.log(error);
-                    }
-                )
-    }, [state])
+    // useEffect(() => {
+    //     if (!state.isLoaded)
+    //         fetch("https://salut-stocks.xyz/api/distribution/market-cap/20")
+    //             .then(res => res.json())
+    //             .then(
+    //                 (result) => {
+    //                     const res = result as Distribution;
+    //                     setState({...state,
+    //                         distribution: intepolateDist(res),
+    //                         isLoaded: true,
+    //                         available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
+    //                         selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
+    //                     });
+    //                     setRangeState({...range,
+    //                         available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
+    //                         selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
+    //                     })
+    //                     console.log(res);
+    //                 },
+    //                 // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+    //                 // чтобы не перехватывать исключения из ошибок в самих компонентах.
+    //                 (error) => {
+    //                     console.log(error);
+    //                 }
+    //             )
+    // }, [state])
 
     return(
         <>
@@ -212,22 +225,25 @@ const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, o
                 marginRight: -0
             }}>
 
-                <Col size={1} style={{textAlign: "left"}}><TextBox>{state.selected.from.toString()}</TextBox></Col>
+                <Col size={1} style={{textAlign: "left"}}><TextBox>{state.fromLabel}</TextBox></Col>
                 <Col size={1} offsetXL={10} offsetL={6} offsetM={4} offsetS={2}
-                     style={{textAlign: "right"}}><TextBox>{state.selected.to.toString()}</TextBox></Col>
+                     style={{textAlign: "right"}}><TextBox>{state.toLabel}</TextBox></Col>
             </Row>
-            <ScreenerChart availableRange={state.available} selectedRange={state.selected} distribution={state.distribution ?? { Values: []}}/>
+            <ScreenerChart availableRange={state.available} selectedRange={state.selected} distribution={range.distribution ?? { Values: []}}/>
 
 
             <div>
-
-                <Slider min={range.available.from}
-                        max={range.available.to}
-                        step={(range.available.to - range.available.from)/STEPS}
-                        value={[state.selected.from, state.selected.to]}
-                        onChange={onSliderChange}
-                        onChangeCommitted={onSliderCommitted}
-                />
+                {range.isDistributionLoaded ?
+                    <Slider min={0}
+                    max={STEPS-1}
+                    step={1}
+                    value={[state.selected.from, state.selected.to]}
+                    onChange={onSliderChange}
+                    onChangeCommitted={onSliderCommitted}
+                    />
+                    :
+                    <LineSkeleton size="headline3"/>
+                }
             </div>
             <Row>
                 <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>

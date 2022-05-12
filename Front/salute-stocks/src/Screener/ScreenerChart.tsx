@@ -14,6 +14,7 @@ import {ArgumentScale, Animation, FactoryFn, SplineSeries} from '@devexpress/dx-
 import { scalePoint } from 'd3-scale';
 import { colorValues } from '@sberdevices/plasma-tokens';
 import {createInterpolatorWithFallback} from "./Interpolation/Index";
+import {InterpolateDist} from "./ScreenerProperty";
 
 export declare type ScreenerChartProps = {
     availableRange : Range,
@@ -68,28 +69,29 @@ export const ScreenerChart: React.FC<ScreenerChartProps> = ({availableRange, sel
     //const selectedRange = recoilState.selected;
 
     const data1 = distribution.Values
-        .filter(x=>x.Position >= availableRange.from && x.Position <= selectedRange.from)
-        .map(x=>({
+        .map((x,i)=>({
             selected: 0,
             unselected: x.Value,
-            position: x.Position
-        }) as chartPoint);
+            position: i
+        }) as chartPoint)
+        .slice(0, selectedRange.from + 1);
     const data2 = distribution.Values
-        .filter(x=>x.Position >= selectedRange.from && x.Position <= selectedRange.to)
-        .map(x=>({
+        .map((x,i)=>({
             selected: x.Value,
             unselected: 0,
-            position: x.Position
-        }) as chartPoint);
+            position: i
+        }) as chartPoint)
+        .slice(selectedRange.from, selectedRange.to);
     const data3 = distribution.Values
-        .filter(x=>x.Position >= selectedRange.to && x.Position <= availableRange.to)
-        .map(x=>({
+        .map((x,i)=>({
             selected: 0,
             unselected: x.Value,
-            position: x.Position
-        }) as chartPoint);
+            position: i
+        }) as chartPoint)
+        .slice(selectedRange.to - 1, distribution.Values.length-1);
 
     const data = data1.concat(data2).concat(data3)
+    console.log(data);
 
     return(
         <div className="" style={{

@@ -30,9 +30,10 @@ public class ApiController : ControllerBase
     }
 
     [Route("screener-model")]
-    public async Task<string> GetScreenerModel()
+    public async Task<IActionResult> GetScreenerModel()
     {
-        throw new InvalidOperationException();
+        var model = await _screenerService.GetInitialModelAsync();
+        return Ok(JsonConvert.SerializeObject(model));
     }
 
     [Route("distribution/market-cap/{pieces}")]

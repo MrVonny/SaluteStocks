@@ -4,7 +4,7 @@ namespace SaluteStocksAPI.Models.Distribution;
 
 public struct DistributionValue
 {
-    public int Position;
+    public double Position;
     public int Value;
 
     public DistributionValue(KeyValuePair<int, int> kv)
@@ -13,7 +13,7 @@ public struct DistributionValue
         Value = kv.Value;
     }
 
-    public DistributionValue(int pos, int val)
+    public DistributionValue(double pos, int val)
     {
         Position = pos;
         Value = val;
