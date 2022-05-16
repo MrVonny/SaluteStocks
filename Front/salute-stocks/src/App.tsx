@@ -8,18 +8,32 @@ import
     RecoilRoot,
     useRecoilState
 } from "recoil";
-import {screenerState} from "./Storage";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 import Screener from "./Screener/Screener";
-
+import {CompaniesView} from "./CompaniesView/CompaniesView";
 
 
 function App() {
     return (
         <RecoilRoot>
             <DeviceThemeProvider>
-                <Container className="App">
-                    <Screener/>
-                </Container>
+                <Router>
+                    <Container className="App">
+                        <Switch>
+                            <Route exact path="/">
+                                <Screener/>
+                            </Route>
+                            <Route path="/companies">
+                                <CompaniesView />
+                            </Route>
+                        </Switch>
+                    </Container>
+                </Router>
             </DeviceThemeProvider>
         </RecoilRoot>
   );

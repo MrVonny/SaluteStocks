@@ -63,10 +63,11 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
         isSelected: false,
     } as ScreenerPropertyState);
 
-    const [recoilState] = useRecoilState(rangeState!);
+    const [recoilState, setRecoilState] = useRecoilState(rangeState!);
 
     const onApplyClick = () => {
         setState({...state, isSelected: true, isSheetOpen: false});
+        setRecoilState({...recoilState, isSelected: true});
     }
 
     const color = !state.isSelected ? colorValues.surfaceCard : colorValues.buttonSuccess;
@@ -105,6 +106,7 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                             <ActionButton size="s" view="critical" onClick={(event) => {
                                 event.stopPropagation();
                                 setState({...state, isSelected: false})
+                                setRecoilState({...recoilState, isSelected: false})
                             }}>
                                 <IconClose/>
                             </ActionButton>
@@ -191,32 +193,6 @@ const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, o
         });
     }
 
-    // useEffect(() => {
-    //     if (!state.isLoaded)
-    //         fetch("https://salut-stocks.xyz/api/distribution/market-cap/20")
-    //             .then(res => res.json())
-    //             .then(
-    //                 (result) => {
-    //                     const res = result as Distribution;
-    //                     setState({...state,
-    //                         distribution: intepolateDist(res),
-    //                         isLoaded: true,
-    //                         available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
-    //                         selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
-    //                     });
-    //                     setRangeState({...range,
-    //                         available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
-    //                         selected:  {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
-    //                     })
-    //                     console.log(res);
-    //                 },
-    //                 // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
-    //                 // чтобы не перехватывать исключения из ошибок в самих компонентах.
-    //                 (error) => {
-    //                     console.log(error);
-    //                 }
-    //             )
-    // }, [state])
 
     return(
         <>

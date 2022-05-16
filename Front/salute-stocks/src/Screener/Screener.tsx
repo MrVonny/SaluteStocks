@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, useEffect} from 'react';
 import '../App.css';
-import {Checkbox, Col, Container, RectSkeleton, Row} from '@sberdevices/plasma-ui';
+import {Button, Checkbox, Col, Container, RectSkeleton, Row} from '@sberdevices/plasma-ui';
 import {RecoilState, useRecoilState, useRecoilValue} from "recoil";
 import {
+    currencyState,
     debtEquityState,
     ebitdaState,
     epsGrowth1YearState, epsGrowth3YearState,
@@ -21,6 +22,7 @@ import {
     PeRatioProperty
 } from "./Properties/Properties";
 import {Distribution} from "./ScreenerChart";
+import {Link} from "react-router-dom";
 
 
 type ScreenerComponentState = {
@@ -35,7 +37,10 @@ const Screener = () => {
         isLoaded: false
     } as ScreenerComponentState);
 
+    const [currencyStateRecoil, setCurrencyStateRecoil] = useRecoilState(currencyState);
+
     const [marketCapStateRecoil, setMarketCapStateRecoil] = useRecoilState(marketCapState);
+    const [ebitdaStateRecoil, setEbitdaStateRecoil] = useRecoilState(ebitdaState);
 
     useEffect(() => {
         if (!state.isLoaded)/*salut-stocks.xyz*/
@@ -77,18 +82,32 @@ const Screener = () => {
                     )
             }
             LoadDistribution("market-cap", marketCapStateRecoil, setMarketCapStateRecoil);
+            LoadDistribution("ebitda", ebitdaStateRecoil, setEbitdaStateRecoil);
 
         }
 
     }, [state])
 
+    const onCurrencyChange = (event : ChangeEvent<HTMLInputElement>, currency : string) => {
+        console.log(currencyStateRecoil);
+        if(event.currentTarget.checked)
+            setCurrencyStateRecoil({
+                currencies: currencyStateRecoil.currencies.concat(currency)
+            })
+        else
+            setCurrencyStateRecoil({
+                currencies: currencyStateRecoil.currencies.filter(x=>x != currency)
+            })
+
+    }
+
     return (
         <Container>
             <ScreenerSector title={"Валюта"}>
                 <div className={"d-flex flex-row"}>
-                    <span className={"me-4"}><Checkbox label={"RUB"}/></span>
-                    <span className={"me-4"}><Checkbox label={"USD"}/></span>
-                    <span className={"me-4"}><Checkbox label={"EUR"}/></span>
+                    <span className={"me-4"}><Checkbox label={"RUB"} onChange={(event) => onCurrencyChange(event, "RUB")}/></span>
+                    <span className={"me-4"}><Checkbox label={"USD"} onChange={(event) => onCurrencyChange(event, "USD")}/></span>
+                    <span className={"me-4"}><Checkbox label={"EUR"} onChange={(event) => onCurrencyChange(event, "EUR")}/></span>
                 </div>
             </ScreenerSector>
 
@@ -118,6 +137,13 @@ const Screener = () => {
                     </Col>
                 </Row>
             </ScreenerSector>
+            <Row>
+                <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
+                    <Link to="/companies">
+                        <Button>Найти</Button>
+                    </Link>
+                </Col>
+            </Row>
         </Container>
     );
 }

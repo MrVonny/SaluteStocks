@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SaluteStocksAPI.DataBase;
 using SaluteStocksAPI.Models.Extensions;
 using SaluteStocksAPI.Screener;
+using SaluteStocksAPI.ViewModels;
 
 namespace SaluteStocksAPI.Service;
 
@@ -42,6 +43,22 @@ public class ScreenerService
             .WhereNextDividend(screenerModel.NextDividend);
 
             return await companiesQuery.Select(x => x.Symbol).ToListAsync();
+    }
+
+    public async Task<List<CompanyIndexViewModel>> GetCompanies(List<string> tickers)
+    {
+        var result = await _repository.CompanyOverviews
+            .Where(c => tickers.Contains(c.Symbol))
+            .Select(c => new CompanyIndexViewModel()
+            {
+                Name = c.Name,
+                Ticker = c.Symbol,
+                Description = c.Description,
+                Country = c.Country,
+                Sector = c.Sector,
+                Price = ""
+            }).ToListAsync();
+        return result;
     }
 
 

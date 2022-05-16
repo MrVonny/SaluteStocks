@@ -39,11 +39,11 @@ public static class CompanyOverviewExtension
     #region Financial
     public static IQueryable<CompanyOverview> WhereMarketCap(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => x.MarketCapitalization.HasValue ) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.MarketCapitalization.HasValue && rangedValue.Value.Max >= x.MarketCapitalization.Value && rangedValue.Value.Min <= x.MarketCapitalization.Value ) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereEbitda(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.EBITDA.HasValue || rangedValue.Value.IsInRange(x.EBITDA.Value)) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.EBITDA.HasValue && rangedValue.Value.Max >= x.EBITDA.Value && rangedValue.Value.Min <= x.EBITDA.Value) : queryable;
     }
 
     
