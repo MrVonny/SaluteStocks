@@ -16,11 +16,30 @@ export declare type ScreenerPropertyRangeStorage = {
     isDistributionLoaded : boolean;
 }
 
+export declare type ScreenerPropertyListStorage = {
+    values: string[]
+    isSelected: boolean;
+}
+
+export declare type ListValue = {
+    isSelected: boolean;
+    value: string;
+}
+
 export declare type Screener = {
     marketCap: Range;
     epsGrowth1Year: Range;
     epsGrowth3Year: Range;
 }
+
+export const sectorState = atom({
+    key: 'sector',
+    default: {
+        isSelected: false,
+        values: []
+    } as ScreenerPropertyListStorage
+})
+
 
 export const currencyState = atom({
     key: 'currency',
@@ -34,6 +53,7 @@ export const marketCapState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -43,6 +63,7 @@ export const ebitdaState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -52,6 +73,7 @@ export const debtEquityState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -61,6 +83,7 @@ export const peRatioState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -70,6 +93,7 @@ export const epsState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -79,6 +103,7 @@ export const betaState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -88,6 +113,7 @@ export const epsGrowth1YearState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -97,15 +123,26 @@ export const epsGrowth3YearState = atom({
     default: {
         available: {},
         selected: undefined,
+        isSelected: false,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
+
+export const mapSectorNameValue = [
+    {value: "ENERGY & TRANSPORTATION", name: "Энергетика и транспорт"},
+    {value: "FINANCE", name: "Финансы"},
+    {value: "LIFE SCIENCES", name: "Медицина"},
+    {value: "MANUFACTURING", name: "Производство"},
+    {value: "REAL ESTATE & CONSTRUCTION", name: "Недвижимость"},
+    {value: "TECHNOLOGY", name: "Технологии"},
+    {value: "TRADE & SERVICES", name: "Потребительский"}
+]
 
 export const screenerSelectedPropertiesDescriptionState = selector({
     key: "screenerSelectedPropertiesDescription",
     get: ({get}) => {
         let arr = [] as string[];
-        const currencies = get(currencyState);
+        const sectors = get(sectorState);
         const marketCap = get(marketCapState);
         const ebitda = get(ebitdaState);
         const debtEquity = get(debtEquityState);
@@ -114,8 +151,8 @@ export const screenerSelectedPropertiesDescriptionState = selector({
         const beta = get(betaState);
         const epsGrowth1Year = get(epsGrowth1YearState);
 
-        if(currencies.currencies != [])
-            arr.push(`Валюты: ${currencies.currencies.join(', ')}`)
+        if(sectors.values !== [])
+            arr.push(`Секторы: ${sectors.values.map(x=>mapSectorNameValue.find(g=>g.value === x)?.name).join(', ')}`)
         if(marketCap.isSelected)
             arr.push(`Market Cap ${marketCap.selected!.from} -  ${marketCap.selected!.to} млрд. $`)
         if(ebitda.isSelected)
@@ -138,12 +175,13 @@ export const screenerSelectedPropertiesDescriptionState = selector({
 export const screenerSelectedPropertiesState = selector({
     key: "screenerSelectedProperties",
     get: ({get}) => ({
-        currencies: get(currencyState).currencies,
+        sectors: get(sectorState).isSelected ? get(sectorState).values : undefined,
         marketCap: get(marketCapState).isSelected ? get(marketCapState).selected : undefined,
         ebitda: get(ebitdaState).isSelected ? get(ebitdaState).selected : undefined,
         debtEquity: get(debtEquityState).isSelected ? get(debtEquityState).selected : undefined,
         peRatio: get(peRatioState).isSelected ? get(peRatioState).selected : undefined,
         eps: get(epsState).isSelected ? get(epsState).selected : undefined,
+        beta: get(betaState).isSelected ? get(betaState).selected : undefined,
         epsGrowth1Year: get(epsGrowth1YearState).isSelected ? get(epsGrowth1YearState).selected : undefined,
         epsGrowth3Year: get(epsGrowth3YearState).isSelected ? get(epsGrowth3YearState).selected : undefined,
     }),

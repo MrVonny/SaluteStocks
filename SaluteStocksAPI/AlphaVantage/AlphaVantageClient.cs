@@ -50,13 +50,16 @@ public class AlphaVantageClient
         }
     }
 
-    private readonly string _apikey;
+    private string[] _keys;
+    private Random _random;
+    private string ApiKey => _keys[_random.Next(_keys.Length-1)];
 
     private static string BaseUrl => "https://www.alphavantage.co/";
 
-    public AlphaVantageClient(string apikey)
+    public AlphaVantageClient(string[] apiKeys)
     {
-        _apikey = apikey;
+        _random = new Random(DateTime.Now.Millisecond);
+        _keys = apiKeys;
     }
 
     #region FundamentalData
@@ -130,7 +133,7 @@ public class AlphaVantageClient
             _ => throw new ArgumentOutOfRangeException(nameof(listingStatus), listingStatus, null)
         }));
         
-        var uri = GenerateUri(FunctionNames.FundamentalData.ListingDelistingStatus, values.ToArray());
+        var uri = GenerateDemoUri(FunctionNames.FundamentalData.ListingDelistingStatus, values.ToArray());
 
         return await GetAndParseCsvAsync<ListingRow>(uri);
     }
@@ -363,8 +366,19 @@ public class AlphaVantageClient
         Log.Information("Generating URI for {Function} with params: {Params}", 
             function,
             string.Join(",",query.Select(x=>$"{x.Key}: {x.Value}")));
-        var uri = new Uri(BaseUrl + $"query?apikey={_apikey}&function={function}&" +
+        var uri = new Uri(BaseUrl + $"query?apikey={ApiKey}&function={function}&" +
                        string.Join("&", query.Select(pair => $"{pair.Key}={pair.Value}")));
+        Log.Information("URI: {URI}", uri.ToString());
+        return uri;
+    }
+    
+    private Uri GenerateDemoUri(string function, params KeyValuePair<string, string>[] query)
+    {
+        Log.Information("Generating URI for {Function} with params: {Params}", 
+            function,
+            string.Join(",",query.Select(x=>$"{x.Key}: {x.Value}")));
+        var uri = new Uri(BaseUrl + $"query?apikey=demo&function={function}&" +
+                          string.Join("&", query.Select(pair => $"{pair.Key}={pair.Value}")));
         Log.Information("URI: {URI}", uri.ToString());
         return uri;
     }

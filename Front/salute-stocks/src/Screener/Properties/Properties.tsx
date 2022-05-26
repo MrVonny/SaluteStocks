@@ -3,11 +3,11 @@ import {
     debtEquityState,
     ebitdaState,
     epsGrowth1YearState,
-    epsGrowth3YearState, epsState,
+    epsGrowth3YearState, epsState, mapSectorNameValue,
     marketCapState,
-    peRatioState
+    peRatioState, sectorState
 } from "../../Storage";
-import {ScreenerRangeProperty} from "../ScreenerProperty";
+import {ScreenerListProperty, ScreenerRangeProperty} from "../ScreenerProperty";
 import React from "react";
 
 export const MarketCapProperty = () => <ScreenerRangeProperty title={"Market Cap"}
@@ -62,4 +62,11 @@ export const  BetaProperty = () => <ScreenerRangeProperty title={"Beta"}
                                                          description={"Показатель волатильности акций по отношению у рынку"}
                                                          rangeState={betaState}
                                                          unit=""
+/>
+
+export const  SectorProperty = () => <ScreenerListProperty title={"Сектор"}
+                                                          subtitle={""}
+                                                          description={""}
+                                                          valuesState={sectorState}
+                                                          values={mapSectorNameValue}
 />

@@ -5,7 +5,7 @@ import {
     Card,
     CardBody,
     CardContent,
-    Cell, CellContent, CellContentWrapper, Col,
+    Cell, CellContent, CellContentWrapper, Checkbox, Col,
     Container,
     H1,
     H2,
@@ -13,14 +13,14 @@ import {
     TextBoxBigTitle, TextBoxLabel,
     TextBoxSubTitle
 } from "@sberdevices/plasma-ui"
-import {Range, ScreenerPropertyRangeStorage, screenerState} from "../Storage";
+import {Range, ScreenerPropertyListStorage, ScreenerPropertyRangeStorage, screenerState} from "../Storage";
 import {colorValues, headline3} from '@sberdevices/plasma-tokens';
 import {IconClose} from "@sberdevices/plasma-icons";
 import {Label, SubTitle, Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
 import {useRecoilState, RecoilState, useRecoilValue} from "recoil";
 import {Distribution, DistributionValue, ScreenerChart} from "./ScreenerChart";
 import {createInterpolatorWithFallback} from "./Interpolation/Index";
-import {Slider} from "@mui/material";
+import {List, Slider} from "@mui/material";
 
 type ScreenerPropertyProps = {
     title: string,
@@ -30,6 +30,8 @@ type ScreenerPropertyProps = {
     rangeState?: RecoilState<ScreenerPropertyRangeStorage>
     unit? : string,
     description? : string,
+    valuesState?: RecoilState<ScreenerPropertyListStorage>
+    values?: ListValue[]
 }
 
 type ScreenerRangePropertyProps = {
@@ -38,6 +40,19 @@ type ScreenerRangePropertyProps = {
     rangeState: RecoilState<ScreenerPropertyRangeStorage>
     unit? : string,
     description? : string,
+}
+
+type ScreenerListPropertyProps = {
+    title: string,
+    subtitle: string,
+    valuesState: RecoilState<ScreenerPropertyListStorage>
+    values : ListValue[]
+    description? : string,
+}
+
+export type ListValue = {
+    name: string,
+    value: string
 }
 
 export enum ScreenerPropertyType {
@@ -55,20 +70,44 @@ type ScreenerSheetSliderProps = {
     onApplyClick: () => void;
 }
 
+type ScreenerSheetListProps = {
+    valuesState: RecoilState<ScreenerPropertyListStorage>
+    values : ListValue[]
+    onApplyClick: () => void;
+}
+
 
 const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, type, unit, description,
-                                                           rangeState, listState, children}) => {
-    const [recoilState, setRecoilState] = useRecoilState(rangeState!);
+                                                           rangeState, listState, children,
+                                                               values, valuesState}) => {
+
+    let rangeRecoilState: ScreenerPropertyRangeStorage | undefined,
+        setRangeRecoilState: (valOrUpdater: (((currVal: ScreenerPropertyRangeStorage) => ScreenerPropertyRangeStorage) | ScreenerPropertyRangeStorage)) => void | undefined;
+    if(rangeState !== undefined)
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        [rangeRecoilState, setRangeRecoilState] = useRecoilState(rangeState);
+
+    let listRecoilState: ScreenerPropertyListStorage | undefined,
+        setListRecoilState: (valOrUpdater: (((currVal: ScreenerPropertyListStorage) => ScreenerPropertyListStorage) | ScreenerPropertyListStorage)) => void | undefined;
+    if(valuesState !== undefined)
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        [listRecoilState, setListRecoilState] = useRecoilState(valuesState);
+
     const [state, setState] = React.useState({
         isSheetOpen: false,
-        isSelected: recoilState.isSelected,
+        isSelected: rangeRecoilState?.isSelected ?? listRecoilState?.isSelected ?? false,
     } as ScreenerPropertyState);
 
 
 
-    const onApplyClick = () => {
+    const onApplyClickRange = () => {
         setState({...state, isSelected: true, isSheetOpen: false});
-        setRecoilState({...recoilState, isSelected: true});
+        setRangeRecoilState({...rangeRecoilState!, isSelected: true});
+    }
+
+    const onApplyClickList = () => {
+        setState({...state, isSelected: true, isSheetOpen: false});
+        setListRecoilState({...listRecoilState!, isSelected: true});
     }
 
     const color = !state.isSelected ? colorValues.surfaceCard : colorValues.buttonSuccess;
@@ -77,11 +116,11 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
         switch (type) {
             case ScreenerPropertyType.Range:
                 return(
-                    <ScreenerSheetSlider rangeState={rangeState!} onApplyClick={onApplyClick}/>
+                    <ScreenerSheetSlider rangeState={rangeState!} onApplyClick={onApplyClickRange}/>
                 );
             case ScreenerPropertyType.List:
                 return (
-                    <></>
+                    <ScreenerSheetList values={values ?? []} valuesState={valuesState!} onApplyClick={onApplyClickList} />
                 )
         }
     }
@@ -97,7 +136,7 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                   onClick={(event) => {
                 setState({...state, isSheetOpen: true})
             }}>
-                {recoilState.isRangeLoaded ? <CardContent>
+                {(type === ScreenerPropertyType.Range ? rangeRecoilState!.isRangeLoaded : true) ? <CardContent>
                     {state.isSelected ?
                         <div style={{
                             right: 10,
@@ -107,7 +146,9 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                             <ActionButton size="s" view="critical" onClick={(event) => {
                                 event.stopPropagation();
                                 setState({...state, isSelected: false})
-                                setRecoilState({...recoilState, isSelected: false})
+                                type === ScreenerPropertyType.Range ?
+                                setRangeRecoilState({...rangeRecoilState!, isSelected: false}) :
+                                setListRecoilState({...listRecoilState!, isSelected: false})
                             }}>
                                 <IconClose/>
                             </ActionButton>
@@ -128,9 +169,9 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
 
             </Card>
 
-            {recoilState.isRangeLoaded ?
+            {(type === ScreenerPropertyType.Range ? rangeRecoilState!.isRangeLoaded : true) ?
             <Sheet isOpen={state.isSheetOpen} onClose={() => setState({...state, isSheetOpen: false})}>
-                <TextBoxBigTitle>{title}{unit !== undefined ? ` ${unit}` : "" }</TextBoxBigTitle>
+                <TextBoxBigTitle>{title}{unit !== undefined ? ` (${unit})` : "" }</TextBoxBigTitle>
                 <TextBoxSubTitle>{description}</TextBoxSubTitle>
                 <Container>
                     {renderSwitch(type)}
@@ -152,6 +193,18 @@ export const ScreenerRangeProperty : React.FC<ScreenerRangePropertyProps> =
         description={description}
     />
 }
+
+export const ScreenerListProperty : React.FC<ScreenerListPropertyProps> =
+    ({title, subtitle, description, values, valuesState}) => {
+        return <ScreenerProperty
+            title={title}
+            subtitle={subtitle}
+            type={ScreenerPropertyType.List}
+            description={description}
+            values={values}
+            valuesState={valuesState}
+        />
+    }
 
 export function InterpolateDist(distribution: Distribution) : Distribution
 {
@@ -267,6 +320,47 @@ const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, o
                 <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
                     <Button onClick={onApplyClick}>Применить</Button>
                     <TextBoxSubTitle>{state.count} компаний</TextBoxSubTitle>
+                </Col>
+            </Row>
+        </>
+    )
+}
+
+const ScreenerSheetList : React.FC<ScreenerSheetListProps> = ({values, valuesState, onApplyClick}) => {
+    const [valuesRecoilState, setValuesRecoilState] = useRecoilState(valuesState);
+    return(
+        <>
+            <Row>
+                <Col sizeXL={4} offsetXL={4} sizeL={4} offsetL={2} sizeM={4} offsetM={1} sizeS={4}>
+            <div>
+                {values.map(value => (
+                    <span style={{
+                        position: "relative",
+                        left: "-5px",
+
+                    }}>
+                        <Checkbox label={value.name}
+                                  checked={valuesRecoilState.values.find(x => x === value.value) !== undefined}
+                                  onChange={event => {
+                                      if(event.currentTarget.checked)
+                                          setValuesRecoilState({...valuesRecoilState, values: valuesRecoilState.values.concat(value.value)})
+                                      else
+                                          setValuesRecoilState({...valuesRecoilState, values: valuesRecoilState.values.filter(x=>x !== value.value)})
+                                  }}
+                                  style={{
+                                      margin: "10px",
+
+                                  }}
+
+                        />
+                    </span>
+                ))}
+            </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
+                    <Button onClick={onApplyClick}>Применить</Button>
                 </Col>
             </Row>
         </>

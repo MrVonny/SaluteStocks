@@ -29,7 +29,9 @@ function App() {
             })}>
                 <DeviceThemeProvider>
                     <Router>
-                        <Container className="App">
+                        <Container className="App" style={{
+                            minHeight: "100vh"
+                        }}>
                             <Switch>
                                 <Route exact path="/">
                                     <Screener/>

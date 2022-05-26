@@ -21,7 +21,7 @@ import {
     EbidtaProperty,
     EpsGrowth1YearProperty, EpsGrowth3YearProperty, EpsProperty,
     MarketCapProperty,
-    PeRatioProperty
+    PeRatioProperty, SectorProperty
 } from "./Properties/Properties";
 import {Distribution} from "./ScreenerChart";
 import {Link} from "react-router-dom";
@@ -146,7 +146,11 @@ const Screener = () => {
                     <span className={"me-4"}><Checkbox label={"EUR"} onChange={(event) => onCurrencyChange(event, "EUR")}/></span>
                 </div>
             </ScreenerSector>
-
+            <ScreenerSector title={"Общее"}>
+                <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
+                    <SectorProperty/>
+                </Col>
+            </ScreenerSector>
             <ScreenerSector title={"Финансовые показатели"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
@@ -166,6 +170,7 @@ const Screener = () => {
                     </Col>
                 </Row>
             </ScreenerSector>
+
             <ScreenerSector title={"Динамика"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>

@@ -62,13 +62,13 @@ export const CompaniesView = () => {
 
                 </MarkedList>
             </>
-            <>
+            <div >
                 {
                     state.isLoaded ?
                         <CompaniesList companies={state.companies}/> :
                         <LineSkeleton size={"display1"}/>
                 }
-            </>
+            </div>
         </>
     )
 }

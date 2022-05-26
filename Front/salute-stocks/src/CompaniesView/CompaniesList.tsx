@@ -15,6 +15,7 @@ import { text, background, gradient } from '@sberdevices/plasma-tokens';
 import {useRecoilValue} from "recoil";
 import {Pagination} from "@mui/material";
 import {useState} from "react";
+import {mapSectorNameValue} from "../Storage";
 
 export declare type CompaniesListProperties = {
     companies : Company[]
@@ -34,9 +35,15 @@ export const CompaniesList = ({companies} : CompaniesListProperties ) => {
     const [state, setState] = useState({
         page: 1,
     })
+    const PaginationWrapper = styled.div`
+      margin: auto;
+    `
     const TableWrapper = styled.div`
     `;
     const Table = styled.table`
+      width: 80%;
+      margin: auto;
+      margin-bottom: 10px;
     `;
     const TableRow = styled.tr`
       border-bottom: 1px rgba(255,255,255, 0.2) solid;
@@ -75,7 +82,7 @@ export const CompaniesList = ({companies} : CompaniesListProperties ) => {
                                 <Body1>{c.country}</Body1>
                             </TableData>
                             <TableData>
-                                <Body1>{c.sector}</Body1>
+                                <Body1>{mapSectorNameValue.find(g=>g.value === c.sector)?.name}</Body1>
                             </TableData>
                             {/*<TableData>*/}
                             {/*    <Body1>{c.description}</Body1>*/}
@@ -84,20 +91,16 @@ export const CompaniesList = ({companies} : CompaniesListProperties ) => {
                     ))}
                 </Table>
             </TableWrapper>
+            <PaginationWrapper className="d-flex flex-row justify-content-between">
+                <Pagination
+                    count={pages}
+                    page={state.page}
+                    onChange={
+                        (event, page) => setState({...state, page: page})
+                    }
+                />
+            </PaginationWrapper>
 
-            <Pagination
-                sx={{
-                    color: "white",
-                }}
-                style={{
-                    color: "white"
-                }}
-                count={pages}
-                page={state.page}
-                onChange={
-                    (event, page) => setState({...state, page: page})
-                }
-            />
         </>
 
 

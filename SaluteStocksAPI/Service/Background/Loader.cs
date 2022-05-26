@@ -38,7 +38,9 @@ public class Loader : BackgroundService
             var repository = new DataBaseRepository(db);
             try
             {
-                await repository.SetListing(await Client.GetListing());
+                var listing = await Client.GetListing();
+                if (listing.Count > 0)
+                    await repository.SetListing(listing);
             }
             catch (Exception e)
             {
