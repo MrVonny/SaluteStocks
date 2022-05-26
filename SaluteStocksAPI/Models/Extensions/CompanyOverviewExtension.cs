@@ -58,17 +58,17 @@ public static class CompanyOverviewExtension
     
     public static IQueryable<CompanyOverview> WherePeRatio(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.PERatio.HasValue || rangedValue.Value.IsInRange(x.PERatio.Value)) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.PERatio.HasValue && rangedValue.Value.Max >= x.PERatio.Value && rangedValue.Value.Min <= x.PERatio.Value) : queryable;
     }
     
     public static IQueryable<CompanyOverview> WhereEPS(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.EPS.HasValue || rangedValue.Value.IsInRange(x.EPS.Value)) : queryable;
+        return rangedValue.HasValue ? queryable.Where(x => x.EPS.HasValue && rangedValue.Value.Max >= x.EPS.Value && rangedValue.Value.Min <= x.EPS.Value) : queryable;
     }
     public static IQueryable<CompanyOverview> WhereBeta(this IQueryable<CompanyOverview> queryable, RangedValue<double>? rangedValue)
     {
-        return rangedValue.HasValue ? queryable.Where(x => !x.Beta.HasValue || rangedValue.Value.IsInRange(x.Beta.Value)) : queryable;
-        
+        return rangedValue.HasValue ? queryable.Where(x => x.Beta.HasValue && rangedValue.Value.Max >= x.Beta.Value && rangedValue.Value.Min <= x.Beta.Value) : queryable;
+
     }
     
     #endregion

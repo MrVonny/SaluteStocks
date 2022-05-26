@@ -9,7 +9,7 @@ export declare type Range = {
 
 export declare type ScreenerPropertyRangeStorage = {
     available: Range;
-    selected: Range;
+    selected?: Range;
     distribution : Distribution;
     isSelected: boolean;
     isRangeLoaded : boolean;
@@ -32,8 +32,8 @@ export const currencyState = atom({
 export const marketCapState = atom({
     key: 'marketCap',
     default: {
-        available: {from: 0, to: 100},
-        selected: {from: 0, to: 100},
+        available: {},
+        selected: undefined,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -41,8 +41,8 @@ export const marketCapState = atom({
 export const ebitdaState = atom({
     key: 'ebitda',
     default: {
-        available: {from: 0, to: 100},
-        selected: {from: 0, to: 100},
+        available: {},
+        selected: undefined,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -50,8 +50,8 @@ export const ebitdaState = atom({
 export const debtEquityState = atom({
     key: 'debtEquityRatio',
     default: {
-        available: {from: 0, to: 100},
-        selected: {from: 0, to: 100},
+        available: {},
+        selected: undefined,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -59,8 +59,26 @@ export const debtEquityState = atom({
 export const peRatioState = atom({
     key: 'peRatio',
     default: {
-        available: {from: 0, to: 100},
-        selected: {from: 0, to: 100},
+        available: {},
+        selected: undefined,
+        isRangeLoaded: false
+    } as ScreenerPropertyRangeStorage
+})
+
+export const epsState = atom({
+    key: 'eps',
+    default: {
+        available: {},
+        selected: undefined,
+        isRangeLoaded: false
+    } as ScreenerPropertyRangeStorage
+})
+
+export const betaState = atom({
+    key: 'beta',
+    default: {
+        available: {},
+        selected: undefined,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -68,8 +86,8 @@ export const peRatioState = atom({
 export const epsGrowth1YearState = atom({
     key: 'epsGrowth1Year',
     default: {
-        available: {from: 0, to: 100},
-        selected: {from: 0, to: 100},
+        available: {},
+        selected: undefined,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -77,8 +95,8 @@ export const epsGrowth1YearState = atom({
 export const epsGrowth3YearState = atom({
     key: 'epsGrowth3Year',
     default: {
-        available: {from: 0, to: 100},
-        selected: {from: 0, to: 100},
+        available: {},
+        selected: undefined,
         isRangeLoaded: false
     } as ScreenerPropertyRangeStorage
 })
@@ -92,20 +110,26 @@ export const screenerSelectedPropertiesDescriptionState = selector({
         const ebitda = get(ebitdaState);
         const debtEquity = get(debtEquityState);
         const peRatio = get(peRatioState);
+        const eps = get(epsState);
+        const beta = get(betaState);
         const epsGrowth1Year = get(epsGrowth1YearState);
 
         if(currencies.currencies != [])
             arr.push(`Валюты: ${currencies.currencies.join(', ')}`)
         if(marketCap.isSelected)
-            arr.push(`Market Cap ${marketCap.selected.from} -  ${marketCap.selected.to} млрд. $`)
+            arr.push(`Market Cap ${marketCap.selected!.from} -  ${marketCap.selected!.to} млрд. $`)
         if(ebitda.isSelected)
-            arr.push(`EBITDA ${ebitda.selected.from} -  ${ebitda.selected.to} млрд. $`)
+            arr.push(`EBITDA ${ebitda.selected!.from} -  ${ebitda.selected!.to} млрд. $`)
         if(debtEquity.isSelected)
-            arr.push(`Debt / Equity ${debtEquity.selected.from} -  ${debtEquity.selected.to}`)
+            arr.push(`Debt / Equity ${debtEquity.selected!.from} -  ${debtEquity.selected!.to}`)
         if(peRatio.isSelected)
-            arr.push(`P / E ${peRatio.selected.from} -  ${peRatio.selected.to} млрд. $`)
+            arr.push(`P / E ${peRatio.selected!.from} -  ${peRatio.selected!.to} млрд. $`)
+        if(eps.isSelected)
+            arr.push(`EPS ${eps.selected!.from} - ${eps.selected!.to}$`)
+        if(beta.isSelected)
+            arr.push(`Beta ${beta.selected!.from} - ${beta.selected!.to}`)
         if(epsGrowth1Year.isSelected)
-            arr.push(`Рост EPS за 1 год ${epsGrowth1Year.selected.from} -  ${epsGrowth1Year.selected.to} млрд. $`)
+            arr.push(`Рост EPS за 1 год ${epsGrowth1Year.selected!.from} -  ${epsGrowth1Year.selected!.to} млрд. $`)
 
         return arr;
     },
@@ -116,11 +140,12 @@ export const screenerSelectedPropertiesState = selector({
     get: ({get}) => ({
         currencies: get(currencyState).currencies,
         marketCap: get(marketCapState).isSelected ? get(marketCapState).selected : undefined,
-        ebitda: get(ebitdaState).isSelected ? get(marketCapState).selected : undefined,
-        debtEquity: get(debtEquityState).isSelected ? get(marketCapState).selected : undefined,
-        peRatio: get(peRatioState).isSelected ? get(marketCapState).selected : undefined,
-        epsGrowth1Year: get(epsGrowth1YearState).isSelected ? get(marketCapState).selected : undefined,
-        epsGrowth3Year: get(epsGrowth3YearState).isSelected ? get(marketCapState).selected : undefined,
+        ebitda: get(ebitdaState).isSelected ? get(ebitdaState).selected : undefined,
+        debtEquity: get(debtEquityState).isSelected ? get(debtEquityState).selected : undefined,
+        peRatio: get(peRatioState).isSelected ? get(peRatioState).selected : undefined,
+        eps: get(epsState).isSelected ? get(epsState).selected : undefined,
+        epsGrowth1Year: get(epsGrowth1YearState).isSelected ? get(epsGrowth1YearState).selected : undefined,
+        epsGrowth3Year: get(epsGrowth3YearState).isSelected ? get(epsGrowth3YearState).selected : undefined,
     }),
 });
 
@@ -131,6 +156,8 @@ export const screenerState = selector({
         ebitda: get(ebitdaState),
         debtEquity: get(debtEquityState),
         peRatio: get(peRatioState),
+        eps: get(epsState),
+        beta: get(betaState),
         epsGrowth1Year: get(epsGrowth1YearState),
         epsGrowth3Year: get(epsGrowth3YearState)
     }),
@@ -151,6 +178,18 @@ export const screenerState = selector({
         set(peRatioState,{
             available: newValue.peRatio as Range,
             selected: newValue.peRatio as Range,
+            isRangeLoaded: true,
+        } as ScreenerPropertyRangeStorage);
+
+        set(epsState,{
+            available: newValue.eps as Range,
+            selected: newValue.eps as Range,
+            isRangeLoaded: true,
+        } as ScreenerPropertyRangeStorage);
+
+        set(betaState,{
+            available: newValue.beta as Range,
+            selected: newValue.beta as Range,
             isRangeLoaded: true,
         } as ScreenerPropertyRangeStorage);
     }

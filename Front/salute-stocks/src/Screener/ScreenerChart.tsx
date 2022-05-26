@@ -81,21 +81,23 @@ export const ScreenerChart: React.FC<ScreenerChartProps> = ({availableRange, sel
             unselected: 0,
             position: i
         }) as chartPoint)
-        .slice(selectedRange.from, selectedRange.to);
+        .slice(selectedRange.from, selectedRange.to + 1);
     const data3 = distribution.Values
         .map((x,i)=>({
             selected: 0,
             unselected: x.Value,
             position: i
         }) as chartPoint)
-        .slice(selectedRange.to - 1, distribution.Values.length-1);
+        .slice(selectedRange.to, distribution.Values.length);
 
     const data = data1.concat(data2).concat(data3)
     console.log(data);
 
     return(
         <div className="" style={{
-            marginBottom: -22
+            marginBottom: -22,
+            marginLeft: 0,
+            marginRight: 0
         }}>
             <Chart
                 data={data}

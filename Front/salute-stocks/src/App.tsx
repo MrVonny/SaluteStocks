@@ -16,25 +16,32 @@ import {
 } from "react-router-dom";
 import Screener from "./Screener/Screener";
 import {CompaniesView} from "./CompaniesView/CompaniesView";
+import {createTheme, ThemeProvider} from "@mui/material";
 
 
 function App() {
     return (
         <RecoilRoot>
-            <DeviceThemeProvider>
-                <Router>
-                    <Container className="App">
-                        <Switch>
-                            <Route exact path="/">
-                                <Screener/>
-                            </Route>
-                            <Route path="/companies">
-                                <CompaniesView />
-                            </Route>
-                        </Switch>
-                    </Container>
-                </Router>
-            </DeviceThemeProvider>
+            <ThemeProvider theme={createTheme({
+                palette: {
+                    mode: "dark"
+                }
+            })}>
+                <DeviceThemeProvider>
+                    <Router>
+                        <Container className="App">
+                            <Switch>
+                                <Route exact path="/">
+                                    <Screener/>
+                                </Route>
+                                <Route path="/companies">
+                                    <CompaniesView />
+                                </Route>
+                            </Switch>
+                        </Container>
+                    </Router>
+                </DeviceThemeProvider>
+            </ThemeProvider>
         </RecoilRoot>
   );
 }

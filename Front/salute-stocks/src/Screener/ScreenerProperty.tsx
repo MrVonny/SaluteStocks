@@ -58,12 +58,13 @@ type ScreenerSheetSliderProps = {
 
 const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, type, unit, description,
                                                            rangeState, listState, children}) => {
+    const [recoilState, setRecoilState] = useRecoilState(rangeState!);
     const [state, setState] = React.useState({
         isSheetOpen: false,
-        isSelected: false,
+        isSelected: recoilState.isSelected,
     } as ScreenerPropertyState);
 
-    const [recoilState, setRecoilState] = useRecoilState(rangeState!);
+
 
     const onApplyClick = () => {
         setState({...state, isSelected: true, isSheetOpen: false});
@@ -124,12 +125,12 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                     </CellContent>
                     <Cell content={<TextBoxSubTitle>{subtitle}</TextBoxSubTitle>}/>
                 </CardContent> : <RectSkeleton width="100%" height="12rem"/>}
-                    
+
             </Card>
 
             {recoilState.isRangeLoaded ?
             <Sheet isOpen={state.isSheetOpen} onClose={() => setState({...state, isSheetOpen: false})}>
-                <TextBoxBigTitle>{title} ({unit})</TextBoxBigTitle>
+                <TextBoxBigTitle>{title}{unit !== undefined ? ` ${unit}` : "" }</TextBoxBigTitle>
                 <TextBoxSubTitle>{description}</TextBoxSubTitle>
                 <Container>
                     {renderSwitch(type)}
@@ -170,26 +171,67 @@ export function InterpolateDist(distribution: Distribution) : Distribution
 
 }
 
+function findClosestIndex(distr : DistributionValue[], value : number) : number
+{
+    let closest : number = 0;
+    let closestDiff : number = Math.abs(distr[0].Position - value);
+    for (let i = 0; i < distr.length; i++)
+    {
+        let diff = Math.abs(distr[i].Position - value);
+        if(diff < closestDiff)
+        {
+            closest = i;
+            closestDiff = diff
+        }
+    }
+    return  closest;
+}
+
+function countCompanies(distr : DistributionValue[], selected : Range) : number
+{
+    console.log("deb2",distr, selected)
+    return distr
+        .filter(x=>x.Position >= selected.from && x.Position <= selected.to)
+        .map(x=>x.Value)
+        .reduce((partialSum, a) => partialSum + a, 0);
+}
+
 const STEPS = 100;
 
 const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, onApplyClick}) => {
 
     const [range, setRangeState] = useRecoilState(rangeState)
-    const [state, setState] = useState({...range, fromLabel: range.selected.from.toFixed(4).toString(), toLabel: range.selected.from.toFixed(4).toString()})
-    const onSliderChange = (event: Event, values: number[] | number) => {
+    const [state, setState] = useState(
+        {
+            ...range,
+            selected: {
+                from: range.distribution !== undefined ? findClosestIndex(range.distribution?.Values, range.selected!.from) : 0,
+                to: range.distribution !== undefined ? findClosestIndex(range.distribution?.Values, range.selected!.to) : STEPS - 1,
+            } as Range,
+            count: countCompanies(range.distribution?.Values ?? [], range.selected!),
+            fromLabel: range.selected!.from.toFixed(4).toString(),
+            toLabel: range.selected!.to.toFixed(4).toString()
+        })
+    const onSliderChange = (event: Event | React.SyntheticEvent, values: number[] | number) => {
         const val = values as number[];
-        setState({...range,
+        setState({
+            ...range,
+            count: countCompanies(range.distribution?.Values ?? [], {
+                    from: range.distribution.Values.at(val[0])?.Position,
+                    to: range.distribution.Values.at(val[1])?.Position
+            } as Range),
             selected: {from: val[0], to: val[1]} as Range,
             fromLabel: range.distribution.Values.at(val[0])?.Position.toFixed(4).toString() ?? "",
             toLabel: range.distribution.Values.at(val[1])?.Position.toFixed(4).toString() ?? ""})
     }
     const onSliderCommitted = (event: Event | React.SyntheticEvent, values: number[] | number) => {
         const val = values as number[];
+        onSliderChange(event, values);
         setRangeState({
             ...range,
             selected: {
-                from: range.distribution.Values.at(val[0])?.Position ?? range.selected.from,
-                to: range.distribution.Values.at(val[1])?.Position ?? range.selected.to} as Range
+                from: range.distribution.Values.at(val[0])?.Position ?? range.selected!.from,
+                to: range.distribution.Values.at(val[1])?.Position ?? range.selected!.to} as Range
         });
     }
 
@@ -224,6 +266,7 @@ const ScreenerSheetSlider : React.FC<ScreenerSheetSliderProps> = ({rangeState, o
             <Row>
                 <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
                     <Button onClick={onApplyClick}>Применить</Button>
+                    <TextBoxSubTitle>{state.count} компаний</TextBoxSubTitle>
                 </Col>
             </Row>
         </>

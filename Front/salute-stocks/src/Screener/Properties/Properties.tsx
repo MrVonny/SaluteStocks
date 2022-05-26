@@ -1,8 +1,9 @@
 import {
+    betaState,
     debtEquityState,
     ebitdaState,
     epsGrowth1YearState,
-    epsGrowth3YearState,
+    epsGrowth3YearState, epsState,
     marketCapState,
     peRatioState
 } from "../../Storage";
@@ -47,4 +48,18 @@ export const  EpsGrowth3YearProperty = () => <ScreenerRangeProperty title={"Ро
                                                                    description={"Процентный рост EPS за 3 года"}
                                                                    rangeState={epsGrowth3YearState}
                                                                    unit="%"
+/>
+
+export const  EpsProperty = () => <ScreenerRangeProperty title={"EPS"}
+                                                         subtitle={"Прибыль на акцию"}
+                                                         description={"Прибыль на акцию"}
+                                                         rangeState={epsState}
+                                                         unit="$"
+/>
+
+export const  BetaProperty = () => <ScreenerRangeProperty title={"Beta"}
+                                                         subtitle={"Показатель волатильности"}
+                                                         description={"Показатель волатильности акций по отношению у рынку"}
+                                                         rangeState={betaState}
+                                                         unit=""
 />

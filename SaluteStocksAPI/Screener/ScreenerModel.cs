@@ -23,7 +23,9 @@ public class ScreenerModel
     public RangedValue<double>? DebtToEquity { get; set; }
     [JsonProperty("peRatio")]
     public RangedValue<double>? PERatio { get; set; }
+    [JsonProperty("eps")]
     public RangedValue<double>? EPS { get; set; }
+    [JsonProperty("beta")]
     public RangedValue<double>? Beta { get; set; }
 
     #endregion
