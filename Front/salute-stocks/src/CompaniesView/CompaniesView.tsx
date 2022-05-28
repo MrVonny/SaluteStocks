@@ -17,13 +17,10 @@ export const CompaniesView = () => {
     });
     const propertiesDescription = useRecoilValue(screenerSelectedPropertiesDescriptionState);
 
-    console.log(propertiesDescription);
-
     useEffect(() => {
 
         if(!state.isLoaded)
         {
-            console.log('SCREENER: ',screener);
             fetch(`https://localhost:5001/api/screener/companies`, {
                 body: JSON.stringify(screener),
                 method: 'POST',
@@ -39,13 +36,11 @@ export const CompaniesView = () => {
                             isLoaded: true,
                             companies: result
                         })
-                        console.log(result);
                     },
                     (error) => {
                         setState({...state,
                             isLoaded: true,
                         });
-                        console.log(error);
                     }
                 )
         }

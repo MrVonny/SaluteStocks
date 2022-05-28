@@ -62,7 +62,6 @@ export enum ScreenerPropertyType {
 
 interface ScreenerPropertyState {
     isSheetOpen : boolean;
-    isSelected : boolean;
 }
 
 type ScreenerSheetSliderProps = {
@@ -95,32 +94,34 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
 
     const [state, setState] = React.useState({
         isSheetOpen: false,
-        isSelected: rangeRecoilState?.isSelected ?? listRecoilState?.isSelected ?? false,
     } as ScreenerPropertyState);
 
 
-
     const onApplyClickRange = () => {
-        setState({...state, isSelected: true, isSheetOpen: false});
+        setState({...state, isSheetOpen: false});
         setRangeRecoilState({...rangeRecoilState!, isSelected: true});
     }
 
     const onApplyClickList = () => {
-        setState({...state, isSelected: true, isSheetOpen: false});
+        setState({...state, isSheetOpen: false});
         setListRecoilState({...listRecoilState!, isSelected: true});
     }
 
-    const color = !state.isSelected ? colorValues.surfaceCard : colorValues.buttonSuccess;
+    let onApplyClick = type === ScreenerPropertyType.Range ? onApplyClickRange : onApplyClickList;
+
+    let isSelected = (rangeRecoilState?.isSelected ?? listRecoilState?.isSelected) ?? false
+
+    const color = !isSelected ? colorValues.surfaceCard : colorValues.buttonSuccess;
 
     const renderSwitch = (type : ScreenerPropertyType) => {
         switch (type) {
             case ScreenerPropertyType.Range:
                 return(
-                    <ScreenerSheetSlider rangeState={rangeState!} onApplyClick={onApplyClickRange}/>
+                    <ScreenerSheetSlider rangeState={rangeState!} onApplyClick={onApplyClick}/>
                 );
             case ScreenerPropertyType.List:
                 return (
-                    <ScreenerSheetList values={values ?? []} valuesState={valuesState!} onApplyClick={onApplyClickList} />
+                    <ScreenerSheetList values={values ?? []} valuesState={valuesState!} onApplyClick={onApplyClick} />
                 )
         }
     }
@@ -137,7 +138,7 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                 setState({...state, isSheetOpen: true})
             }}>
                 {(type === ScreenerPropertyType.Range ? rangeRecoilState!.isRangeLoaded : true) ? <CardContent>
-                    {state.isSelected ?
+                    {isSelected ?
                         <div style={{
                             right: 10,
                             top: 10,
@@ -145,7 +146,6 @@ const ScreenerProperty: React.FC<ScreenerPropertyProps> = ({title, subtitle, typ
                         }}>
                             <ActionButton size="s" view="critical" onClick={(event) => {
                                 event.stopPropagation();
-                                setState({...state, isSelected: false})
                                 type === ScreenerPropertyType.Range ?
                                 setRangeRecoilState({...rangeRecoilState!, isSelected: false}) :
                                 setListRecoilState({...listRecoilState!, isSelected: false})
@@ -242,7 +242,6 @@ function findClosestIndex(distr : DistributionValue[], value : number) : number
 
 function countCompanies(distr : DistributionValue[], selected : Range) : number
 {
-    console.log("deb2",distr, selected)
     return distr
         .filter(x=>x.Position >= selected.from && x.Position <= selected.to)
         .map(x=>x.Value)

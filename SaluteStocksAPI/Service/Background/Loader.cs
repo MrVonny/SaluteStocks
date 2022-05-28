@@ -107,11 +107,11 @@ public class Loader : BackgroundService
 
                 var tasks = new[]
                 {
-                    LoadMissingEntities<BalanceSheet>(),
-                    LoadMissingEntities<CashFlow>(),
+                    //LoadMissingEntities<BalanceSheet>(),
+                    //LoadMissingEntities<CashFlow>(),
                     LoadMissingEntities<CompanyOverview>(),
-                    LoadMissingEntities<Earnings>(),
-                    LoadMissingEntities<IncomeStatement>(),
+                    //LoadMissingEntities<Earnings>(),
+                    //LoadMissingEntities<IncomeStatement>(),
                 };
                     
                 try

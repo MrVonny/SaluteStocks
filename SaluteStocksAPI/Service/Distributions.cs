@@ -65,7 +65,7 @@ public class Distributions
             var to = positions[i + 1];
             var count = await _repostiroty.CompanyOverviews.CountAsync(c =>
                 c.EBITDA.HasValue && c.EBITDA.Value >= @from &&
-                c.MarketCapitalization.Value <= to);
+                c.EBITDA.Value <= to);
             values.Add(new DistributionValue(from / 10e9, count));
         }
 

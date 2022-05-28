@@ -25,12 +25,14 @@ import {
 } from "./Properties/Properties";
 import {Distribution} from "./ScreenerChart";
 import {Link} from "react-router-dom";
+import {createAssistant, createSmartappDebugger} from "@sberdevices/assistant-client";
 
 
 type ScreenerComponentState = {
     isLoaded : boolean;
     count: number | undefined
 }
+
 
 
 
@@ -57,7 +59,6 @@ const Screener = () => {
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        console.log(result);
                         SetScreenerRecoilState(result);
                         setState({...state, isLoaded: true});
                     },
@@ -68,7 +69,6 @@ const Screener = () => {
 
             let LoadDistribution = (name : string, state : any, setState : any) =>
             {
-                console.log(`Fetching ${name}`)
                 fetch(`https://localhost:5001/api/distribution/${name}/100`)
                     .then(res => res.json())
                     .then(
@@ -81,7 +81,6 @@ const Screener = () => {
                                 available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
                                 selected: state.selected ?? {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
                             });
-                            console.log(res);
                         },
                         (error) => {
                             setState({...state,
@@ -125,7 +124,6 @@ const Screener = () => {
     }, [state])
 
     const onCurrencyChange = (event : ChangeEvent<HTMLInputElement>, currency : string) => {
-        console.log(currencyStateRecoil);
         if(event.currentTarget.checked)
             setCurrencyStateRecoil({
                 currencies: currencyStateRecoil.currencies.concat(currency)
@@ -137,8 +135,12 @@ const Screener = () => {
 
     }
 
+
+
     return (
-        <Container>
+        <Container style={{
+            marginBottom: "100px"
+        }}>
             <ScreenerSector title={"Валюта"}>
                 <div className={"d-flex flex-row"}>
                     <span className={"me-4"}><Checkbox label={"RUB"} onChange={(event) => onCurrencyChange(event, "RUB")}/></span>
@@ -147,9 +149,11 @@ const Screener = () => {
                 </div>
             </ScreenerSector>
             <ScreenerSector title={"Общее"}>
-                <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                    <SectorProperty/>
-                </Col>
+                <Row>
+                    <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
+                        <SectorProperty/>
+                    </Col>
+                </Row>
             </ScreenerSector>
             <ScreenerSector title={"Финансовые показатели"}>
                 <Row>

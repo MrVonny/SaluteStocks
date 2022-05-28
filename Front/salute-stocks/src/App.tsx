@@ -17,6 +17,7 @@ import {
 import Screener from "./Screener/Screener";
 import {CompaniesView} from "./CompaniesView/CompaniesView";
 import {createTheme, ThemeProvider} from "@mui/material";
+import {Assistant} from "./Assistant/Assistant";
 
 
 function App() {
@@ -29,18 +30,20 @@ function App() {
             })}>
                 <DeviceThemeProvider>
                     <Router>
-                        <Container className="App" style={{
-                            minHeight: "100vh"
-                        }}>
-                            <Switch>
-                                <Route exact path="/">
-                                    <Screener/>
-                                </Route>
-                                <Route path="/companies">
-                                    <CompaniesView />
-                                </Route>
-                            </Switch>
-                        </Container>
+                        <Assistant>
+                            <Container className="App" style={{
+                                minHeight: "100vh"
+                            }}>
+                                <Switch>
+                                    <Route exact path="/">
+                                        <Screener/>
+                                    </Route>
+                                    <Route path="/companies">
+                                        <CompaniesView />
+                                    </Route>
+                                </Switch>
+                            </Container>
+                        </Assistant>
                     </Router>
                 </DeviceThemeProvider>
             </ThemeProvider>
