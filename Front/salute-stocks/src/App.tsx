@@ -18,6 +18,8 @@ import Screener from "./Screener/Screener";
 import {CompaniesView} from "./CompaniesView/CompaniesView";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {Assistant} from "./Assistant/Assistant";
+import {ScreenerAssistant} from "./Assistant/ScreenerAssistant";
+import {CompaniesAssistant} from "./Assistant/CompaniesAssistant";
 
 
 function App() {
@@ -32,14 +34,19 @@ function App() {
                     <Router>
                         <Assistant>
                             <Container className="App" style={{
-                                minHeight: "100vh"
+                                minHeight: "100vh",
+                                marginBottom: "120px"
                             }}>
                                 <Switch>
                                     <Route exact path="/">
-                                        <Screener/>
+                                        <ScreenerAssistant>
+                                            <Screener/>
+                                        </ScreenerAssistant>
                                     </Route>
                                     <Route path="/companies">
-                                        <CompaniesView />
+                                        <CompaniesAssistant>
+                                            <CompaniesView />
+                                        </CompaniesAssistant>
                                     </Route>
                                 </Switch>
                             </Container>

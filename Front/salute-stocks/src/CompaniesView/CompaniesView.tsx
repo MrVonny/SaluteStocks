@@ -6,7 +6,8 @@ import {useRecoilValue} from "recoil";
 import {screenerSelectedPropertiesDescriptionState, screenerSelectedPropertiesState} from "../Storage";
 import {Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
 import {List} from "@mui/material";
-
+import {IconDone} from "@sberdevices/plasma-icons";
+import { accent, primary, tertiary } from '@sberdevices/plasma-tokens';
 
 
 export const CompaniesView = () => {
@@ -52,7 +53,9 @@ export const CompaniesView = () => {
                 <DsplL>Компании</DsplL>
                 <MarkedList>
                     {propertiesDescription.map(d=>(
-                        <MarkedItem>{d}</MarkedItem>
+                        <MarkedItem text={d}>
+                            <IconDone size="xs"  color={accent}/>
+                        </MarkedItem>
                     ))}
 
                 </MarkedList>

@@ -151,22 +151,22 @@ export const screenerSelectedPropertiesDescriptionState = selector({
         const beta = get(betaState);
         const epsGrowth1Year = get(epsGrowth1YearState);
 
-        if(sectors.values !== [])
+        if(sectors.values.length > 0)
             arr.push(`Секторы: ${sectors.values.map(x=>mapSectorNameValue.find(g=>g.value === x)?.name).join(', ')}`)
         if(marketCap.isSelected)
-            arr.push(`Market Cap ${marketCap.selected!.from} -  ${marketCap.selected!.to} млрд. $`)
+            arr.push(`Market Cap ${marketCap.selected!.from.toFixed(2)} -  ${marketCap.selected!.to.toFixed(2)} млрд. $`)
         if(ebitda.isSelected)
-            arr.push(`EBITDA ${ebitda.selected!.from} -  ${ebitda.selected!.to} млрд. $`)
+            arr.push(`EBITDA ${ebitda.selected!.from.toFixed(2)} -  ${ebitda.selected!.to.toFixed(2)} млрд. $`)
         if(debtEquity.isSelected)
-            arr.push(`Debt / Equity ${debtEquity.selected!.from} -  ${debtEquity.selected!.to}`)
+            arr.push(`Debt / Equity ${debtEquity.selected!.from.toFixed(2)} -  ${debtEquity.selected!.to.toFixed(2)}`)
         if(peRatio.isSelected)
-            arr.push(`P / E ${peRatio.selected!.from} -  ${peRatio.selected!.to} млрд. $`)
+            arr.push(`P / E ${peRatio.selected!.from.toFixed(2)} -  ${peRatio.selected!.to.toFixed(2)}`)
         if(eps.isSelected)
-            arr.push(`EPS ${eps.selected!.from} - ${eps.selected!.to}$`)
+            arr.push(`EPS ${eps.selected!.from.toFixed(2)} - ${eps.selected!.to.toFixed(2)}$`)
         if(beta.isSelected)
-            arr.push(`Beta ${beta.selected!.from} - ${beta.selected!.to}`)
+            arr.push(`Beta ${beta.selected!.from.toFixed(2)} - ${beta.selected!.to.toFixed(2)}`)
         if(epsGrowth1Year.isSelected)
-            arr.push(`Рост EPS за 1 год ${epsGrowth1Year.selected!.from} -  ${epsGrowth1Year.selected!.to} млрд. $`)
+            arr.push(`Рост EPS за 1 год ${epsGrowth1Year.selected!.from.toFixed(2)} -  ${epsGrowth1Year.selected!.to.toFixed(2)} млрд. $`)
 
         return arr;
     },

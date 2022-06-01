@@ -90,11 +90,17 @@ const Screener = () => {
                         }
                     )
             }
-            LoadDistribution("market-cap", marketCapStateRecoil, setMarketCapStateRecoil);
-            LoadDistribution("ebitda", ebitdaStateRecoil, setEbitdaStateRecoil);
-            LoadDistribution("pe", peRatioStateRecoil, setPeRatioStateRecoil);
-            LoadDistribution("eps", epsStateRecoil, setEpsStateRecoil);
-            LoadDistribution("beta", betaStateRecoil, setBetaStateRecoil);
+
+            //if(!marketCapStateRecoil.isDistributionLoaded)
+                LoadDistribution("market-cap", marketCapStateRecoil, setMarketCapStateRecoil);
+            //if(!ebitdaStateRecoil.isDistributionLoaded)
+                LoadDistribution("ebitda", ebitdaStateRecoil, setEbitdaStateRecoil);
+            //if(!peRatioStateRecoil.isDistributionLoaded)
+                LoadDistribution("pe", peRatioStateRecoil, setPeRatioStateRecoil);
+            //if(!epsStateRecoil.isDistributionLoaded)
+                LoadDistribution("eps", epsStateRecoil, setEpsStateRecoil);
+            //if(!betaStateRecoil.isDistributionLoaded)
+                LoadDistribution("beta", betaStateRecoil, setBetaStateRecoil);
 
         }
 
@@ -141,13 +147,13 @@ const Screener = () => {
         <Container style={{
             marginBottom: "100px"
         }}>
-            <ScreenerSector title={"Валюта"}>
-                <div className={"d-flex flex-row"}>
-                    <span className={"me-4"}><Checkbox label={"RUB"} onChange={(event) => onCurrencyChange(event, "RUB")}/></span>
-                    <span className={"me-4"}><Checkbox label={"USD"} onChange={(event) => onCurrencyChange(event, "USD")}/></span>
-                    <span className={"me-4"}><Checkbox label={"EUR"} onChange={(event) => onCurrencyChange(event, "EUR")}/></span>
-                </div>
-            </ScreenerSector>
+            {/*<ScreenerSector title={"Валюта"}>*/}
+            {/*    <div className={"d-flex flex-row"}>*/}
+            {/*        <span className={"me-4"}><Checkbox label={"RUB"} onChange={(event) => onCurrencyChange(event, "RUB")}/></span>*/}
+            {/*        <span className={"me-4"}><Checkbox label={"USD"} onChange={(event) => onCurrencyChange(event, "USD")}/></span>*/}
+            {/*        <span className={"me-4"}><Checkbox label={"EUR"} onChange={(event) => onCurrencyChange(event, "EUR")}/></span>*/}
+            {/*    </div>*/}
+            {/*</ScreenerSector>*/}
             <ScreenerSector title={"Общее"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
@@ -175,16 +181,16 @@ const Screener = () => {
                 </Row>
             </ScreenerSector>
 
-            <ScreenerSector title={"Динамика"}>
-                <Row>
-                    <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <EpsGrowth1YearProperty/>
-                    </Col>
-                    <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <EpsGrowth3YearProperty/>
-                    </Col>
-                </Row>
-            </ScreenerSector>
+            {/*<ScreenerSector title={"Динамика"}>*/}
+            {/*    <Row>*/}
+            {/*        <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>*/}
+            {/*            <EpsGrowth1YearProperty/>*/}
+            {/*        </Col>*/}
+            {/*        <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>*/}
+            {/*            <EpsGrowth3YearProperty/>*/}
+            {/*        </Col>*/}
+            {/*    </Row>*/}
+            {/*</ScreenerSector>*/}
             <Row>
                 <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
                     {state.count === undefined ?
