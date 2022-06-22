@@ -8,6 +8,7 @@ public class ScreenerModel
 
     [JsonProperty("currencies")]
     public string[] Currency { get; set; }
+    [JsonProperty("sectors")]
     public string[] Sector { get; set; }
     public string[] Country { get; set; }
     

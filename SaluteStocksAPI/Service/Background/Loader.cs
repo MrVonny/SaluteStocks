@@ -38,7 +38,9 @@ public class Loader : BackgroundService
             var repository = new DataBaseRepository(db);
             try
             {
-                await repository.SetListing(await Client.GetListing());
+                var listing = await Client.GetListing();
+                if (listing.Count > 0)
+                    await repository.SetListing(listing);
             }
             catch (Exception e)
             {
@@ -105,11 +107,11 @@ public class Loader : BackgroundService
 
                 var tasks = new[]
                 {
-                    LoadMissingEntities<BalanceSheet>(),
-                    LoadMissingEntities<CashFlow>(),
+                    //LoadMissingEntities<BalanceSheet>(),
+                    //LoadMissingEntities<CashFlow>(),
                     LoadMissingEntities<CompanyOverview>(),
-                    LoadMissingEntities<Earnings>(),
-                    LoadMissingEntities<IncomeStatement>(),
+                    //LoadMissingEntities<Earnings>(),
+                    //LoadMissingEntities<IncomeStatement>(),
                 };
                     
                 try
