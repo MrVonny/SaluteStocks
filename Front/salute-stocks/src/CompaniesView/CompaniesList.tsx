@@ -12,10 +12,11 @@ import {
 } from "@sberdevices/plasma-ui";
 import styled from "styled-components";
 import { text, background, gradient } from '@sberdevices/plasma-tokens';
-import {useRecoilValue} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {Pagination} from "@mui/material";
 import {useState} from "react";
-import {mapSectorNameValue} from "../Storage";
+import {mapSectorNameValue, pageState} from "../Storage";
+import {assistant} from "../Assistant/Assistant";
 
 export declare type CompaniesListProperties = {
     companies : Company[]
@@ -31,10 +32,7 @@ export declare type Company = {
 }
 
 export const CompaniesList = ({companies} : CompaniesListProperties ) => {
-
-    const [state, setState] = useState({
-        page: 1,
-    })
+    const [state, setState] = useRecoilState(pageState);
     const PaginationWrapper = styled.div`
       margin: auto;
     `
@@ -55,38 +53,10 @@ export const CompaniesList = ({companies} : CompaniesListProperties ) => {
     `;
     const perPage = 10;
     let pages = Math.ceil(companies.length / 10);
+
     return (
 
         <>
-            {/*<TableWrapper>*/}
-            {/*    <Table>*/}
-            {/*        {companies.slice((state.page - 1) * perPage, state.page * perPage).map(c=>(*/}
-            {/*            <TableRow>*/}
-            {/*                <TableHead>*/}
-            {/*                    <div className={"d-flex flex-column mt-2"}>*/}
-            {/*                        <Body2 style={{*/}
-            {/*                            textAlign: "left",*/}
-            {/*                            color: text*/}
-            {/*                        }}>{c.ticker}</Body2>*/}
-            {/*                        <Body1 style={{*/}
-            {/*                            textAlign: "left"*/}
-            {/*                        }}>{c.name}</Body1>*/}
-            {/*                    </div>*/}
-            {/*                </TableHead>*/}
-            {/*                <TableData>*/}
-            {/*                    <Body1>{c.country}</Body1>*/}
-            {/*                </TableData>*/}
-            {/*                <TableData>*/}
-            {/*                    <Body1>{mapSectorNameValue.find(g=>g.value === c.sector)?.name}</Body1>*/}
-            {/*                </TableData>*/}
-            {/*                <TableData>*/}
-            {/*                    <Body1>{c.description}</Body1>*/}
-            {/*                </TableData>*/}
-            {/*            </TableRow>*/}
-            {/*        ))}*/}
-            {/*    </Table>*/}
-            {/*</TableWrapper>*/}
-
             {companies.slice((state.page - 1) * perPage, state.page * perPage).map(c=>(
                 <>
                     <Row style={{
@@ -131,7 +101,7 @@ export const CompaniesList = ({companies} : CompaniesListProperties ) => {
                     count={pages}
                     page={state.page}
                     onChange={
-                        (event, page) => setState({...state, page: page})
+                        (event, _page) => setState({...state, page: _page})
                     }
                 />
             </PaginationWrapper>

@@ -55,7 +55,7 @@ const Screener = () => {
     useEffect(() => {
         if (!state.isLoaded)/*salut-stocks.xyz*/
         {
-            fetch("https://localhost:5001/api/screener-model")
+            fetch("https://salut-stocks.xyz/api/screener-model")
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -69,7 +69,7 @@ const Screener = () => {
 
             let LoadDistribution = (name : string, state : any, setState : any) =>
             {
-                fetch(`https://localhost:5001/api/distribution/${name}/100`)
+                fetch(`https://salut-stocks.xyz/api/distribution/${name}/100`)
                     .then(res => res.json())
                     .then(
                         (result) => {
@@ -104,7 +104,7 @@ const Screener = () => {
 
         }
 
-        // fetch(`https://localhost:5001/api/screener/count`, {
+        // fetch(`https://salut-stocks.xyz/api/screener/count`, {
         //     body: JSON.stringify(screener),
         //     method: 'POST',
         //     headers: {

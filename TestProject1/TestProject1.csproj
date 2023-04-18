@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SaluteStocksAPI\SaluteStocksAPI.csproj" />
+      <ProjectReference Include="..\MisisClientServer\MisisClientServer.csproj" />
     </ItemGroup>
 
     <ItemGroup>

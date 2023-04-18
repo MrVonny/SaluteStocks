@@ -48,6 +48,15 @@ export const currencyState = atom({
     }
 })
 
+export const pageState = atom({
+    key: 'page',
+    default: {
+        page: 1,
+        prevPage: 0,
+        isAssistantLoaded: false
+    }
+})
+
 export const marketCapState = atom({
     key: 'marketCap',
     default: {

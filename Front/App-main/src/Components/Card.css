@@ -1,0 +1,24 @@
+.card {
+  height: 500px;
+  width: 550px;
+  background-color: rgb(118, 165, 172);
+  padding: 2rem;
+  border-radius: 1rem;
+  position: relative;
+  bottom: 4rem;
+  border: 1px solid black;
+}
+
+
+@media screen and (max-width: 960px) {
+  .card {
+    height: 450px;
+    width: 350px;
+    background-color: rgb(118, 165, 172);
+    padding: 2rem;
+    border-radius: 1rem;
+    position: relative;
+    bottom: 5rem;
+    border: 1px solid black;
+  }
+}

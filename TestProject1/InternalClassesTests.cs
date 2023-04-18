@@ -1,6 +1,6 @@
 using System;
 using NUnit.Framework;
-using SaluteStocksAPI.Screener;
+using MisisClientServer.Screener;
 using System.Runtime;
 using NUnit.Framework.Internal;
 

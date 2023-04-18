@@ -22,7 +22,7 @@ export const CompaniesView = () => {
 
         if(!state.isLoaded)
         {
-            fetch(`https://localhost:5001/api/screener/companies`, {
+            fetch(`https://salut-stocks.xyz/api/screener/companies`, {
                 body: JSON.stringify(screener),
                 method: 'POST',
                 headers: {
