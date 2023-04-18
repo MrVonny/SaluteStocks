@@ -1,0 +1,75 @@
+2022-04-03 02:19:35.153 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-04-03 02:19:35.188 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-04-03 02:19:35.197 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-04-03 02:19:35.352 +03:00 [INF] Now listening on: https://localhost:5001
+2022-04-03 02:19:35.354 +03:00 [INF] Now listening on: http://localhost:5000
+2022-04-03 02:19:35.356 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-04-03 02:19:35.360 +03:00 [INF] Hosting environment: Development
+2022-04-03 02:19:35.361 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-04-03 02:19:35.523 +03:00 [INF] Response has success status code
+2022-04-03 02:19:35.526 +03:00 [INF] Trying to deserialize response.
+2022-04-03 02:19:35.725 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-04-03 02:19:35.865 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/_framework/aspnetcore-browser-refresh.js - -
+2022-04-03 02:19:35.867 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 145.8462ms
+2022-04-03 02:19:35.868 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/_framework/aspnetcore-browser-refresh.js - - - 200 11949 application/javascript;+charset=utf-8 3.3532ms
+2022-04-03 02:19:36.029 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-04-03 02:19:36.048 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-04-03 02:19:36.082 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 52.6458ms
+2022-04-03 02:19:36.446 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:36.811 +03:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTempb15bc70d] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-04-03 02:19:37.134 +03:00 [INF] Executed DbCommand (251ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 0 * FROM [ListingTempb15bc70d] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-04-03 02:19:37.147 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTempb15bc70d]', 'U') IS NOT NULL DROP TABLE [ListingTempb15bc70d]
+2022-04-03 02:19:37.160 +03:00 [INF] Loading missing data.
+2022-04-03 02:19:37.162 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:37.330 +03:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-04-03 02:19:37.341 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-04-03 02:19:37.343 +03:00 [INF] Getting already loaded entities
+2022-04-03 02:19:37.372 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:37.388 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-04-03 02:19:37.389 +03:00 [INF] Getting already loaded entities
+2022-04-03 02:19:37.389 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:37.396 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-04-03 02:19:37.396 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-04-03 02:19:37.398 +03:00 [INF] Getting already loaded entities
+2022-04-03 02:19:37.399 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:37.403 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-04-03 02:19:37.404 +03:00 [INF] Getting already loaded entities
+2022-04-03 02:19:37.404 +03:00 [INF] Already loaded: 786
+2022-04-03 02:19:37.405 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:37.409 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-04-03 02:19:37.409 +03:00 [INF] Getting already loaded entities
+2022-04-03 02:19:37.410 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-03 02:19:37.416 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-04-03 02:19:37.417 +03:00 [INF] Already loaded: 109
+2022-04-03 02:19:37.435 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-04-03 02:19:37.436 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-04-03 02:19:37.438 +03:00 [INF] Already loaded: 112
+2022-04-03 02:19:37.441 +03:00 [INF] Already loaded: 385
+2022-04-03 02:19:37.468 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-04-03 02:19:37.470 +03:00 [INF] Already loaded: 98

@@ -1,0 +1,243 @@
+2022-05-12 00:13:50.545 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-12 00:13:50.572 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-12 00:13:50.578 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-12 00:13:50.750 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-12 00:13:50.752 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-12 00:13:50.754 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-12 00:13:50.754 +03:00 [INF] Hosting environment: Development
+2022-05-12 00:13:50.755 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-12 00:13:50.926 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-12 00:13:50.986 +03:00 [INF] Response has success status code
+2022-05-12 00:13:50.988 +03:00 [INF] Trying to deserialize response.
+2022-05-12 00:13:50.988 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 64.0621ms
+2022-05-12 00:13:51.107 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-12 00:13:51.120 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-12 00:13:51.181 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 73.8218ms
+2022-05-12 00:13:51.598 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:51.874 +03:00 [INF] Executed DbCommand (30ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTemp97e8dfd7] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-05-12 00:13:52.169 +03:00 [INF] Executed DbCommand (230ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 0 * FROM [ListingTemp97e8dfd7] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-05-12 00:13:52.181 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTemp97e8dfd7]', 'U') IS NOT NULL DROP TABLE [ListingTemp97e8dfd7]
+2022-05-12 00:13:52.192 +03:00 [INF] Loading missing data.
+2022-05-12 00:13:52.198 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:52.340 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-05-12 00:13:52.351 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-05-12 00:13:52.352 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:13:52.365 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:52.379 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-05-12 00:13:52.380 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:13:52.381 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:52.385 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-05-12 00:13:52.386 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:13:52.387 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-05-12 00:13:52.387 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:52.391 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-05-12 00:13:52.392 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:13:52.393 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:52.396 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-05-12 00:13:52.396 +03:00 [INF] Already loaded: 1281
+2022-05-12 00:13:52.396 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:13:52.398 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:13:52.403 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-05-12 00:13:52.406 +03:00 [INF] Already loaded: 1013
+2022-05-12 00:13:52.421 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-12 00:13:52.421 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-12 00:13:52.424 +03:00 [INF] Already loaded: 943
+2022-05-12 00:13:52.426 +03:00 [INF] Already loaded: 1390
+2022-05-12 00:13:52.451 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-05-12 00:13:52.455 +03:00 [INF] Already loaded: 941
+2022-05-12 00:14:02.633 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/screener-model - -
+2022-05-12 00:14:02.633 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/market-cap/20 - -
+2022-05-12 00:14:02.638 +03:00 [INF] CORS policy execution successful.
+2022-05-12 00:14:02.638 +03:00 [INF] CORS policy execution successful.
+2022-05-12 00:14:02.639 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-12 00:14:02.645 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-12 00:14:02.653 +03:00 [INF] Route matched with {action = "GetScreenerModel", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetScreenerModel() on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-12 00:14:02.654 +03:00 [INF] Route matched with {action = "GetMarketCapDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetMarketCapDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-12 00:14:02.664 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:14:02.675 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:14:02.712 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.713 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.730 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.731 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.742 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.754 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.773 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.775 +03:00 [INF] Executed DbCommand (24ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.785 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-12 00:14:02.791 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.809 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.827 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.839 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.851 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.863 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.883 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.891 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2022-05-12 00:14:02.896 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI) in 239.2767ms
+2022-05-12 00:14:02.897 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.898 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-12 00:14:02.903 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/screener-model - - - 200 - text/plain;+charset=utf-8 270.3930ms
+2022-05-12 00:14:02.909 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.921 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.932 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.944 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.956 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.970 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.982 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:02.994 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:03.004 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:03.016 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-12 00:14:26.998 +03:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-05-12 00:14:26.999 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI) in 24343.261ms
+2022-05-12 00:14:27.000 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-12 00:14:27.001 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/distribution/market-cap/20 - - - 200 - text/plain;+charset=utf-8 24368.1894ms
+2022-05-12 00:15:52.470 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:15:52.479 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-05-12 00:15:52.482 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-05-12 00:15:52.483 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:15:52.486 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:15:52.489 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-05-12 00:15:52.489 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:15:52.491 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:15:52.493 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-05-12 00:15:52.494 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:15:52.495 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:15:52.497 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-05-12 00:15:52.497 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:15:52.502 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:15:52.505 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-12 00:15:52.509 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-05-12 00:15:52.514 +03:00 [INF] Already loaded: 1390
+2022-05-12 00:15:52.516 +03:00 [INF] Getting already loaded entities
+2022-05-12 00:15:52.519 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-12 00:15:52.528 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-05-12 00:15:52.536 +03:00 [INF] Already loaded: 941
+2022-05-12 00:15:52.545 +03:00 [INF] Executed DbCommand (53ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-12 00:15:52.551 +03:00 [INF] Already loaded: 943
+2022-05-12 00:15:52.555 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-05-12 00:15:52.558 +03:00 [INF] Already loaded: 1013
+2022-05-12 00:15:52.562 +03:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-05-12 00:15:52.571 +03:00 [INF] Already loaded: 1281

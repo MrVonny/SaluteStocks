@@ -1,0 +1,125 @@
+2022-05-10 20:31:36.590 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-10 20:31:36.614 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-10 20:31:36.617 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-10 20:31:36.691 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-10 20:31:36.692 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-10 20:31:36.695 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-10 20:31:36.695 +03:00 [INF] Hosting environment: Development
+2022-05-10 20:31:36.696 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-10 20:31:36.823 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-10 20:31:36.899 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 78.6217ms
+2022-05-10 20:31:36.978 +03:00 [INF] Response has success status code
+2022-05-10 20:31:36.980 +03:00 [INF] Trying to deserialize response.
+2022-05-10 20:31:37.062 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-10 20:31:37.075 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-10 20:31:37.088 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 26.3392ms
+2022-05-10 20:31:37.813 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.095 +03:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTempcd0c1a0d] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-05-10 20:31:38.436 +03:00 [INF] Executed DbCommand (286ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 0 * FROM [ListingTempcd0c1a0d] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-05-10 20:31:38.447 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTempcd0c1a0d]', 'U') IS NOT NULL DROP TABLE [ListingTempcd0c1a0d]
+2022-05-10 20:31:38.468 +03:00 [INF] Loading missing data.
+2022-05-10 20:31:38.470 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.690 +03:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-05-10 20:31:38.707 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-05-10 20:31:38.709 +03:00 [INF] Getting already loaded entities
+2022-05-10 20:31:38.744 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.765 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-05-10 20:31:38.766 +03:00 [INF] Getting already loaded entities
+2022-05-10 20:31:38.767 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.770 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-05-10 20:31:38.771 +03:00 [INF] Getting already loaded entities
+2022-05-10 20:31:38.772 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.774 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-05-10 20:31:38.774 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-05-10 20:31:38.775 +03:00 [INF] Getting already loaded entities
+2022-05-10 20:31:38.777 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.780 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-05-10 20:31:38.780 +03:00 [INF] Getting already loaded entities
+2022-05-10 20:31:38.781 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:38.785 +03:00 [INF] Already loaded: 1237
+2022-05-10 20:31:38.793 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-05-10 20:31:38.797 +03:00 [INF] Already loaded: 899
+2022-05-10 20:31:38.810 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-10 20:31:38.811 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-10 20:31:38.814 +03:00 [INF] Already loaded: 904
+2022-05-10 20:31:38.816 +03:00 [INF] Already loaded: 1323
+2022-05-10 20:31:38.841 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-05-10 20:31:38.844 +03:00 [INF] Already loaded: 947
+2022-05-10 20:31:39.469 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/screener-model - -
+2022-05-10 20:31:39.472 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-10 20:31:39.481 +03:00 [INF] Route matched with {action = "GetScreenerModel", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetScreenerModel() on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-10 20:31:39.486 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-10 20:31:39.535 +03:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-10 20:31:39.556 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-10 20:31:39.572 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-10 20:31:39.586 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-10 20:31:39.637 +03:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-10 20:31:39.952 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI) in 466.358ms
+2022-05-10 20:31:39.954 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-10 20:31:39.956 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at SaluteStocksAPI.Models.FundamentalData.CompanyOverview.get_DebtEquity() in D:\repo\SaluteStocks\SaluteStocksAPI\Models\FundamentalData\CompanyOverview.cs:line 107
+   at SaluteStocksAPI.Service.ScreenerService.<>c.<GetInitialModelAsync>b__6_4(CompanyOverview x) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\ScreenerService.cs:line 61
+   at System.Linq.Enumerable.Min[TSource](IEnumerable`1 source, Func`2 selector)
+   at SaluteStocksAPI.Service.ScreenerService.GetInitialModelAsync() in D:\repo\SaluteStocks\SaluteStocksAPI\Service\ScreenerService.cs:line 60
+   at SaluteStocksAPI.Controllers.ApiController.GetScreenerModel() in D:\repo\SaluteStocks\SaluteStocksAPI\Controllers\ApiController.cs:line 35
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-10 20:31:39.982 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/screener-model - - - 500 - text/html;+charset=utf-8 513.0560ms
+2022-05-10 20:31:47.406 +03:00 [INF] Application is shutting down...
+2022-05-10 20:31:47.417 +03:00 [FTL] Error in background service.
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at SaluteStocksAPI.Service.Background.Loader.LoadMissingData(CancellationToken stoppingToken) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 159
+   at SaluteStocksAPI.Service.Background.Loader.ExecuteAsync(CancellationToken stoppingToken) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 49

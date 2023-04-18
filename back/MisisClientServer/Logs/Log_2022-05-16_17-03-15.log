@@ -1,0 +1,22 @@
+2022-05-16 17:03:15.514 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-16 17:03:15.539 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-16 17:03:15.541 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-16 17:03:15.615 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-16 17:03:15.617 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-16 17:03:15.619 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-16 17:03:15.620 +03:00 [INF] Hosting environment: Development
+2022-05-16 17:03:15.620 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-16 17:03:15.851 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-16 17:03:15.928 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 79.5112ms
+2022-05-16 17:03:16.023 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-16 17:03:16.036 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-16 17:03:16.047 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 24.0245ms
+2022-05-16 17:03:16.447 +03:00 [INF] Application is shutting down...
+2022-05-16 17:03:16.876 +03:00 [INF] Response has success status code
+2022-05-16 17:03:16.878 +03:00 [INF] Trying to deserialize response.

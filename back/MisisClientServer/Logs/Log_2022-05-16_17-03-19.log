@@ -1,0 +1,37 @@
+2022-05-16 17:03:20.498 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-16 17:03:20.522 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-16 17:03:20.528 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-16 17:03:20.680 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-16 17:03:20.681 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-16 17:03:20.682 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-16 17:03:20.683 +03:00 [INF] Hosting environment: Development
+2022-05-16 17:03:20.684 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-16 17:03:21.118 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-16 17:03:21.181 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 64.1790ms
+2022-05-16 17:03:21.272 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-16 17:03:21.283 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-16 17:03:21.303 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 31.5536ms
+2022-05-16 17:03:21.820 +03:00 [INF] Response has success status code
+2022-05-16 17:03:21.822 +03:00 [INF] Trying to deserialize response.
+2022-05-16 17:03:22.377 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:03:22.635 +03:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTempda41b044] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-05-16 17:03:23.782 +03:00 [INF] Executed DbCommand (618ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 12596 * FROM [ListingTempda41b044] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-05-16 17:03:23.793 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTempda41b044]', 'U') IS NOT NULL DROP TABLE [ListingTempda41b044]
+2022-05-16 17:03:23.804 +03:00 [INF] Loading missing data.
+2022-05-16 17:03:23.807 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:03:23.884 +03:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - -
+2022-05-16 17:03:23.888 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:03:23.890 +03:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - - - 204 - - 5.5581ms
+2022-05-16 17:03:23.891 +03:00 [INF] Request starting HTTP/2 POST https://localhost:5001/api/screener/companies application/json 17
+2022-05-16 17:03:23.892 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:03:23.894 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 17:03:23.905 +03:00 [INF] Route matched with {action = "GetCompanies", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCompanies(System.Object) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).

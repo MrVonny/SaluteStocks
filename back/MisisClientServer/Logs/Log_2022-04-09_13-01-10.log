@@ -1,0 +1,133 @@
+2022-04-09 13:01:10.650 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-04-09 13:01:10.674 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-04-09 13:01:14.101 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-04-09 13:01:14.251 +03:00 [INF] Now listening on: https://localhost:5001
+2022-04-09 13:01:14.252 +03:00 [INF] Now listening on: http://localhost:5000
+2022-04-09 13:01:14.253 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-04-09 13:01:14.254 +03:00 [INF] Hosting environment: Development
+2022-04-09 13:01:14.255 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-04-09 13:01:14.497 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-04-09 13:01:14.566 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 71.2023ms
+2022-04-09 13:01:14.667 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-04-09 13:01:14.679 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-04-09 13:01:14.701 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 33.5570ms
+2022-04-09 13:01:18.411 +03:00 [INF] Response has success status code
+2022-04-09 13:01:18.413 +03:00 [INF] Trying to deserialize response.
+2022-04-09 13:02:29.019 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:31.915 +03:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTempc9dd8484] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-04-09 13:02:33.236 +03:00 [INF] Executed DbCommand (772ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 12533 * FROM [ListingTempc9dd8484] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-04-09 13:02:33.248 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTempc9dd8484]', 'U') IS NOT NULL DROP TABLE [ListingTempc9dd8484]
+2022-04-09 13:02:33.258 +03:00 [INF] Loading missing data.
+2022-04-09 13:02:49.325 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:49.465 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-04-09 13:02:49.498 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-04-09 13:02:49.499 +03:00 [INF] Getting already loaded entities
+2022-04-09 13:02:49.513 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:49.525 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-04-09 13:02:49.526 +03:00 [INF] Getting already loaded entities
+2022-04-09 13:02:49.527 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:49.532 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-04-09 13:02:49.532 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-04-09 13:02:49.532 +03:00 [INF] Getting already loaded entities
+2022-04-09 13:02:49.534 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:49.535 +03:00 [INF] Already loaded: 996
+2022-04-09 13:02:49.538 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-04-09 13:02:49.538 +03:00 [INF] Getting already loaded entities
+2022-04-09 13:02:49.539 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:49.543 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-04-09 13:02:49.544 +03:00 [INF] Getting already loaded entities
+2022-04-09 13:02:49.544 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol ARMP
+2022-04-09 13:02:49.545 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-04-09 13:02:49.545 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-04-09 13:02:49.547 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: ARMP
+2022-04-09 13:02:49.548 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=ARMP
+2022-04-09 13:02:49.549 +03:00 [INF] Already loaded: 844
+2022-04-09 13:02:49.550 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=ARMP".
+2022-04-09 13:02:49.554 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol AMPI
+2022-04-09 13:02:49.556 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: AMPI
+2022-04-09 13:02:49.556 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=AMPI
+2022-04-09 13:02:49.557 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=AMPI".
+2022-04-09 13:02:49.571 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-04-09 13:02:49.572 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-04-09 13:02:49.573 +03:00 [INF] Already loaded: 500
+2022-04-09 13:02:49.576 +03:00 [INF] Already loaded: 467
+2022-04-09 13:02:49.577 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol AGLE
+2022-04-09 13:02:49.577 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol AGL
+2022-04-09 13:02:49.579 +03:00 [INF] Generating URI for EARNINGS with params: symbol: AGLE
+2022-04-09 13:02:49.579 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: AGL
+2022-04-09 13:02:49.579 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=AGLE
+2022-04-09 13:02:49.580 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=AGL
+2022-04-09 13:02:49.581 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=AGLE".
+2022-04-09 13:02:49.581 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=AGL".
+2022-04-09 13:02:49.605 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-04-09 13:02:49.607 +03:00 [INF] Already loaded: 459
+2022-04-09 13:02:49.609 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol AFMD
+2022-04-09 13:02:49.611 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: AFMD
+2022-04-09 13:02:49.612 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=AFMD
+2022-04-09 13:02:49.612 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=AFMD".
+2022-04-09 13:02:49.822 +03:00 [INF] Response has success status code
+2022-04-09 13:02:49.822 +03:00 [INF] Response has success status code
+2022-04-09 13:02:49.880 +03:00 [INF] Response has success status code
+2022-04-09 13:02:49.930 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.IncomeStatement for symbol AFMD
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 181
+2022-04-09 13:02:49.937 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CompanyOverview for symbol AMPI
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyOverview(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 109
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 179
+2022-04-09 13:02:49.966 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CashFlow for symbol AGL
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 178
+2022-04-09 13:02:50.808 +03:00 [INF] Response has success status code
+2022-04-09 13:02:50.849 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.Earnings for symbol AGLE
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyEarnings(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 142
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 180
+2022-04-09 13:02:51.046 +03:00 [INF] Response has success status code
+2022-04-09 13:02:51.087 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.BalanceSheet for symbol ARMP
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176

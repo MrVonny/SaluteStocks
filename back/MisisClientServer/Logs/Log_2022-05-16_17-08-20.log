@@ -1,0 +1,1185 @@
+2022-05-16 17:08:20.666 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-16 17:08:20.690 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-16 17:08:20.697 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-16 17:08:20.843 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-16 17:08:20.844 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-16 17:08:20.845 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-16 17:08:20.846 +03:00 [INF] Hosting environment: Development
+2022-05-16 17:08:20.847 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-16 17:08:21.098 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-16 17:08:21.164 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 66.9565ms
+2022-05-16 17:08:21.263 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-16 17:08:21.278 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-16 17:08:21.300 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 36.6901ms
+2022-05-16 17:08:21.995 +03:00 [INF] Response has success status code
+2022-05-16 17:08:21.998 +03:00 [INF] Trying to deserialize response.
+2022-05-16 17:08:22.523 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:22.799 +03:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTemp9a5046d5] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-05-16 17:08:24.034 +03:00 [INF] Executed DbCommand (709ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 12596 * FROM [ListingTemp9a5046d5] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-05-16 17:08:24.046 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTemp9a5046d5]', 'U') IS NOT NULL DROP TABLE [ListingTemp9a5046d5]
+2022-05-16 17:08:24.055 +03:00 [INF] Loading missing data.
+2022-05-16 17:08:24.059 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.244 +03:00 [INF] Executed DbCommand (67ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-05-16 17:08:24.287 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-05-16 17:08:24.288 +03:00 [INF] Getting already loaded entities
+2022-05-16 17:08:24.301 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.314 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-05-16 17:08:24.315 +03:00 [INF] Getting already loaded entities
+2022-05-16 17:08:24.316 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.321 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-05-16 17:08:24.321 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-05-16 17:08:24.324 +03:00 [INF] Getting already loaded entities
+2022-05-16 17:08:24.326 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.327 +03:00 [INF] Already loaded: 1425
+2022-05-16 17:08:24.329 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-05-16 17:08:24.330 +03:00 [INF] Getting already loaded entities
+2022-05-16 17:08:24.331 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.333 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-05-16 17:08:24.334 +03:00 [INF] Getting already loaded entities
+2022-05-16 17:08:24.335 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.337 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-16 17:08:24.338 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBD
+2022-05-16 17:08:24.341 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBD
+2022-05-16 17:08:24.341 +03:00 [INF] Already loaded: 1643
+2022-05-16 17:08:24.342 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBD
+2022-05-16 17:08:24.344 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBD".
+2022-05-16 17:08:24.380 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BREZR
+2022-05-16 17:08:24.382 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BREZR
+2022-05-16 17:08:24.382 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BREZR
+2022-05-16 17:08:24.383 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BREZR".
+2022-05-16 17:08:24.421 +03:00 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-16 17:08:24.422 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-05-16 17:08:24.426 +03:00 [INF] Already loaded: 1090
+2022-05-16 17:08:24.430 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASLN
+2022-05-16 17:08:24.431 +03:00 [INF] Already loaded: 1084
+2022-05-16 17:08:24.432 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASLN
+2022-05-16 17:08:24.433 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASLN
+2022-05-16 17:08:24.434 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASLN".
+2022-05-16 17:08:24.435 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASLN
+2022-05-16 17:08:24.438 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASLN
+2022-05-16 17:08:24.439 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASLN
+2022-05-16 17:08:24.439 +03:00 [INF] Executed DbCommand (58ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-05-16 17:08:24.439 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASLN".
+2022-05-16 17:08:24.455 +03:00 [INF] Already loaded: 1271
+2022-05-16 17:08:24.462 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol BEPCW
+2022-05-16 17:08:24.464 +03:00 [INF] Generating URI for EARNINGS with params: symbol: BEPCW
+2022-05-16 17:08:24.465 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=BEPCW
+2022-05-16 17:08:24.465 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=BEPCW".
+2022-05-16 17:08:24.697 +03:00 [INF] Response has success status code
+2022-05-16 17:08:24.697 +03:00 [INF] Response has success status code
+2022-05-16 17:08:24.698 +03:00 [INF] Trying to deserialize response.
+2022-05-16 17:08:24.732 +03:00 [INF] Response has success status code
+2022-05-16 17:08:24.803 +03:00 [INF] Response has success status code
+2022-05-16 17:08:24.822 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.IncomeStatement for symbol ASLN
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 179
+2022-05-16 17:08:24.824 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.823 +03:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - -
+2022-05-16 17:08:24.823 +03:00 [INF] Trying to deserialize response.
+2022-05-16 17:08:24.840 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:24.842 +03:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - - - 204 - - 18.7631ms
+2022-05-16 17:08:24.843 +03:00 [INF] Request starting HTTP/2 POST https://localhost:5001/api/screener/companies application/json 17
+2022-05-16 17:08:24.844 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:24.845 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 17:08:24.862 +03:00 [INF] Response has success status code
+2022-05-16 17:08:24.864 +03:00 [INF] Route matched with {action = "GetCompanies", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCompanies(System.Object) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 17:08:24.864 +03:00 [INF] Trying to deserialize response.
+2022-05-16 17:08:24.913 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.CompanyOverview.
+2022-05-16 17:08:24.914 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:24.982 +03:00 [INF] Executed DbCommand (31ms) [Parameters=[@__symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__symbol_0
+2022-05-16 17:08:25.024 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASLN
+Newtonsoft.Json.JsonSerializationException: Error converting value "-5530.22" to type 'System.Nullable`1[System.Int64]'. Path 'quarterlyReports[13].cashflowFromInvestment', line 577, position 48.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176
+2022-05-16 17:08:25.024 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBD
+Newtonsoft.Json.JsonSerializationException: Error converting value "10691941101.60" to type 'System.Nullable`1[System.Int64]'. Path 'annualReports[3].commonStockSharesOutstanding', line 162, position 60.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 174
+2022-05-16 17:08:25.042 +03:00 [INF] Executed DbCommand (17ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__entity_Symbol_0
+2022-05-16 17:08:25.076 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-16 17:08:25.126 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI) in 258.7094ms
+2022-05-16 17:08:25.127 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 17:08:25.129 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: Cannot perform runtime binding on a null reference
+   at CallSite.Target(Closure , CallSite , Object , String )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute2[T0,T1,TRet](CallSite site, T0 arg0, T1 arg1)
+   at SaluteStocksAPI.Controllers.ApiController.GetCompanies(Object screener) in D:\repo\SaluteStocks\SaluteStocksAPI\Controllers\ApiController.cs:line 62
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-16 17:08:25.138 +03:00 [INF] Request finished HTTP/2 POST https://localhost:5001/api/screener/companies application/json 17 - 500 - text/plain;+charset=utf-8 295.5754ms
+2022-05-16 17:08:25.153 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.Earnings.
+2022-05-16 17:08:25.163 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [e].[Symbol], [e].[ExistInApi], [e].[LastApiRefresh], [e].[LastLocalRefresh]
+FROM [Earnings] AS [e]
+WHERE [e].[Symbol] = @__entity_Symbol_0
+2022-05-16 17:08:25.165 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-16 17:08:25.215 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Boolean), @p2='?' (DbType = DateTime2), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Earnings] ([Symbol], [ExistInApi], [LastApiRefresh], [LastLocalRefresh])
+VALUES (@p0, @p1, @p2, @p3);
+2022-05-16 17:08:25.220 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 4000), @p2='?' (DbType = Double), @p3='?' (Size = 4000), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = Int64), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Double), @p11='?' (DbType = DateTime2), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Int64), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = DateTime2), @p19='?' (Size = 4000), @p20='?' (DbType = Boolean), @p21='?' (Size = 4000), @p22='?' (DbType = Double), @p23='?' (DbType = Int64), @p24='?' (Size = 4000), @p25='?' (DbType = DateTime2), @p26='?' (DbType = DateTime2), @p27='?' (DbType = DateTime2), @p28='?' (DbType = Int64), @p29='?' (Size = 4000), @p30='?' (DbType = Double), @p31='?' (DbType = Double), @p32='?' (DbType = Double), @p33='?' (DbType = Double), @p34='?' (DbType = Double), @p35='?' (DbType = Double), @p36='?' (DbType = Double), @p37='?' (DbType = Double), @p38='?' (DbType = Double), @p39='?' (DbType = Double), @p40='?' (DbType = Double), @p41='?' (DbType = Int64), @p42='?' (Size = 4000), @p43='?' (DbType = Int64), @p44='?' (DbType = Double), @p45='?' (DbType = Double), @p46='?' (DbType = Double), @p47='?' (DbType = Double), @p48='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [CompanyOverviews] ([Symbol], [Address], [AnalystTargetPrice], [AssetType], [Beta], [BookValue], [CIK], [Country], [Currency], [Description], [DilutedEPSTTM], [DividendDate], [DividendPerShare], [DividendYield], [EBITDA], [EPS], [EVToEBITDA], [EVToRevenue], [ExDividendDate], [Exchange], [ExistInApi], [FiscalYearEnd], [ForwardPE], [GrossProfitTTM], [Industry], [LastApiRefresh], [LastLocalRefresh], [LatestQuarter], [MarketCapitalization], [Name], [OperatingMarginTTM], [PEGRatio], [PERatio], [PriceToBookRatio], [PriceToSalesRatioTTM], [ProfitMargin], [QuarterlyEarningsGrowthYOY], [QuarterlyRevenueGrowthYOY], [ReturnOnAssetsTTM], [ReturnOnEquityTTM], [RevenuePerShareTTM], [RevenueTTM], [Sector], [SharesOutstanding], [TrailingPE], [_200DayMovingAverage], [_50DayMovingAverage], [_52WeekHigh], [_52WeekLow])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41, @p42, @p43, @p44, @p45, @p46, @p47, @p48);
+2022-05-16 17:08:25.233 +03:00 [INF] AddOrUpdate run successful.
+2022-05-16 17:08:25.233 +03:00 [INF] AddOrUpdate run successful.
+2022-05-16 17:08:25.233 +03:00 [WRN] Alpha Vantage has no SaluteStocksAPI.Models.FundamentalData.Earnings for symbol BEPCW
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageEmptyResponse: Response was empty.
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 313
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyEarnings(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 142
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 178
+2022-05-16 17:08:32.609 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/market-cap/100 - -
+2022-05-16 17:08:32.609 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/screener-model - -
+2022-05-16 17:08:32.609 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/ebitda/100 - -
+2022-05-16 17:08:32.611 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:32.611 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:32.611 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:32.611 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-16 17:08:32.612 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-16 17:08:32.613 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetEbitdaDistribution (SaluteStocksAPI)'
+2022-05-16 17:08:32.615 +03:00 [INF] Route matched with {action = "GetScreenerModel", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetScreenerModel() on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 17:08:32.616 +03:00 [INF] Route matched with {action = "GetMarketCapDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetMarketCapDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 17:08:32.616 +03:00 [INF] Route matched with {action = "GetEbitdaDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetEbitdaDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 17:08:32.621 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:32.623 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:32.623 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 17:08:32.647 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.653 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.653 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.673 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.673 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.673 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.687 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.695 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.697 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.697 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.710 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.710 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.712 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.722 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.722 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.725 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 17:08:32.731 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.732 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.744 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2022-05-16 17:08:32.744 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.745 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.746 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI) in 129.4399ms
+2022-05-16 17:08:32.752 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-16 17:08:32.755 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/screener-model - - - 200 - text/plain;+charset=utf-8 146.5978ms
+2022-05-16 17:08:32.758 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.759 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.771 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.774 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.788 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.788 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.799 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.801 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.811 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.813 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.823 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.825 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.836 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.836 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.847 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.847 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.860 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.861 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.871 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.872 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.885 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.885 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.897 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.898 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.908 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.910 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.918 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.919 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.928 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.933 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.938 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.941 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.946 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.950 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.954 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.962 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.962 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.973 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.975 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.984 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.984 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.995 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:32.998 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.006 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.007 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.018 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.019 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.029 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.032 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.040 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.044 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.050 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.053 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.063 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.064 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.076 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.077 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.089 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.090 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.100 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.104 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.112 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.115 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.124 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.128 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.133 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.138 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.143 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.147 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.154 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.156 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.164 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.164 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.173 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.174 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.186 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.186 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.196 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.197 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.207 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.209 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.217 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.217 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.229 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.229 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.241 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.241 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.254 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.254 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.265 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.266 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.277 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.278 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.291 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.293 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.302 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.310 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.310 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.323 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.324 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.336 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.339 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.349 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.349 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.360 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.361 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.372 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.373 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.384 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.385 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.396 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.396 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.408 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.408 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.419 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.419 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.432 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.432 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.443 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.445 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.455 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.456 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.467 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.469 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.479 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.481 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.490 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.491 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.502 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.502 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.514 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.515 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.526 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.527 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.539 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.539 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.550 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.551 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.562 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.562 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.573 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.573 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.583 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.585 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.595 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.595 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.607 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.607 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.617 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.624 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.629 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.639 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.640 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.651 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.652 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.663 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.663 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.675 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.676 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.686 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.687 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.696 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.701 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.706 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.710 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.719 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.719 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.731 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.731 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.742 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.745 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.749 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.753 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.761 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.762 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.772 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.772 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.783 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.783 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.795 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.797 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.805 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.807 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.816 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.817 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.825 +03:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-05-16 17:08:33.826 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetEbitdaDistribution (SaluteStocksAPI) in 1206.4018ms
+2022-05-16 17:08:33.827 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetEbitdaDistribution (SaluteStocksAPI)'
+2022-05-16 17:08:33.827 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/distribution/ebitda/100 - - - 200 - text/plain;+charset=utf-8 1218.1919ms
+2022-05-16 17:08:33.828 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.839 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.848 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 17:08:33.851 +03:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-05-16 17:08:33.851 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI) in 1233.3706ms
+2022-05-16 17:08:33.852 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-16 17:08:33.853 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/distribution/market-cap/100 - - - 200 - text/plain;+charset=utf-8 1244.1114ms
+2022-05-16 17:08:38.748 +03:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - -
+2022-05-16 17:08:38.748 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:38.749 +03:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - - - 204 - - 1.4219ms
+2022-05-16 17:08:38.750 +03:00 [INF] Request starting HTTP/2 POST https://localhost:5001/api/screener/companies application/json 87
+2022-05-16 17:08:38.750 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:38.751 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 17:08:38.752 +03:00 [INF] Route matched with {action = "GetCompanies", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCompanies(System.Object) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 17:08:54.286 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI) in 15533.3473ms
+2022-05-16 17:08:54.288 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 17:08:54.289 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: The best overloaded method match for 'SaluteStocksAPI.Screener.RangedValue<double>.RangedValue(double, double)' has some invalid arguments
+   at CallSite.Target(Closure , CallSite , Type , Object , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute3[T0,T1,T2,TRet](CallSite site, T0 arg0, T1 arg1, T2 arg2)
+   at SaluteStocksAPI.Controllers.ApiController.GetCompanies(Object screener) in D:\repo\SaluteStocks\SaluteStocksAPI\Controllers\ApiController.cs:line 62
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-16 17:08:54.295 +03:00 [INF] Request finished HTTP/2 POST https://localhost:5001/api/screener/companies application/json 87 - 500 - text/plain;+charset=utf-8 15545.2131ms
+2022-05-16 17:08:54.847 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASM
+2022-05-16 17:08:54.848 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASM
+2022-05-16 17:08:54.849 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASM
+2022-05-16 17:08:54.850 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASM".
+2022-05-16 17:08:55.074 +03:00 [INF] Response has success status code
+2022-05-16 17:08:55.151 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.IncomeStatement for symbol ASM
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 179
+2022-05-16 17:08:55.152 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBVA
+2022-05-16 17:08:55.152 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASM
+2022-05-16 17:08:55.156 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBVA
+2022-05-16 17:08:55.156 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASM
+2022-05-16 17:08:55.157 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBVA
+2022-05-16 17:08:55.158 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASM
+2022-05-16 17:08:55.159 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBVA".
+2022-05-16 17:08:55.160 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASM".
+2022-05-16 17:08:55.254 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BRF
+2022-05-16 17:08:55.254 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol BEPI
+2022-05-16 17:08:55.256 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BRF
+2022-05-16 17:08:55.257 +03:00 [INF] Generating URI for EARNINGS with params: symbol: BEPI
+2022-05-16 17:08:55.257 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BRF
+2022-05-16 17:08:55.258 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=BEPI
+2022-05-16 17:08:55.259 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BRF".
+2022-05-16 17:08:55.260 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=BEPI".
+2022-05-16 17:08:55.383 +03:00 [INF] Response has success status code
+2022-05-16 17:08:55.390 +03:00 [INF] Response has success status code
+2022-05-16 17:08:55.442 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.BalanceSheet for symbol BBVA
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 174
+2022-05-16 17:08:55.455 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CashFlow for symbol ASM
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176
+2022-05-16 17:08:55.487 +03:00 [INF] Response has success status code
+2022-05-16 17:08:55.525 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.Earnings for symbol BEPI
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyEarnings(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 142
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 178
+2022-05-16 17:08:55.775 +03:00 [INF] Response has success status code
+2022-05-16 17:08:55.826 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CompanyOverview for symbol BRF
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyOverview(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 109
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 177
+2022-05-16 17:08:57.524 +03:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - -
+2022-05-16 17:08:57.525 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:57.525 +03:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - - - 204 - - 1.3112ms
+2022-05-16 17:08:57.526 +03:00 [INF] Request starting HTTP/2 POST https://localhost:5001/api/screener/companies application/json 17
+2022-05-16 17:08:57.527 +03:00 [INF] CORS policy execution successful.
+2022-05-16 17:08:57.528 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 17:08:57.529 +03:00 [INF] Route matched with {action = "GetCompanies", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCompanies(System.Object) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).

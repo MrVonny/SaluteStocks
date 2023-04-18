@@ -1,0 +1,769 @@
+2022-05-11 23:13:12.331 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-11 23:13:12.356 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-11 23:13:12.359 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-11 23:13:12.437 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-11 23:13:12.439 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-11 23:13:12.441 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-11 23:13:12.442 +03:00 [INF] Hosting environment: Development
+2022-05-11 23:13:12.443 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-11 23:13:12.614 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/screener-model - -
+2022-05-11 23:13:12.614 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/market-cap/20 - -
+2022-05-11 23:13:12.656 +03:00 [INF] CORS policy execution successful.
+2022-05-11 23:13:12.656 +03:00 [INF] CORS policy execution successful.
+2022-05-11 23:13:12.659 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-11 23:13:12.659 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-11 23:13:12.672 +03:00 [INF] Route matched with {action = "GetScreenerModel", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetScreenerModel() on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-11 23:13:12.675 +03:00 [INF] Route matched with {action = "GetMarketCapDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetMarketCapDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-11 23:13:12.959 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-11 23:13:13.011 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 51.5664ms
+2022-05-11 23:13:13.132 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-11 23:13:13.145 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-11 23:13:13.160 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 28.4662ms
+2022-05-11 23:13:13.495 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:13.495 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:13.726 +03:00 [INF] Response has success status code
+2022-05-11 23:13:13.728 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:13:13.845 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:13.966 +03:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:13.968 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.007 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.007 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.010 +03:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTemp02fc7495] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-05-11 23:13:14.021 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.033 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.050 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.065 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:14.119 +03:00 [INF] Executed DbCommand (30ms) [Parameters=[@__minValue_0='?' (DbType = Int64), @__Log_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST((LOG(CAST(([c].[MarketCapitalization] / @__minValue_0) AS float)) / @__Log_1) AS int) AS [Position], COUNT(*) AS [Value]
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ([c].[MarketCapitalization] IS NOT NULL)
+GROUP BY CAST((LOG(CAST(([c].[MarketCapitalization] / @__minValue_0) AS float)) / @__Log_1) AS int)
+2022-05-11 23:13:14.146 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2022-05-11 23:13:14.146 +03:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-05-11 23:13:14.152 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI) in 1473.9723ms
+2022-05-11 23:13:14.152 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI) in 1462.1007ms
+2022-05-11 23:13:14.153 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-11 23:13:14.153 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-11 23:13:14.161 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/distribution/market-cap/20 - - - 200 - text/plain;+charset=utf-8 1549.1757ms
+2022-05-11 23:13:14.161 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/screener-model - - - 200 - text/plain;+charset=utf-8 1549.1744ms
+2022-05-11 23:13:15.082 +03:00 [INF] Executed DbCommand (581ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 12594 * FROM [ListingTemp02fc7495] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-05-11 23:13:15.093 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTemp02fc7495]', 'U') IS NOT NULL DROP TABLE [ListingTemp02fc7495]
+2022-05-11 23:13:15.114 +03:00 [INF] Loading missing data.
+2022-05-11 23:13:15.115 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.138 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-05-11 23:13:15.189 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-05-11 23:13:15.189 +03:00 [INF] Getting already loaded entities
+2022-05-11 23:13:15.190 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.197 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-05-11 23:13:15.198 +03:00 [INF] Getting already loaded entities
+2022-05-11 23:13:15.199 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.201 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-05-11 23:13:15.202 +03:00 [INF] Getting already loaded entities
+2022-05-11 23:13:15.203 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.204 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-05-11 23:13:15.205 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-05-11 23:13:15.206 +03:00 [INF] Getting already loaded entities
+2022-05-11 23:13:15.207 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.208 +03:00 [INF] Already loaded: 1280
+2022-05-11 23:13:15.211 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-05-11 23:13:15.212 +03:00 [INF] Getting already loaded entities
+2022-05-11 23:13:15.213 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.217 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBD
+2022-05-11 23:13:15.218 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-05-11 23:13:15.220 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBD
+2022-05-11 23:13:15.221 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBD
+2022-05-11 23:13:15.221 +03:00 [INF] Already loaded: 1003
+2022-05-11 23:13:15.222 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBD".
+2022-05-11 23:13:15.223 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol ATIP-WS
+2022-05-11 23:13:15.228 +03:00 [INF] Generating URI for EARNINGS with params: symbol: ATIP-WS
+2022-05-11 23:13:15.229 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATIP-WS
+2022-05-11 23:13:15.229 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATIP-WS".
+2022-05-11 23:13:15.255 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-05-11 23:13:15.257 +03:00 [INF] Already loaded: 940
+2022-05-11 23:13:15.260 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASLN
+2022-05-11 23:13:15.263 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASLN
+2022-05-11 23:13:15.264 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASLN
+2022-05-11 23:13:15.264 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASLN".
+2022-05-11 23:13:15.265 +03:00 [INF] Executed DbCommand (60ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-11 23:13:15.269 +03:00 [INF] Executed DbCommand (67ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-11 23:13:15.273 +03:00 [INF] Already loaded: 943
+2022-05-11 23:13:15.275 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASLN
+2022-05-11 23:13:15.278 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASLN
+2022-05-11 23:13:15.279 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASLN
+2022-05-11 23:13:15.280 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASLN".
+2022-05-11 23:13:15.281 +03:00 [INF] Already loaded: 1381
+2022-05-11 23:13:15.285 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BGB
+2022-05-11 23:13:15.287 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BGB
+2022-05-11 23:13:15.288 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGB
+2022-05-11 23:13:15.289 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGB".
+2022-05-11 23:13:15.489 +03:00 [INF] Response has success status code
+2022-05-11 23:13:15.490 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:13:15.521 +03:00 [INF] Response has success status code
+2022-05-11 23:13:15.523 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:15.523 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CompanyOverview for symbol BGB
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyOverview(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 109
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 177
+2022-05-11 23:13:15.566 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__symbol_0
+2022-05-11 23:13:15.616 +03:00 [INF] Response has success status code
+2022-05-11 23:13:15.617 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:13:15.626 +03:00 [INF] Response has success status code
+2022-05-11 23:13:15.626 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:13:15.642 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASLN
+Newtonsoft.Json.JsonSerializationException: Error converting value "30617503.98" to type 'System.Nullable`1[System.Int64]'. Path 'annualReports[4].researchAndDevelopment', line 125, position 51.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 179
+2022-05-11 23:13:15.642 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBD
+Newtonsoft.Json.JsonSerializationException: Error converting value "10691941101.60" to type 'System.Nullable`1[System.Int64]'. Path 'annualReports[3].commonStockSharesOutstanding', line 162, position 60.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 174
+2022-05-11 23:13:15.663 +03:00 [INF] Response has success status code
+2022-05-11 23:13:15.678 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.Earnings.
+2022-05-11 23:13:15.686 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:13:15.699 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [e].[Symbol], [e].[ExistInApi], [e].[LastApiRefresh], [e].[LastLocalRefresh]
+FROM [Earnings] AS [e]
+WHERE [e].[Symbol] = @__entity_Symbol_0
+2022-05-11 23:13:15.702 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-11 23:13:15.709 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASLN
+Newtonsoft.Json.JsonSerializationException: Error converting value "-5530.22" to type 'System.Nullable`1[System.Int64]'. Path 'quarterlyReports[13].cashflowFromInvestment', line 577, position 48.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176
+2022-05-11 23:13:15.844 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Boolean), @p2='?' (DbType = DateTime2), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Earnings] ([Symbol], [ExistInApi], [LastApiRefresh], [LastLocalRefresh])
+VALUES (@p0, @p1, @p2, @p3);
+2022-05-11 23:13:15.866 +03:00 [INF] AddOrUpdate run successful.
+2022-05-11 23:13:21.033 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/market-cap/20 - -
+2022-05-11 23:13:21.033 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/screener-model - -
+2022-05-11 23:13:21.036 +03:00 [INF] CORS policy execution successful.
+2022-05-11 23:13:21.036 +03:00 [INF] CORS policy execution successful.
+2022-05-11 23:13:21.036 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-11 23:13:21.037 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-11 23:13:21.038 +03:00 [INF] Route matched with {action = "GetMarketCapDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetMarketCapDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-11 23:13:21.039 +03:00 [INF] Route matched with {action = "GetScreenerModel", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetScreenerModel() on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-11 23:13:21.049 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:21.049 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:13:21.063 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.063 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.074 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.076 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.088 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.097 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.097 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__minValue_0='?' (DbType = Int64), @__Log_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT CAST((LOG(CAST(([c].[MarketCapitalization] / @__minValue_0) AS float)) / @__Log_1) AS int) AS [Position], COUNT(*) AS [Value]
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ([c].[MarketCapitalization] IS NOT NULL)
+GROUP BY CAST((LOG(CAST(([c].[MarketCapitalization] / @__minValue_0) AS float)) / @__Log_1) AS int)
+2022-05-11 23:13:21.102 +03:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2022-05-11 23:13:21.103 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI) in 56.6568ms
+2022-05-11 23:13:21.104 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-11 23:13:21.105 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/distribution/market-cap/20 - - - 200 - text/plain;+charset=utf-8 71.4505ms
+2022-05-11 23:13:21.109 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.120 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-11 23:13:21.122 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2022-05-11 23:13:21.124 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI) in 75.6207ms
+2022-05-11 23:13:21.125 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-11 23:13:21.125 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/api/screener-model - - - 200 - text/plain;+charset=utf-8 92.1268ms
+2022-05-11 23:13:45.541 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BGI
+2022-05-11 23:13:45.544 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BGI
+2022-05-11 23:13:45.545 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGI
+2022-05-11 23:13:45.546 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGI".
+2022-05-11 23:13:45.683 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASM
+2022-05-11 23:13:45.685 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASM
+2022-05-11 23:13:45.686 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASM
+2022-05-11 23:13:45.687 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASM".
+2022-05-11 23:13:45.699 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBUS
+2022-05-11 23:13:45.701 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBUS
+2022-05-11 23:13:45.702 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBUS
+2022-05-11 23:13:45.710 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBUS".
+2022-05-11 23:13:45.748 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASM
+2022-05-11 23:13:45.750 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASM
+2022-05-11 23:13:45.751 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASM
+2022-05-11 23:13:45.752 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASM".
+2022-05-11 23:13:45.774 +03:00 [INF] Response has success status code
+2022-05-11 23:13:45.775 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CompanyOverview for symbol BGI
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyOverview(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 109
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 177
+2022-05-11 23:13:45.873 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol ATLCL
+2022-05-11 23:13:45.874 +03:00 [INF] Generating URI for EARNINGS with params: symbol: ATLCL
+2022-05-11 23:13:45.875 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATLCL
+2022-05-11 23:13:45.875 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATLCL".
+2022-05-11 23:13:45.939 +03:00 [INF] Response has success status code
+2022-05-11 23:13:45.940 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.IncomeStatement for symbol ASM
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 179
+2022-05-11 23:13:45.996 +03:00 [INF] Response has success status code
+2022-05-11 23:13:45.997 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CashFlow for symbol ASM
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176
+2022-05-11 23:13:46.027 +03:00 [INF] Response has success status code
+2022-05-11 23:13:46.028 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.BalanceSheet for symbol BBUS
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 174
+2022-05-11 23:13:46.126 +03:00 [INF] Response has success status code
+2022-05-11 23:13:46.127 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.Earnings for symbol ATLCL
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyEarnings(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 142
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 178
+2022-05-11 23:13:48.119 +03:00 [INF] Application is shutting down...
+2022-05-11 23:14:15.785 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BGLD
+2022-05-11 23:14:15.787 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BGLD
+2022-05-11 23:14:15.787 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGLD
+2022-05-11 23:14:15.788 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGLD".
+2022-05-11 23:14:15.956 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASPCU
+2022-05-11 23:14:15.958 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASPCU
+2022-05-11 23:14:15.958 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASPCU
+2022-05-11 23:14:15.959 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASPCU".
+2022-05-11 23:14:16.018 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASML
+2022-05-11 23:14:16.020 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASML
+2022-05-11 23:14:16.020 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASML
+2022-05-11 23:14:16.021 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASML".
+2022-05-11 23:14:16.026 +03:00 [INF] Response has success status code
+2022-05-11 23:14:16.027 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.CompanyOverview.
+2022-05-11 23:14:16.028 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:14:16.034 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBVA
+2022-05-11 23:14:16.037 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBVA
+2022-05-11 23:14:16.037 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBVA
+2022-05-11 23:14:16.038 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBVA".
+2022-05-11 23:14:16.044 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__entity_Symbol_0
+2022-05-11 23:14:16.046 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-11 23:14:16.066 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 4000), @p2='?' (DbType = Double), @p3='?' (Size = 4000), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = Int64), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Double), @p11='?' (DbType = DateTime2), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Int64), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = DateTime2), @p19='?' (Size = 4000), @p20='?' (DbType = Boolean), @p21='?' (Size = 4000), @p22='?' (DbType = Double), @p23='?' (DbType = Int64), @p24='?' (Size = 4000), @p25='?' (DbType = DateTime2), @p26='?' (DbType = DateTime2), @p27='?' (DbType = DateTime2), @p28='?' (DbType = Int64), @p29='?' (Size = 4000), @p30='?' (DbType = Double), @p31='?' (DbType = Double), @p32='?' (DbType = Double), @p33='?' (DbType = Double), @p34='?' (DbType = Double), @p35='?' (DbType = Double), @p36='?' (DbType = Double), @p37='?' (DbType = Double), @p38='?' (DbType = Double), @p39='?' (DbType = Double), @p40='?' (DbType = Double), @p41='?' (DbType = Int64), @p42='?' (Size = 4000), @p43='?' (DbType = Int64), @p44='?' (DbType = Double), @p45='?' (DbType = Double), @p46='?' (DbType = Double), @p47='?' (DbType = Double), @p48='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [CompanyOverviews] ([Symbol], [Address], [AnalystTargetPrice], [AssetType], [Beta], [BookValue], [CIK], [Country], [Currency], [Description], [DilutedEPSTTM], [DividendDate], [DividendPerShare], [DividendYield], [EBITDA], [EPS], [EVToEBITDA], [EVToRevenue], [ExDividendDate], [Exchange], [ExistInApi], [FiscalYearEnd], [ForwardPE], [GrossProfitTTM], [Industry], [LastApiRefresh], [LastLocalRefresh], [LatestQuarter], [MarketCapitalization], [Name], [OperatingMarginTTM], [PEGRatio], [PERatio], [PriceToBookRatio], [PriceToSalesRatioTTM], [ProfitMargin], [QuarterlyEarningsGrowthYOY], [QuarterlyRevenueGrowthYOY], [ReturnOnAssetsTTM], [ReturnOnEquityTTM], [RevenuePerShareTTM], [RevenueTTM], [Sector], [SharesOutstanding], [TrailingPE], [_200DayMovingAverage], [_50DayMovingAverage], [_52WeekHigh], [_52WeekLow])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41, @p42, @p43, @p44, @p45, @p46, @p47, @p48);
+2022-05-11 23:14:16.077 +03:00 [INF] AddOrUpdate run successful.
+2022-05-11 23:14:16.077 +03:00 [WRN] Alpha Vantage has no SaluteStocksAPI.Models.FundamentalData.CompanyOverview for symbol BGLD
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageEmptyResponse: Response was empty.
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 313
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyOverview(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 109
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 177
+2022-05-11 23:14:16.143 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol ATNI
+2022-05-11 23:14:16.144 +03:00 [INF] Generating URI for EARNINGS with params: symbol: ATNI
+2022-05-11 23:14:16.145 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATNI
+2022-05-11 23:14:16.145 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATNI".
+2022-05-11 23:14:16.197 +03:00 [INF] Response has success status code
+2022-05-11 23:14:16.198 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:14:16.206 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:14:16.218 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__symbol_0
+2022-05-11 23:14:16.220 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.IncomeStatement.
+2022-05-11 23:14:16.232 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [i].[Symbol], [i].[ExistInApi], [i].[LastApiRefresh], [i].[LastLocalRefresh]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[Symbol] = @__entity_Symbol_0
+2022-05-11 23:14:16.233 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-11 23:14:16.361 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Boolean), @p2='?' (DbType = DateTime2), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [IncomeStatements] ([Symbol], [ExistInApi], [LastApiRefresh], [LastLocalRefresh])
+VALUES (@p0, @p1, @p2, @p3);
+2022-05-11 23:14:16.387 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[@p4='?' (DbType = Int64), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (DbType = Int64), @p8='?' (DbType = Int64), @p9='?' (DbType = Int64), @p10='?' (DbType = Double), @p11='?' (DbType = DateTime2), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Int64), @p15='?' (DbType = Int64), @p16='?' (DbType = Double), @p17='?' (DbType = Int64), @p18='?' (DbType = Int64), @p19='?' (DbType = Double), @p20='?' (DbType = Double), @p21='?' (DbType = Double), @p22='?' (DbType = Int64), @p23='?' (DbType = Double), @p24='?' (DbType = Double), @p25='?' (DbType = Int64), @p26='?' (Size = 4000), @p27='?' (DbType = Int64), @p28='?' (DbType = Double), @p29='?' (Size = 450), @p30='?' (DbType = Int64), @p31='?' (DbType = Int64), @p32='?' (DbType = Double), @p33='?' (DbType = Double), @p34='?' (DbType = Int64), @p35='?' (DbType = Int64), @p36='?' (DbType = Int64), @p37='?' (DbType = Double), @p38='?' (DbType = DateTime2), @p39='?' (DbType = Double), @p40='?' (DbType = Double), @p41='?' (DbType = Int64), @p42='?' (DbType = Int64), @p43='?' (DbType = Double), @p44='?' (DbType = Int64), @p45='?' (DbType = Int64), @p46='?' (DbType = Double), @p47='?' (DbType = Double), @p48='?' (DbType = Double), @p49='?' (DbType = Int64), @p50='?' (DbType = Double), @p51='?' (DbType = Double), @p52='?' (DbType = Int64), @p53='?' (Size = 4000), @p54='?' (DbType = Int64), @p55='?' (DbType = Double), @p56='?' (Size = 450), @p57='?' (DbType = Int64), @p58='?' (DbType = Int64), @p59='?' (DbType = Double), @p60='?' (DbType = Double), @p61='?' (DbType = Int64), @p62='?' (DbType = Int64), @p63='?' (DbType = Int64), @p64='?' (DbType = Double), @p65='?' (DbType = DateTime2), @p66='?' (DbType = Double), @p67='?' (DbType = Double), @p68='?' (DbType = Int64), @p69='?' (DbType = Int64), @p70='?' (DbType = Double), @p71='?' (DbType = Int64), @p72='?' (DbType = Int64), @p73='?' (DbType = Double), @p74='?' (DbType = Double), @p75='?' (DbType = Double), @p76='?' (DbType = Int64), @p77='?' (DbType = Double), @p78='?' (DbType = Double), @p79='?' (DbType = Int64), @p80='?' (Size = 4000), @p81='?' (DbType = Int64), @p82='?' (DbType = Double), @p83='?' (Size = 450), @p84='?' (DbType = Int64), @p85='?' (DbType = Int64), @p86='?' (DbType = Double), @p87='?' (DbType = Double), @p88='?' (DbType = Int64), @p89='?' (DbType = Int64), @p90='?' (DbType = Int64), @p91='?' (DbType = Double), @p92='?' (DbType = DateTime2), @p93='?' (DbType = Double), @p94='?' (DbType = Double), @p95='?' (DbType = Int64), @p96='?' (DbType = Int64), @p97='?' (DbType = Double), @p98='?' (DbType = Int64), @p99='?' (DbType = Int64), @p100='?' (DbType = Double), @p101='?' (DbType = Double), @p102='?' (DbType = Double), @p103='?' (DbType = Int64), @p104='?' (DbType = Double), @p105='?' (DbType = Double), @p106='?' (DbType = Int64), @p107='?' (Size = 4000), @p108='?' (DbType = Int64), @p109='?' (DbType = Double), @p110='?' (Size = 450), @p111='?' (DbType = Int64), @p112='?' (DbType = Int64), @p113='?' (DbType = Double), @p114='?' (DbType = Double), @p115='?' (DbType = Int64), @p116='?' (DbType = Int64), @p117='?' (DbType = Int64), @p118='?' (DbType = Double), @p119='?' (DbType = DateTime2), @p120='?' (DbType = Double), @p121='?' (DbType = Double), @p122='?' (DbType = Int64), @p123='?' (DbType = Int64), @p124='?' (DbType = Double), @p125='?' (DbType = Int64), @p126='?' (DbType = Int64), @p127='?' (DbType = Double), @p128='?' (DbType = Double), @p129='?' (DbType = Double), @p130='?' (DbType = Int64), @p131='?' (DbType = Double), @p132='?' (DbType = Double), @p133='?' (DbType = Int64), @p134='?' (Size = 4000), @p135='?' (DbType = Int64), @p136='?' (DbType = Double), @p137='?' (Size = 450), @p138='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [IncomeStatementAnnualReport] ([ComprehensiveIncomeNetOfTax], [CostOfRevenue], [CostofGoodsAndServicesSold], [Depreciation], [DepreciationAndAmortization], [Ebit], [Ebitda], [FiscalDateEnding], [GrossProfit], [IncomeBeforeTax], [IncomeTaxExpense], [InterestAndDebtExpense], [InterestExpense], [InterestIncome], [InvestmentIncomeNet], [NetIncome], [NetIncomeFromContinuingOperations], [NetInterestIncome], [NonInterestIncome], [OperatingExpenses], [OperatingIncome], [OtherNonOperatingIncome], [ReportedCurrency], [ResearchAndDevelopment], [SellingGeneralAndAdministrative], [Symbol], [TotalRevenue])
+VALUES (@p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30);
+SELECT [Id]
+FROM [IncomeStatementAnnualReport]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
+
+DECLARE @inserted1 TABLE ([Id] int, [_Position] [int]);
+MERGE [IncomeStatementQuarterlyReport] USING (
+VALUES (@p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41, @p42, @p43, @p44, @p45, @p46, @p47, @p48, @p49, @p50, @p51, @p52, @p53, @p54, @p55, @p56, @p57, 0),
+(@p58, @p59, @p60, @p61, @p62, @p63, @p64, @p65, @p66, @p67, @p68, @p69, @p70, @p71, @p72, @p73, @p74, @p75, @p76, @p77, @p78, @p79, @p80, @p81, @p82, @p83, @p84, 1),
+(@p85, @p86, @p87, @p88, @p89, @p90, @p91, @p92, @p93, @p94, @p95, @p96, @p97, @p98, @p99, @p100, @p101, @p102, @p103, @p104, @p105, @p106, @p107, @p108, @p109, @p110, @p111, 2),
+(@p112, @p113, @p114, @p115, @p116, @p117, @p118, @p119, @p120, @p121, @p122, @p123, @p124, @p125, @p126, @p127, @p128, @p129, @p130, @p131, @p132, @p133, @p134, @p135, @p136, @p137, @p138, 3)) AS i ([ComprehensiveIncomeNetOfTax], [CostOfRevenue], [CostofGoodsAndServicesSold], [Depreciation], [DepreciationAndAmortization], [Ebit], [Ebitda], [FiscalDateEnding], [GrossProfit], [IncomeBeforeTax], [IncomeTaxExpense], [InterestAndDebtExpense], [InterestExpense], [InterestIncome], [InvestmentIncomeNet], [NetIncome], [NetIncomeFromContinuingOperations], [NetInterestIncome], [NonInterestIncome], [OperatingExpenses], [OperatingIncome], [OtherNonOperatingIncome], [ReportedCurrency], [ResearchAndDevelopment], [SellingGeneralAndAdministrative], [Symbol], [TotalRevenue], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([ComprehensiveIncomeNetOfTax], [CostOfRevenue], [CostofGoodsAndServicesSold], [Depreciation], [DepreciationAndAmortization], [Ebit], [Ebitda], [FiscalDateEnding], [GrossProfit], [IncomeBeforeTax], [IncomeTaxExpense], [InterestAndDebtExpense], [InterestExpense], [InterestIncome], [InvestmentIncomeNet], [NetIncome], [NetIncomeFromContinuingOperations], [NetInterestIncome], [NonInterestIncome], [OperatingExpenses], [OperatingIncome], [OtherNonOperatingIncome], [ReportedCurrency], [ResearchAndDevelopment], [SellingGeneralAndAdministrative], [Symbol], [TotalRevenue])
+VALUES (i.[ComprehensiveIncomeNetOfTax], i.[CostOfRevenue], i.[CostofGoodsAndServicesSold], i.[Depreciation], i.[DepreciationAndAmortization], i.[Ebit], i.[Ebitda], i.[FiscalDateEnding], i.[GrossProfit], i.[IncomeBeforeTax], i.[IncomeTaxExpense], i.[InterestAndDebtExpense], i.[InterestExpense], i.[InterestIncome], i.[InvestmentIncomeNet], i.[NetIncome], i.[NetIncomeFromContinuingOperations], i.[NetInterestIncome], i.[NonInterestIncome], i.[OperatingExpenses], i.[OperatingIncome], i.[OtherNonOperatingIncome], i.[ReportedCurrency], i.[ResearchAndDevelopment], i.[SellingGeneralAndAdministrative], i.[Symbol], i.[TotalRevenue])
+OUTPUT INSERTED.[Id], i._Position
+INTO @inserted1;
+
+SELECT [i].[Id] FROM @inserted1 i
+ORDER BY [i].[_Position];
+2022-05-11 23:14:16.419 +03:00 [INF] AddOrUpdate run successful.
+2022-05-11 23:14:16.531 +03:00 [INF] Response has success status code
+2022-05-11 23:14:16.531 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:14:16.535 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-11 23:14:16.546 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__symbol_0
+2022-05-11 23:14:16.549 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.Earnings.
+2022-05-11 23:14:16.557 +03:00 [INF] Response has success status code
+2022-05-11 23:14:16.557 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:14:16.558 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASML
+Newtonsoft.Json.JsonSerializationException: Error converting value "-1270490918.79" to type 'System.Nullable`1[System.Int64]'. Path 'quarterlyReports[9].changeInInventory', line 451, position 49.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176
+2022-05-11 23:14:16.559 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [e].[Symbol], [e].[ExistInApi], [e].[LastApiRefresh], [e].[LastLocalRefresh]
+FROM [Earnings] AS [e]
+WHERE [e].[Symbol] = @__entity_Symbol_0
+2022-05-11 23:14:16.570 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-11 23:14:16.600 +03:00 [INF] Response has success status code
+2022-05-11 23:14:16.601 +03:00 [INF] Trying to deserialize response.
+2022-05-11 23:14:16.606 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Boolean), @p2='?' (DbType = DateTime2), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Earnings] ([Symbol], [ExistInApi], [LastApiRefresh], [LastLocalRefresh])
+VALUES (@p0, @p1, @p2, @p3);
+2022-05-11 23:14:16.611 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBVA
+Newtonsoft.Json.JsonSerializationException: Error converting value "10664071274.09" to type 'System.Nullable`1[System.Int64]'. Path 'quarterlyReports[13].propertyPlantEquipment', line 736, position 54.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 174
+2022-05-11 23:14:16.672 +03:00 [INF] Executed DbCommand (64ms) [Parameters=[@p4='?' (DbType = DateTime2), @p5='?' (DbType = Double), @p6='?' (Size = 450), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Double), @p9='?' (Size = 450), @p10='?' (DbType = DateTime2), @p11='?' (DbType = Double), @p12='?' (Size = 450), @p13='?' (DbType = DateTime2), @p14='?' (DbType = Double), @p15='?' (Size = 450), @p16='?' (DbType = DateTime2), @p17='?' (DbType = Double), @p18='?' (Size = 450), @p19='?' (DbType = DateTime2), @p20='?' (DbType = Double), @p21='?' (Size = 450), @p22='?' (DbType = DateTime2), @p23='?' (DbType = Double), @p24='?' (Size = 450), @p25='?' (DbType = DateTime2), @p26='?' (DbType = Double), @p27='?' (Size = 450), @p28='?' (DbType = DateTime2), @p29='?' (DbType = Double), @p30='?' (Size = 450), @p31='?' (DbType = DateTime2), @p32='?' (DbType = Double), @p33='?' (Size = 450), @p34='?' (DbType = DateTime2), @p35='?' (DbType = Double), @p36='?' (Size = 450), @p37='?' (DbType = DateTime2), @p38='?' (DbType = Double), @p39='?' (Size = 450), @p40='?' (DbType = DateTime2), @p41='?' (DbType = Double), @p42='?' (Size = 450), @p43='?' (DbType = DateTime2), @p44='?' (DbType = Double), @p45='?' (Size = 450), @p46='?' (DbType = DateTime2), @p47='?' (DbType = Double), @p48='?' (Size = 450), @p49='?' (DbType = DateTime2), @p50='?' (DbType = Double), @p51='?' (Size = 450), @p52='?' (DbType = DateTime2), @p53='?' (DbType = Double), @p54='?' (Size = 450), @p55='?' (DbType = DateTime2), @p56='?' (DbType = Double), @p57='?' (Size = 450), @p58='?' (DbType = DateTime2), @p59='?' (DbType = Double), @p60='?' (Size = 450), @p61='?' (DbType = DateTime2), @p62='?' (DbType = Double), @p63='?' (Size = 450), @p64='?' (DbType = DateTime2), @p65='?' (DbType = Double), @p66='?' (Size = 450), @p67='?' (DbType = DateTime2), @p68='?' (DbType = Double), @p69='?' (Size = 450), @p70='?' (DbType = Double), @p71='?' (DbType = DateTime2), @p72='?' (DbType = DateTime2), @p73='?' (DbType = Double), @p74='?' (DbType = Double), @p75='?' (DbType = Double), @p76='?' (Size = 450), @p77='?' (DbType = Double), @p78='?' (DbType = DateTime2), @p79='?' (DbType = DateTime2), @p80='?' (DbType = Double), @p81='?' (DbType = Double), @p82='?' (DbType = Double), @p83='?' (Size = 450), @p84='?' (DbType = Double), @p85='?' (DbType = DateTime2), @p86='?' (DbType = DateTime2), @p87='?' (DbType = Double), @p88='?' (DbType = Double), @p89='?' (DbType = Double), @p90='?' (Size = 450), @p91='?' (DbType = Double), @p92='?' (DbType = DateTime2), @p93='?' (DbType = DateTime2), @p94='?' (DbType = Double), @p95='?' (DbType = Double), @p96='?' (DbType = Double), @p97='?' (Size = 450), @p98='?' (DbType = Double), @p99='?' (DbType = DateTime2), @p100='?' (DbType = DateTime2), @p101='?' (DbType = Double), @p102='?' (DbType = Double), @p103='?' (DbType = Double), @p104='?' (Size = 450), @p105='?' (DbType = Double), @p106='?' (DbType = DateTime2), @p107='?' (DbType = DateTime2), @p108='?' (DbType = Double), @p109='?' (DbType = Double), @p110='?' (DbType = Double), @p111='?' (Size = 450), @p112='?' (DbType = Double), @p113='?' (DbType = DateTime2), @p114='?' (DbType = DateTime2), @p115='?' (DbType = Double), @p116='?' (DbType = Double), @p117='?' (DbType = Double), @p118='?' (Size = 450), @p119='?' (DbType = Double), @p120='?' (DbType = DateTime2), @p121='?' (DbType = DateTime2), @p122='?' (DbType = Double), @p123='?' (DbType = Double), @p124='?' (DbType = Double), @p125='?' (Size = 450), @p126='?' (DbType = Double), @p127='?' (DbType = DateTime2), @p128='?' (DbType = DateTime2), @p129='?' (DbType = Double), @p130='?' (DbType = Double), @p131='?' (DbType = Double), @p132='?' (Size = 450), @p133='?' (DbType = Double), @p134='?' (DbType = DateTime2), @p135='?' (DbType = DateTime2), @p136='?' (DbType = Double), @p137='?' (DbType = Double), @p138='?' (DbType = Double), @p139='?' (Size = 450), @p140='?' (DbType = Double), @p141='?' (DbType = DateTime2), @p142='?' (DbType = DateTime2), @p143='?' (DbType = Double), @p144='?' (DbType = Double), @p145='?' (DbType = Double), @p146='?' (Size = 450), @p147='?' (DbType = Double), @p148='?' (DbType = DateTime2), @p149='?' (DbType = DateTime2), @p150='?' (DbType = Double), @p151='?' (DbType = Double), @p152='?' (DbType = Double), @p153='?' (Size = 450), @p154='?' (DbType = Double), @p155='?' (DbType = DateTime2), @p156='?' (DbType = DateTime2), @p157='?' (DbType = Double), @p158='?' (DbType = Double), @p159='?' (DbType = Double), @p160='?' (Size = 450), @p161='?' (DbType = Double), @p162='?' (DbType = DateTime2), @p163='?' (DbType = DateTime2), @p164='?' (DbType = Double), @p165='?' (DbType = Double), @p166='?' (DbType = Double), @p167='?' (Size = 450), @p168='?' (DbType = Double), @p169='?' (DbType = DateTime2), @p170='?' (DbType = DateTime2), @p171='?' (DbType = Double), @p172='?' (DbType = Double), @p173='?' (DbType = Double), @p174='?' (Size = 450), @p175='?' (DbType = Double), @p176='?' (DbType = DateTime2), @p177='?' (DbType = DateTime2), @p178='?' (DbType = Double), @p179='?' (DbType = Double), @p180='?' (DbType = Double), @p181='?' (Size = 450), @p182='?' (DbType = Double), @p183='?' (DbType = DateTime2), @p184='?' (DbType = DateTime2), @p185='?' (DbType = Double), @p186='?' (DbType = Double), @p187='?' (DbType = Double), @p188='?' (Size = 450), @p189='?' (DbType = Double), @p190='?' (DbType = DateTime2), @p191='?' (DbType = DateTime2), @p192='?' (DbType = Double), @p193='?' (DbType = Double), @p194='?' (DbType = Double), @p195='?' (Size = 450), @p196='?' (DbType = Double), @p197='?' (DbType = DateTime2), @p198='?' (DbType = DateTime2), @p199='?' (DbType = Double), @p200='?' (DbType = Double), @p201='?' (DbType = Double), @p202='?' (Size = 450), @p203='?' (DbType = Double), @p204='?' (DbType = DateTime2), @p205='?' (DbType = DateTime2), @p206='?' (DbType = Double), @p207='?' (DbType = Double), @p208='?' (DbType = Double), @p209='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DECLARE @inserted0 TABLE ([Id] int, [_Position] [int]);
+MERGE [AnnualEarning] USING (
+VALUES (@p4, @p5, @p6, 0),
+(@p7, @p8, @p9, 1),
+(@p10, @p11, @p12, 2),
+(@p13, @p14, @p15, 3),
+(@p16, @p17, @p18, 4),
+(@p19, @p20, @p21, 5),
+(@p22, @p23, @p24, 6),
+(@p25, @p26, @p27, 7),
+(@p28, @p29, @p30, 8),
+(@p31, @p32, @p33, 9),
+(@p34, @p35, @p36, 10),
+(@p37, @p38, @p39, 11),
+(@p40, @p41, @p42, 12),
+(@p43, @p44, @p45, 13),
+(@p46, @p47, @p48, 14),
+(@p49, @p50, @p51, 15),
+(@p52, @p53, @p54, 16),
+(@p55, @p56, @p57, 17),
+(@p58, @p59, @p60, 18),
+(@p61, @p62, @p63, 19),
+(@p64, @p65, @p66, 20),
+(@p67, @p68, @p69, 21)) AS i ([FiscalDateEnding], [ReportedEPS], [Symbol], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([FiscalDateEnding], [ReportedEPS], [Symbol])
+VALUES (i.[FiscalDateEnding], i.[ReportedEPS], i.[Symbol])
+OUTPUT INSERTED.[Id], i._Position
+INTO @inserted0;
+
+SELECT [i].[Id] FROM @inserted0 i
+ORDER BY [i].[_Position];
+
+DECLARE @inserted22 TABLE ([Id] int, [_Position] [int]);
+MERGE [QuarterlyEarning] USING (
+VALUES (@p70, @p71, @p72, @p73, @p74, @p75, @p76, 0),
+(@p77, @p78, @p79, @p80, @p81, @p82, @p83, 1),
+(@p84, @p85, @p86, @p87, @p88, @p89, @p90, 2),
+(@p91, @p92, @p93, @p94, @p95, @p96, @p97, 3),
+(@p98, @p99, @p100, @p101, @p102, @p103, @p104, 4),
+(@p105, @p106, @p107, @p108, @p109, @p110, @p111, 5),
+(@p112, @p113, @p114, @p115, @p116, @p117, @p118, 6),
+(@p119, @p120, @p121, @p122, @p123, @p124, @p125, 7),
+(@p126, @p127, @p128, @p129, @p130, @p131, @p132, 8),
+(@p133, @p134, @p135, @p136, @p137, @p138, @p139, 9),
+(@p140, @p141, @p142, @p143, @p144, @p145, @p146, 10),
+(@p147, @p148, @p149, @p150, @p151, @p152, @p153, 11),
+(@p154, @p155, @p156, @p157, @p158, @p159, @p160, 12),
+(@p161, @p162, @p163, @p164, @p165, @p166, @p167, 13),
+(@p168, @p169, @p170, @p171, @p172, @p173, @p174, 14),
+(@p175, @p176, @p177, @p178, @p179, @p180, @p181, 15),
+(@p182, @p183, @p184, @p185, @p186, @p187, @p188, 16),
+(@p189, @p190, @p191, @p192, @p193, @p194, @p195, 17),
+(@p196, @p197, @p198, @p199, @p200, @p201, @p202, 18),
+(@p203, @p204, @p205, @p206, @p207, @p208, @p209, 19)) AS i ([EstimatedEPS], [FiscalDateEnding], [ReportedDate], [ReportedEPS], [Surprise], [SurprisePercentage], [Symbol], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([EstimatedEPS], [FiscalDateEnding], [ReportedDate], [ReportedEPS], [Surprise], [SurprisePercentage], [Symbol])
+VALUES (i.[EstimatedEPS], i.[FiscalDateEnding], i.[ReportedDate], i.[ReportedEPS], i.[Surprise], i.[SurprisePercentage], i.[Symbol])
+OUTPUT INSERTED.[Id], i._Position
+INTO @inserted22;
+
+SELECT [i].[Id] FROM @inserted22 i
+ORDER BY [i].[_Position];
+2022-05-11 23:14:16.712 +03:00 [INF] Executed DbCommand (30ms) [Parameters=[@p0='?' (DbType = Double), @p1='?' (DbType = DateTime2), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (Size = 450), @p7='?' (DbType = Double), @p8='?' (DbType = DateTime2), @p9='?' (DbType = DateTime2), @p10='?' (DbType = Double), @p11='?' (DbType = Double), @p12='?' (DbType = Double), @p13='?' (Size = 450), @p14='?' (DbType = Double), @p15='?' (DbType = DateTime2), @p16='?' (DbType = DateTime2), @p17='?' (DbType = Double), @p18='?' (DbType = Double), @p19='?' (DbType = Double), @p20='?' (Size = 450), @p21='?' (DbType = Double), @p22='?' (DbType = DateTime2), @p23='?' (DbType = DateTime2), @p24='?' (DbType = Double), @p25='?' (DbType = Double), @p26='?' (DbType = Double), @p27='?' (Size = 450), @p28='?' (DbType = Double), @p29='?' (DbType = DateTime2), @p30='?' (DbType = DateTime2), @p31='?' (DbType = Double), @p32='?' (DbType = Double), @p33='?' (DbType = Double), @p34='?' (Size = 450), @p35='?' (DbType = Double), @p36='?' (DbType = DateTime2), @p37='?' (DbType = DateTime2), @p38='?' (DbType = Double), @p39='?' (DbType = Double), @p40='?' (DbType = Double), @p41='?' (Size = 450), @p42='?' (DbType = Double), @p43='?' (DbType = DateTime2), @p44='?' (DbType = DateTime2), @p45='?' (DbType = Double), @p46='?' (DbType = Double), @p47='?' (DbType = Double), @p48='?' (Size = 450), @p49='?' (DbType = Double), @p50='?' (DbType = DateTime2), @p51='?' (DbType = DateTime2), @p52='?' (DbType = Double), @p53='?' (DbType = Double), @p54='?' (DbType = Double), @p55='?' (Size = 450), @p56='?' (DbType = Double), @p57='?' (DbType = DateTime2), @p58='?' (DbType = DateTime2), @p59='?' (DbType = Double), @p60='?' (DbType = Double), @p61='?' (DbType = Double), @p62='?' (Size = 450), @p63='?' (DbType = Double), @p64='?' (DbType = DateTime2), @p65='?' (DbType = DateTime2), @p66='?' (DbType = Double), @p67='?' (DbType = Double), @p68='?' (DbType = Double), @p69='?' (Size = 450), @p70='?' (DbType = Double), @p71='?' (DbType = DateTime2), @p72='?' (DbType = DateTime2), @p73='?' (DbType = Double), @p74='?' (DbType = Double), @p75='?' (DbType = Double), @p76='?' (Size = 450), @p77='?' (DbType = Double), @p78='?' (DbType = DateTime2), @p79='?' (DbType = DateTime2), @p80='?' (DbType = Double), @p81='?' (DbType = Double), @p82='?' (DbType = Double), @p83='?' (Size = 450), @p84='?' (DbType = Double), @p85='?' (DbType = DateTime2), @p86='?' (DbType = DateTime2), @p87='?' (DbType = Double), @p88='?' (DbType = Double), @p89='?' (DbType = Double), @p90='?' (Size = 450), @p91='?' (DbType = Double), @p92='?' (DbType = DateTime2), @p93='?' (DbType = DateTime2), @p94='?' (DbType = Double), @p95='?' (DbType = Double), @p96='?' (DbType = Double), @p97='?' (Size = 450), @p98='?' (DbType = Double), @p99='?' (DbType = DateTime2), @p100='?' (DbType = DateTime2), @p101='?' (DbType = Double), @p102='?' (DbType = Double), @p103='?' (DbType = Double), @p104='?' (Size = 450), @p105='?' (DbType = Double), @p106='?' (DbType = DateTime2), @p107='?' (DbType = DateTime2), @p108='?' (DbType = Double), @p109='?' (DbType = Double), @p110='?' (DbType = Double), @p111='?' (Size = 450), @p112='?' (DbType = Double), @p113='?' (DbType = DateTime2), @p114='?' (DbType = DateTime2), @p115='?' (DbType = Double), @p116='?' (DbType = Double), @p117='?' (DbType = Double), @p118='?' (Size = 450), @p119='?' (DbType = Double), @p120='?' (DbType = DateTime2), @p121='?' (DbType = DateTime2), @p122='?' (DbType = Double), @p123='?' (DbType = Double), @p124='?' (DbType = Double), @p125='?' (Size = 450), @p126='?' (DbType = Double), @p127='?' (DbType = DateTime2), @p128='?' (DbType = DateTime2), @p129='?' (DbType = Double), @p130='?' (DbType = Double), @p131='?' (DbType = Double), @p132='?' (Size = 450), @p133='?' (DbType = Double), @p134='?' (DbType = DateTime2), @p135='?' (DbType = DateTime2), @p136='?' (DbType = Double), @p137='?' (DbType = Double), @p138='?' (DbType = Double), @p139='?' (Size = 450), @p140='?' (DbType = Double), @p141='?' (DbType = DateTime2), @p142='?' (DbType = DateTime2), @p143='?' (DbType = Double), @p144='?' (DbType = Double), @p145='?' (DbType = Double), @p146='?' (Size = 450), @p147='?' (DbType = Double), @p148='?' (DbType = DateTime2), @p149='?' (DbType = DateTime2), @p150='?' (DbType = Double), @p151='?' (DbType = Double), @p152='?' (DbType = Double), @p153='?' (Size = 450), @p154='?' (DbType = Double), @p155='?' (DbType = DateTime2), @p156='?' (DbType = DateTime2), @p157='?' (DbType = Double), @p158='?' (DbType = Double), @p159='?' (DbType = Double), @p160='?' (Size = 450), @p161='?' (DbType = Double), @p162='?' (DbType = DateTime2), @p163='?' (DbType = DateTime2), @p164='?' (DbType = Double), @p165='?' (DbType = Double), @p166='?' (DbType = Double), @p167='?' (Size = 450), @p168='?' (DbType = Double), @p169='?' (DbType = DateTime2), @p170='?' (DbType = DateTime2), @p171='?' (DbType = Double), @p172='?' (DbType = Double), @p173='?' (DbType = Double), @p174='?' (Size = 450), @p175='?' (DbType = Double), @p176='?' (DbType = DateTime2), @p177='?' (DbType = DateTime2), @p178='?' (DbType = Double), @p179='?' (DbType = Double), @p180='?' (DbType = Double), @p181='?' (Size = 450), @p182='?' (DbType = Double), @p183='?' (DbType = DateTime2), @p184='?' (DbType = DateTime2), @p185='?' (DbType = Double), @p186='?' (DbType = Double), @p187='?' (DbType = Double), @p188='?' (Size = 450), @p189='?' (DbType = Double), @p190='?' (DbType = DateTime2), @p191='?' (DbType = DateTime2), @p192='?' (DbType = Double), @p193='?' (DbType = Double), @p194='?' (DbType = Double), @p195='?' (Size = 450), @p196='?' (DbType = Double), @p197='?' (DbType = DateTime2), @p198='?' (DbType = DateTime2), @p199='?' (DbType = Double), @p200='?' (DbType = Double), @p201='?' (DbType = Double), @p202='?' (Size = 450), @p203='?' (DbType = Double), @p204='?' (DbType = DateTime2), @p205='?' (DbType = DateTime2), @p206='?' (DbType = Double), @p207='?' (DbType = Double), @p208='?' (DbType = Double), @p209='?' (Size = 450), @p210='?' (DbType = Double), @p211='?' (DbType = DateTime2), @p212='?' (DbType = DateTime2), @p213='?' (DbType = Double), @p214='?' (DbType = Double), @p215='?' (DbType = Double), @p216='?' (Size = 450), @p217='?' (DbType = Double), @p218='?' (DbType = DateTime2), @p219='?' (DbType = DateTime2), @p220='?' (DbType = Double), @p221='?' (DbType = Double), @p222='?' (DbType = Double), @p223='?' (Size = 450), @p224='?' (DbType = Double), @p225='?' (DbType = DateTime2), @p226='?' (DbType = DateTime2), @p227='?' (DbType = Double), @p228='?' (DbType = Double), @p229='?' (DbType = Double), @p230='?' (Size = 450), @p231='?' (DbType = Double), @p232='?' (DbType = DateTime2), @p233='?' (DbType = DateTime2), @p234='?' (DbType = Double), @p235='?' (DbType = Double), @p236='?' (DbType = Double), @p237='?' (Size = 450), @p238='?' (DbType = Double), @p239='?' (DbType = DateTime2), @p240='?' (DbType = DateTime2), @p241='?' (DbType = Double), @p242='?' (DbType = Double), @p243='?' (DbType = Double), @p244='?' (Size = 450), @p245='?' (DbType = Double), @p246='?' (DbType = DateTime2), @p247='?' (DbType = DateTime2), @p248='?' (DbType = Double), @p249='?' (DbType = Double), @p250='?' (DbType = Double), @p251='?' (Size = 450), @p252='?' (DbType = Double), @p253='?' (DbType = DateTime2), @p254='?' (DbType = DateTime2), @p255='?' (DbType = Double), @p256='?' (DbType = Double), @p257='?' (DbType = Double), @p258='?' (Size = 450), @p259='?' (DbType = Double), @p260='?' (DbType = DateTime2), @p261='?' (DbType = DateTime2), @p262='?' (DbType = Double), @p263='?' (DbType = Double), @p264='?' (DbType = Double), @p265='?' (Size = 450), @p266='?' (DbType = Double), @p267='?' (DbType = DateTime2), @p268='?' (DbType = DateTime2), @p269='?' (DbType = Double), @p270='?' (DbType = Double), @p271='?' (DbType = Double), @p272='?' (Size = 450), @p273='?' (DbType = Double), @p274='?' (DbType = DateTime2), @p275='?' (DbType = DateTime2), @p276='?' (DbType = Double), @p277='?' (DbType = Double), @p278='?' (DbType = Double), @p279='?' (Size = 450), @p280='?' (DbType = Double), @p281='?' (DbType = DateTime2), @p282='?' (DbType = DateTime2), @p283='?' (DbType = Double), @p284='?' (DbType = Double), @p285='?' (DbType = Double), @p286='?' (Size = 450), @p287='?' (DbType = Double), @p288='?' (DbType = DateTime2), @p289='?' (DbType = DateTime2), @p290='?' (DbType = Double), @p291='?' (DbType = Double), @p292='?' (DbType = Double), @p293='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DECLARE @inserted0 TABLE ([Id] int, [_Position] [int]);
+MERGE [QuarterlyEarning] USING (
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, 0),
+(@p7, @p8, @p9, @p10, @p11, @p12, @p13, 1),
+(@p14, @p15, @p16, @p17, @p18, @p19, @p20, 2),
+(@p21, @p22, @p23, @p24, @p25, @p26, @p27, 3),
+(@p28, @p29, @p30, @p31, @p32, @p33, @p34, 4),
+(@p35, @p36, @p37, @p38, @p39, @p40, @p41, 5),
+(@p42, @p43, @p44, @p45, @p46, @p47, @p48, 6),
+(@p49, @p50, @p51, @p52, @p53, @p54, @p55, 7),
+(@p56, @p57, @p58, @p59, @p60, @p61, @p62, 8),
+(@p63, @p64, @p65, @p66, @p67, @p68, @p69, 9),
+(@p70, @p71, @p72, @p73, @p74, @p75, @p76, 10),
+(@p77, @p78, @p79, @p80, @p81, @p82, @p83, 11),
+(@p84, @p85, @p86, @p87, @p88, @p89, @p90, 12),
+(@p91, @p92, @p93, @p94, @p95, @p96, @p97, 13),
+(@p98, @p99, @p100, @p101, @p102, @p103, @p104, 14),
+(@p105, @p106, @p107, @p108, @p109, @p110, @p111, 15),
+(@p112, @p113, @p114, @p115, @p116, @p117, @p118, 16),
+(@p119, @p120, @p121, @p122, @p123, @p124, @p125, 17),
+(@p126, @p127, @p128, @p129, @p130, @p131, @p132, 18),
+(@p133, @p134, @p135, @p136, @p137, @p138, @p139, 19),
+(@p140, @p141, @p142, @p143, @p144, @p145, @p146, 20),
+(@p147, @p148, @p149, @p150, @p151, @p152, @p153, 21),
+(@p154, @p155, @p156, @p157, @p158, @p159, @p160, 22),
+(@p161, @p162, @p163, @p164, @p165, @p166, @p167, 23),
+(@p168, @p169, @p170, @p171, @p172, @p173, @p174, 24),
+(@p175, @p176, @p177, @p178, @p179, @p180, @p181, 25),
+(@p182, @p183, @p184, @p185, @p186, @p187, @p188, 26),
+(@p189, @p190, @p191, @p192, @p193, @p194, @p195, 27),
+(@p196, @p197, @p198, @p199, @p200, @p201, @p202, 28),
+(@p203, @p204, @p205, @p206, @p207, @p208, @p209, 29),
+(@p210, @p211, @p212, @p213, @p214, @p215, @p216, 30),
+(@p217, @p218, @p219, @p220, @p221, @p222, @p223, 31),
+(@p224, @p225, @p226, @p227, @p228, @p229, @p230, 32),
+(@p231, @p232, @p233, @p234, @p235, @p236, @p237, 33),
+(@p238, @p239, @p240, @p241, @p242, @p243, @p244, 34),
+(@p245, @p246, @p247, @p248, @p249, @p250, @p251, 35),
+(@p252, @p253, @p254, @p255, @p256, @p257, @p258, 36),
+(@p259, @p260, @p261, @p262, @p263, @p264, @p265, 37),
+(@p266, @p267, @p268, @p269, @p270, @p271, @p272, 38),
+(@p273, @p274, @p275, @p276, @p277, @p278, @p279, 39),
+(@p280, @p281, @p282, @p283, @p284, @p285, @p286, 40),
+(@p287, @p288, @p289, @p290, @p291, @p292, @p293, 41)) AS i ([EstimatedEPS], [FiscalDateEnding], [ReportedDate], [ReportedEPS], [Surprise], [SurprisePercentage], [Symbol], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([EstimatedEPS], [FiscalDateEnding], [ReportedDate], [ReportedEPS], [Surprise], [SurprisePercentage], [Symbol])
+VALUES (i.[EstimatedEPS], i.[FiscalDateEnding], i.[ReportedDate], i.[ReportedEPS], i.[Surprise], i.[SurprisePercentage], i.[Symbol])
+OUTPUT INSERTED.[Id], i._Position
+INTO @inserted0;
+
+SELECT [i].[Id] FROM @inserted0 i
+ORDER BY [i].[_Position];
+2022-05-11 23:14:16.737 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[@p0='?' (DbType = Double), @p1='?' (DbType = DateTime2), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (Size = 450), @p7='?' (DbType = Double), @p8='?' (DbType = DateTime2), @p9='?' (DbType = DateTime2), @p10='?' (DbType = Double), @p11='?' (DbType = Double), @p12='?' (DbType = Double), @p13='?' (Size = 450), @p14='?' (DbType = Double), @p15='?' (DbType = DateTime2), @p16='?' (DbType = DateTime2), @p17='?' (DbType = Double), @p18='?' (DbType = Double), @p19='?' (DbType = Double), @p20='?' (Size = 450), @p21='?' (DbType = Double), @p22='?' (DbType = DateTime2), @p23='?' (DbType = DateTime2), @p24='?' (DbType = Double), @p25='?' (DbType = Double), @p26='?' (DbType = Double), @p27='?' (Size = 450), @p28='?' (DbType = Double), @p29='?' (DbType = DateTime2), @p30='?' (DbType = DateTime2), @p31='?' (DbType = Double), @p32='?' (DbType = Double), @p33='?' (DbType = Double), @p34='?' (Size = 450), @p35='?' (DbType = Double), @p36='?' (DbType = DateTime2), @p37='?' (DbType = DateTime2), @p38='?' (DbType = Double), @p39='?' (DbType = Double), @p40='?' (DbType = Double), @p41='?' (Size = 450), @p42='?' (DbType = Double), @p43='?' (DbType = DateTime2), @p44='?' (DbType = DateTime2), @p45='?' (DbType = Double), @p46='?' (DbType = Double), @p47='?' (DbType = Double), @p48='?' (Size = 450), @p49='?' (DbType = Double), @p50='?' (DbType = DateTime2), @p51='?' (DbType = DateTime2), @p52='?' (DbType = Double), @p53='?' (DbType = Double), @p54='?' (DbType = Double), @p55='?' (Size = 450), @p56='?' (DbType = Double), @p57='?' (DbType = DateTime2), @p58='?' (DbType = DateTime2), @p59='?' (DbType = Double), @p60='?' (DbType = Double), @p61='?' (DbType = Double), @p62='?' (Size = 450), @p63='?' (DbType = Double), @p64='?' (DbType = DateTime2), @p65='?' (DbType = DateTime2), @p66='?' (DbType = Double), @p67='?' (DbType = Double), @p68='?' (DbType = Double), @p69='?' (Size = 450), @p70='?' (DbType = Double), @p71='?' (DbType = DateTime2), @p72='?' (DbType = DateTime2), @p73='?' (DbType = Double), @p74='?' (DbType = Double), @p75='?' (DbType = Double), @p76='?' (Size = 450), @p77='?' (DbType = Double), @p78='?' (DbType = DateTime2), @p79='?' (DbType = DateTime2), @p80='?' (DbType = Double), @p81='?' (DbType = Double), @p82='?' (DbType = Double), @p83='?' (Size = 450), @p84='?' (DbType = Double), @p85='?' (DbType = DateTime2), @p86='?' (DbType = DateTime2), @p87='?' (DbType = Double), @p88='?' (DbType = Double), @p89='?' (DbType = Double), @p90='?' (Size = 450), @p91='?' (DbType = Double), @p92='?' (DbType = DateTime2), @p93='?' (DbType = DateTime2), @p94='?' (DbType = Double), @p95='?' (DbType = Double), @p96='?' (DbType = Double), @p97='?' (Size = 450), @p98='?' (DbType = Double), @p99='?' (DbType = DateTime2), @p100='?' (DbType = DateTime2), @p101='?' (DbType = Double), @p102='?' (DbType = Double), @p103='?' (DbType = Double), @p104='?' (Size = 450), @p105='?' (DbType = Double), @p106='?' (DbType = DateTime2), @p107='?' (DbType = DateTime2), @p108='?' (DbType = Double), @p109='?' (DbType = Double), @p110='?' (DbType = Double), @p111='?' (Size = 450), @p112='?' (DbType = Double), @p113='?' (DbType = DateTime2), @p114='?' (DbType = DateTime2), @p115='?' (DbType = Double), @p116='?' (DbType = Double), @p117='?' (DbType = Double), @p118='?' (Size = 450), @p119='?' (DbType = Double), @p120='?' (DbType = DateTime2), @p121='?' (DbType = DateTime2), @p122='?' (DbType = Double), @p123='?' (DbType = Double), @p124='?' (DbType = Double), @p125='?' (Size = 450), @p126='?' (DbType = Double), @p127='?' (DbType = DateTime2), @p128='?' (DbType = DateTime2), @p129='?' (DbType = Double), @p130='?' (DbType = Double), @p131='?' (DbType = Double), @p132='?' (Size = 450), @p133='?' (DbType = Double), @p134='?' (DbType = DateTime2), @p135='?' (DbType = DateTime2), @p136='?' (DbType = Double), @p137='?' (DbType = Double), @p138='?' (DbType = Double), @p139='?' (Size = 450), @p140='?' (DbType = Double), @p141='?' (DbType = DateTime2), @p142='?' (DbType = DateTime2), @p143='?' (DbType = Double), @p144='?' (DbType = Double), @p145='?' (DbType = Double), @p146='?' (Size = 450), @p147='?' (DbType = Double), @p148='?' (DbType = DateTime2), @p149='?' (DbType = DateTime2), @p150='?' (DbType = Double), @p151='?' (DbType = Double), @p152='?' (DbType = Double), @p153='?' (Size = 450), @p154='?' (DbType = Double), @p155='?' (DbType = DateTime2), @p156='?' (DbType = DateTime2), @p157='?' (DbType = Double), @p158='?' (DbType = Double), @p159='?' (DbType = Double), @p160='?' (Size = 450), @p161='?' (DbType = Double), @p162='?' (DbType = DateTime2), @p163='?' (DbType = DateTime2), @p164='?' (DbType = Double), @p165='?' (DbType = Double), @p166='?' (DbType = Double), @p167='?' (Size = 450), @p168='?' (DbType = Double), @p169='?' (DbType = DateTime2), @p170='?' (DbType = DateTime2), @p171='?' (DbType = Double), @p172='?' (DbType = Double), @p173='?' (DbType = Double), @p174='?' (Size = 450), @p175='?' (DbType = Double), @p176='?' (DbType = DateTime2), @p177='?' (DbType = DateTime2), @p178='?' (DbType = Double), @p179='?' (DbType = Double), @p180='?' (DbType = Double), @p181='?' (Size = 450), @p182='?' (DbType = Double), @p183='?' (DbType = DateTime2), @p184='?' (DbType = DateTime2), @p185='?' (DbType = Double), @p186='?' (DbType = Double), @p187='?' (DbType = Double), @p188='?' (Size = 450), @p189='?' (DbType = Double), @p190='?' (DbType = DateTime2), @p191='?' (DbType = DateTime2), @p192='?' (DbType = Double), @p193='?' (DbType = Double), @p194='?' (DbType = Double), @p195='?' (Size = 450), @p196='?' (DbType = Double), @p197='?' (DbType = DateTime2), @p198='?' (DbType = DateTime2), @p199='?' (DbType = Double), @p200='?' (DbType = Double), @p201='?' (DbType = Double), @p202='?' (Size = 450), @p203='?' (DbType = Double), @p204='?' (DbType = DateTime2), @p205='?' (DbType = DateTime2), @p206='?' (DbType = Double), @p207='?' (DbType = Double), @p208='?' (DbType = Double), @p209='?' (Size = 450), @p210='?' (DbType = Double), @p211='?' (DbType = DateTime2), @p212='?' (DbType = DateTime2), @p213='?' (DbType = Double), @p214='?' (DbType = Double), @p215='?' (DbType = Double), @p216='?' (Size = 450), @p217='?' (DbType = Double), @p218='?' (DbType = DateTime2), @p219='?' (DbType = DateTime2), @p220='?' (DbType = Double), @p221='?' (DbType = Double), @p222='?' (DbType = Double), @p223='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DECLARE @inserted0 TABLE ([Id] int, [_Position] [int]);
+MERGE [QuarterlyEarning] USING (
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, 0),
+(@p7, @p8, @p9, @p10, @p11, @p12, @p13, 1),
+(@p14, @p15, @p16, @p17, @p18, @p19, @p20, 2),
+(@p21, @p22, @p23, @p24, @p25, @p26, @p27, 3),
+(@p28, @p29, @p30, @p31, @p32, @p33, @p34, 4),
+(@p35, @p36, @p37, @p38, @p39, @p40, @p41, 5),
+(@p42, @p43, @p44, @p45, @p46, @p47, @p48, 6),
+(@p49, @p50, @p51, @p52, @p53, @p54, @p55, 7),
+(@p56, @p57, @p58, @p59, @p60, @p61, @p62, 8),
+(@p63, @p64, @p65, @p66, @p67, @p68, @p69, 9),
+(@p70, @p71, @p72, @p73, @p74, @p75, @p76, 10),
+(@p77, @p78, @p79, @p80, @p81, @p82, @p83, 11),
+(@p84, @p85, @p86, @p87, @p88, @p89, @p90, 12),
+(@p91, @p92, @p93, @p94, @p95, @p96, @p97, 13),
+(@p98, @p99, @p100, @p101, @p102, @p103, @p104, 14),
+(@p105, @p106, @p107, @p108, @p109, @p110, @p111, 15),
+(@p112, @p113, @p114, @p115, @p116, @p117, @p118, 16),
+(@p119, @p120, @p121, @p122, @p123, @p124, @p125, 17),
+(@p126, @p127, @p128, @p129, @p130, @p131, @p132, 18),
+(@p133, @p134, @p135, @p136, @p137, @p138, @p139, 19),
+(@p140, @p141, @p142, @p143, @p144, @p145, @p146, 20),
+(@p147, @p148, @p149, @p150, @p151, @p152, @p153, 21),
+(@p154, @p155, @p156, @p157, @p158, @p159, @p160, 22),
+(@p161, @p162, @p163, @p164, @p165, @p166, @p167, 23),
+(@p168, @p169, @p170, @p171, @p172, @p173, @p174, 24),
+(@p175, @p176, @p177, @p178, @p179, @p180, @p181, 25),
+(@p182, @p183, @p184, @p185, @p186, @p187, @p188, 26),
+(@p189, @p190, @p191, @p192, @p193, @p194, @p195, 27),
+(@p196, @p197, @p198, @p199, @p200, @p201, @p202, 28),
+(@p203, @p204, @p205, @p206, @p207, @p208, @p209, 29),
+(@p210, @p211, @p212, @p213, @p214, @p215, @p216, 30),
+(@p217, @p218, @p219, @p220, @p221, @p222, @p223, 31)) AS i ([EstimatedEPS], [FiscalDateEnding], [ReportedDate], [ReportedEPS], [Surprise], [SurprisePercentage], [Symbol], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([EstimatedEPS], [FiscalDateEnding], [ReportedDate], [ReportedEPS], [Surprise], [SurprisePercentage], [Symbol])
+VALUES (i.[EstimatedEPS], i.[FiscalDateEnding], i.[ReportedDate], i.[ReportedEPS], i.[Surprise], i.[SurprisePercentage], i.[Symbol])
+OUTPUT INSERTED.[Id], i._Position
+INTO @inserted0;
+
+SELECT [i].[Id] FROM @inserted0 i
+ORDER BY [i].[_Position];
+2022-05-11 23:14:16.751 +03:00 [INF] AddOrUpdate run successful.
+2022-05-11 23:14:46.086 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BGSF
+2022-05-11 23:14:46.087 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BGSF
+2022-05-11 23:14:46.088 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGSF
+2022-05-11 23:14:46.088 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BGSF".
+2022-05-11 23:14:46.338 +03:00 [INF] Response has success status code
+2022-05-11 23:14:46.339 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CompanyOverview for symbol BGSF
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyOverview(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 109
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 252
+2022-05-11 23:14:46.432 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASPY
+2022-05-11 23:14:46.435 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASPY
+2022-05-11 23:14:46.435 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASPY
+2022-05-11 23:14:46.436 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASPY".
+2022-05-11 23:14:46.572 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASND
+2022-05-11 23:14:46.574 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASND
+2022-05-11 23:14:46.574 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASND
+2022-05-11 23:14:46.575 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASND".
+2022-05-11 23:14:46.635 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBY
+2022-05-11 23:14:46.637 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBY
+2022-05-11 23:14:46.638 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBY
+2022-05-11 23:14:46.638 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBY".
+2022-05-11 23:14:46.675 +03:00 [INF] Response has success status code
+2022-05-11 23:14:46.676 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.IncomeStatement for symbol ASPY
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 252
+2022-05-11 23:14:46.762 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol ATNX
+2022-05-11 23:14:46.763 +03:00 [INF] Generating URI for EARNINGS with params: symbol: ATNX
+2022-05-11 23:14:46.764 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATNX
+2022-05-11 23:14:46.766 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=ATNX".
+2022-05-11 23:14:46.818 +03:00 [INF] Response has success status code
+2022-05-11 23:14:46.819 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.CashFlow for symbol ASND
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 336
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 252
+2022-05-11 23:14:46.890 +03:00 [INF] Response has success status code
+2022-05-11 23:14:46.890 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.BalanceSheet for symbol BBY
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 336
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 252
+2022-05-11 23:14:47.023 +03:00 [INF] Response has success status code
+2022-05-11 23:14:47.023 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.Earnings for symbol ATNX
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 336
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyEarnings(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 142
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 252

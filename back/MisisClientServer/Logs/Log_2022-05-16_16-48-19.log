@@ -1,0 +1,366 @@
+2022-05-16 16:48:19.404 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-16 16:48:19.427 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-16 16:48:19.434 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-16 16:48:19.583 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-16 16:48:19.585 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-16 16:48:19.586 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-16 16:48:19.586 +03:00 [INF] Hosting environment: Development
+2022-05-16 16:48:19.587 +03:00 [INF] Content root path: D:\repo\SaluteStocks\SaluteStocksAPI\
+2022-05-16 16:48:20.098 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/index.html - -
+2022-05-16 16:48:20.162 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/index.html - - - 200 - text/html;charset=utf-8 65.5847ms
+2022-05-16 16:48:20.257 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - -
+2022-05-16 16:48:20.270 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - SaluteStocksAPI.Controllers.ApiController.Ping (SaluteStocksAPI). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-05-16 16:48:20.296 +03:00 [INF] Request finished HTTP/2 GET https://localhost:5001/swagger/v1/swagger.json - - - 500 - text/plain;+charset=utf-8 39.2445ms
+2022-05-16 16:48:21.381 +03:00 [INF] Response has success status code
+2022-05-16 16:48:21.383 +03:00 [INF] Trying to deserialize response.
+2022-05-16 16:48:21.935 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:22.215 +03:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP 0 T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status] INTO [ListingTempc1e40233] FROM [Listing] AS T LEFT JOIN [Listing] AS Source ON 1 = 0;
+2022-05-16 16:48:23.407 +03:00 [INF] Executed DbCommand (565ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+MERGE [Listing] WITH (HOLDLOCK) AS T USING (SELECT TOP 12596 * FROM [ListingTempc1e40233] ORDER BY [Symbol]) AS S ON T.[Symbol] = S.[Symbol] WHEN NOT MATCHED BY TARGET THEN INSERT ([Symbol], [AssetType], [DelistingDate], [Exchange], [ExistInApi], [IpoDate], [LastApiRefresh], [LastLocalRefresh], [Name], [Status]) VALUES (S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status]) WHEN MATCHED AND EXISTS (SELECT S.[Symbol], S.[AssetType], S.[DelistingDate], S.[Exchange], S.[ExistInApi], S.[IpoDate], S.[LastApiRefresh], S.[LastLocalRefresh], S.[Name], S.[Status] EXCEPT SELECT T.[Symbol], T.[AssetType], T.[DelistingDate], T.[Exchange], T.[ExistInApi], T.[IpoDate], T.[LastApiRefresh], T.[LastLocalRefresh], T.[Name], T.[Status]) THEN UPDATE SET T.[AssetType] = S.[AssetType], T.[DelistingDate] = S.[DelistingDate], T.[Exchange] = S.[Exchange], T.[ExistInApi] = S.[ExistInApi], T.[IpoDate] = S.[IpoDate], T.[LastApiRefresh] = S.[LastApiRefresh], T.[LastLocalRefresh] = S.[LastLocalRefresh], T.[Name] = S.[Name], T.[Status] = S.[Status] WHEN NOT MATCHED BY SOURCE THEN DELETE;
+2022-05-16 16:48:23.419 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID ('[ListingTempc1e40233]', 'U') IS NOT NULL DROP TABLE [ListingTempc1e40233]
+2022-05-16 16:48:23.429 +03:00 [INF] Loading missing data.
+2022-05-16 16:48:23.432 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:23.571 +03:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - -
+2022-05-16 16:48:23.574 +03:00 [INF] CORS policy execution successful.
+2022-05-16 16:48:23.576 +03:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:5001/api/screener/companies - - - 204 - - 5.5207ms
+2022-05-16 16:48:23.578 +03:00 [INF] Request starting HTTP/2 POST https://localhost:5001/api/screener/companies application/json 17
+2022-05-16 16:48:23.580 +03:00 [INF] CORS policy execution successful.
+2022-05-16 16:48:23.582 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 16:48:23.595 +03:00 [INF] Route matched with {action = "GetCompanies", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCompanies(SaluteStocksAPI.Screener.ScreenerModel) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 16:48:29.735 +03:00 [INF] Executed DbCommand (6,156ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [l].[Symbol]
+FROM [Listing] AS [l]
+2022-05-16 16:48:29.745 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:29.774 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.BalanceSheet
+2022-05-16 16:48:29.775 +03:00 [INF] Getting already loaded entities
+2022-05-16 16:48:29.776 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:29.788 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CashFlow
+2022-05-16 16:48:29.788 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:29.788 +03:00 [INF] Getting already loaded entities
+2022-05-16 16:48:29.791 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:29.794 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.CompanyOverview
+2022-05-16 16:48:29.794 +03:00 [INF] Getting already loaded entities
+2022-05-16 16:48:29.795 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:29.798 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.Earnings
+2022-05-16 16:48:29.798 +03:00 [INF] Getting already loaded entities
+2022-05-16 16:48:29.799 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:29.801 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CashFlows] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-16 16:48:29.802 +03:00 [INF] Loading missing entities for SaluteStocksAPI.Models.FundamentalData.IncomeStatement
+2022-05-16 16:48:29.805 +03:00 [INF] Getting already loaded entities
+2022-05-16 16:48:29.806 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:29.806 +03:00 [INF] Already loaded: 1084
+2022-05-16 16:48:29.814 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASLN
+2022-05-16 16:48:29.815 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [i].[Symbol]
+FROM [IncomeStatements] AS [i]
+WHERE [i].[ExistInApi] IS NOT NULL
+2022-05-16 16:48:29.816 +03:00 [INF] Generating URI for CASH_FLOW with params: symbol: ASLN
+2022-05-16 16:48:29.818 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASLN
+2022-05-16 16:48:29.818 +03:00 [INF] Already loaded: 1089
+2022-05-16 16:48:29.820 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=CASH_FLOW&symbol=ASLN".
+2022-05-16 16:48:29.826 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASLN
+2022-05-16 16:48:29.828 +03:00 [INF] Generating URI for INCOME_STATEMENT with params: symbol: ASLN
+2022-05-16 16:48:29.829 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASLN
+2022-05-16 16:48:29.830 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=INCOME_STATEMENT&symbol=ASLN".
+2022-05-16 16:48:29.907 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [c].[Symbol]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] IS NOT NULL
+2022-05-16 16:48:29.914 +03:00 [INF] Already loaded: 1633
+2022-05-16 16:48:29.925 +03:00 [INF] Executed DbCommand (96ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [b].[Symbol]
+FROM [BalanceSheets] AS [b]
+WHERE [b].[ExistInApi] IS NOT NULL
+2022-05-16 16:48:29.932 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.CompanyOverview with Symbol BRBS
+2022-05-16 16:48:29.934 +03:00 [INF] Generating URI for OVERVIEW with params: symbol: BRBS
+2022-05-16 16:48:29.935 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BRBS
+2022-05-16 16:48:29.935 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=OVERVIEW&symbol=BRBS".
+2022-05-16 16:48:29.939 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT DISTINCT [e].[Symbol]
+FROM [Earnings] AS [e]
+WHERE [e].[ExistInApi] IS NOT NULL
+2022-05-16 16:48:29.939 +03:00 [INF] Already loaded: 1425
+2022-05-16 16:48:29.943 +03:00 [INF] Already loaded: 1260
+2022-05-16 16:48:29.950 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBD
+2022-05-16 16:48:29.952 +03:00 [INF] Generating URI for BALANCE_SHEET with params: symbol: BBD
+2022-05-16 16:48:29.953 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBD
+2022-05-16 16:48:29.954 +03:00 [INF] Trying to refresh entity SaluteStocksAPI.Models.FundamentalData.Earnings with Symbol BEEMW
+2022-05-16 16:48:29.954 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=BALANCE_SHEET&symbol=BBD".
+2022-05-16 16:48:29.957 +03:00 [INF] Generating URI for EARNINGS with params: symbol: BEEMW
+2022-05-16 16:48:29.958 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=BEEMW
+2022-05-16 16:48:29.959 +03:00 [INF] Starting to get and parse JSON from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=EARNINGS&symbol=BEEMW".
+2022-05-16 16:48:29.999 +03:00 [INF] Executed DbCommand (174ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Name], [c].[Symbol] AS [Ticker], [c].[Description], [c].[Country], [c].[Sector], N'' AS [Price]
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND [c].[Symbol] IN (N'A', N'AA', N'AAC', N'AACG', N'AACI', N'AACIU', N'AACIW', N'AAC-U', N'AAC-WS', N'AADI', N'AAIC', N'AAIC-P-B', N'AAIC-P-C', N'AAIN', N'AAL', N'AAMC', N'AAME', N'AAM-P-A', N'AAM-P-B', N'AAN', N'AAOI', N'AAON', N'AAP', N'AAPL', N'AAQC', N'AAQC-U', N'AAQC-WS', N'AAT', N'AATC', N'AAU', N'AAWW', N'AB', N'ABB', N'ABBV', N'ABC', N'ABCB', N'ABCL', N'ABCM', N'ABEO', N'ABEV', N'ABG', N'ABGI', N'ABIO', N'ABM', N'ABMD', N'ABNB', N'ABOS', N'ABR', N'ABR-P-D', N'ABR-P-E', N'ABR-P-F', N'ABSI', N'ABST', N'ABT', N'ABTX', N'ABUS', N'ABVC', N'AC', N'ACA', N'ACAB', N'ACABU', N'ACABW', N'ACAD', N'ACAH', N'ACAHU', N'ACAHW', N'ACAQ', N'ACAQ-U', N'ACAQ-WS', N'ACAXU', N'ACB', N'ACBA', N'ACBAU', N'ACBAW', N'ACBI', N'ACC', N'ACCD', N'ACCO', N'ACDI', N'ACDI-U', N'ACDI-WS', N'ACEL', N'ACER', N'ACET', N'ACEV', N'ACEVU', N'ACEVW', N'ACGL', N'ACGLN', N'ACGLO', N'ACH', N'ACHC', N'ACHL', N'ACHR', N'ACHR-WS', N'ACHV', N'ACI', N'ACII', N'ACII-U', N'ACII-WS', N'ACIU', N'ACIW', N'ACKIT', N'ACKIU', N'ACKIW', N'ACLS', N'ACLX', N'ACM', N'ACMR', N'ACN', N'ACNB', N'ACONW', N'ACOR', N'ACP-P-A', N'ACQR', N'ACQRU', N'ACQRW', N'ACR', N'ACRE', N'ACRO', N'ACRO-U', N'ACRO-WS', N'ACR-P-C', N'ACR-P-D', N'ACRS', N'ACRX', N'ACST', N'ACT', N'ACTD', N'ACTDU', N'ACTDW', N'ACTG', N'ACU', N'ACVA', N'ACXP', N'ACY', N'ADAG', N'ADAL', N'ADALU', N'ADALW', N'ADAP', N'ADBE', N'ADC', N'ADC-P-A', N'ADCT', N'ADER', N'ADERU', N'ADERW', N'ADES', N'ADEX', N'ADEX-U', N'ADEX-WS', N'ADGI', N'ADI', N'ADIL', N'ADILW', N'ADM', N'ADMA', N'ADMP', N'ADN', N'ADNT', N'ADOC', N'ADOCR', N'ADOCW', N'ADP', N'ADPT', N'ADRA', N'ADRA-U', N'ADRA-WS', N'ADRT', N'ADRT-U', N'ADRT-WS', N'ADS', N'ADSE', N'ADSEW', N'ADSK', N'ADT', N'ADTH', N'ADTHW', N'ADTN', N'ADTX', N'ADUS', N'ADV', N'ADVM', N'ADVWW', N'ADXN', N'AE', N'AEAC', N'AEACU', N'AEACW', N'AEAE', N'AEAEU', N'AEAEW', N'AEE', N'AEFC', N'AEG', N'AEHA', N'AEHAU', N'AEHAW', N'AEHL', N'AEHR', N'AEI', N'AEIS', N'AEL', N'AEL-P-A', N'AEL-P-B', N'AEM', N'AEMD', N'AENZ', N'AEO', N'AEP', N'AEPPZ', N'AER', N'AERC', N'AERI', N'AES', N'AESC', N'AEVA', N'AEVA-WS', N'AEY', N'AEYE', N'AEZS', N'AFAC', N'AFACU', N'AFACW', N'AFAQ', N'AFAQU', N'AFAQW', N'AFBI', N'AFCG', N'AFG', N'AFGB', N'AFGC', N'AFGD', N'AFGE', N'AFI', N'AFIB', N'AFL', N'AFMD', N'AFRM', N'AFTR', N'AFTR-U', N'AFTR-WS', N'AFYA', N'AG', N'AGAC', N'AGAC-U', N'AGAC-WS', N'AGBA', N'AGBAR', N'AGBAU', N'AGBAW', N'AGCB', N'AGCO', N'AGE', N'AGEN', N'AGFS', N'AGFY', N'AGGR', N'AGGRU', N'AGGRW', N'AGI', N'AGIL', N'AGILW', N'AGIO', N'AGL', N'AGLE', N'AGM', N'AGM-A', N'AGMH', N'AGM-P-C', N'AGM-P-D', N'AGM-P-E', N'AGM-P-F', N'AGM-P-G', N'AGNC', N'AGNCM', N'AGNCN', N'AGNCO', N'AGNCP', N'AGO', N'AGR', N'AGRIW', N'AGRO', N'AGRX', N'AGS', N'AGTC', N'AGTI', N'AGX', N'AGYS', N'AHCO', N'AHG', N'AHH', N'AHH-P-A', N'AHI', N'AHL-P-C', N'AHL-P-D', N'AHL-P-E', N'AHPA', N'AHPAU', N'AHPAW', N'AHPI', N'AHRN', N'AHRNU', N'AHRNW', N'AHT', N'AHT-P-D', N'AHT-P-F', N'AHT-P-G', N'AHT-P-H', N'AHT-P-I', N'AI', N'AIB', N'AIBBR', N'AIBBU', N'AIC', N'AIG', N'AIG-P-A', N'AIH', N'AIHS', N'AIKI', N'AIM', N'AIMC', N'AIN', N'AINC', N'AINV', N'AIP', N'AIR', N'AIRC', N'AIRG', N'AIRI', N'AIRS', N'AIRT', N'AIRTP', N'AIT', N'AIV', N'AIZ', N'AIZN', N'AJG', N'AJRD', N'AJX', N'AJXA', N'AKA', N'AKAM', N'AKBA', N'AKIC', N'AKICU', N'AKICW', N'AKO-A', N'AKO-B', N'AKR', N'AKRO', N'AKTS', N'AKTX', N'AKU', N'AKUS', N'AKYA', N'AL', N'ALAC', N'ALACR', N'ALACU', N'ALACW', N'ALB', N'ALBO', N'ALC', N'ALCC', N'ALCO', N'ALDX', N'ALE', N'ALEC', N'ALEX', N'ALF', N'ALFIW', N'ALG', N'ALGM', N'ALGN', N'ALGS', N'ALGT', N'ALHC', N'ALIM', N'ALIN-P-A', N'ALIN-P-B', N'ALIN-P-E', N'ALIT', N'ALJJ', N'ALK', N'ALKS', N'ALKT', N'ALL', N'ALLE', N'ALLK', N'ALLO', N'ALL-P-B', N'ALL-P-G', N'ALL-P-H', N'ALL-P-I', N'ALLR', N'ALLT', N'ALLY', N'ALNA', N'ALNY', N'ALOR', N'ALORU', N'ALORW', N'ALOT', N'ALPA', N'AL-P-A', N'ALPAU', N'ALPAW', N'ALPN', N'ALPP', N'ALP-P-Q', N'ALR', N'ALRM', N'ALRN', N'ALRS', N'ALSA', N'ALSAR', N'ALSAU', N'ALSAW', N'ALSN', N'ALT', N'ALTG', N'ALTG-P-A', N'ALTO', N'ALTR', N'ALTU', N'ALTUU', N'ALTUW', N'ALV', N'ALVR', N'ALX', N'ALXO', N'ALYA', N'ALZN', N'AM', N'AMAL', N'AMAM', N'AMAO', N'AMAOU', N'AMAOW', N'AMAT', N'AMBA', N'AMBC', N'AMBC-WS', N'AMBO', N'AMBP', N'AMBP-WS', N'AMC', N'AMCI', N'AMCIU', N'AMCIW', N'AMCR', N'AMCX', N'AMD', N'AME', N'AMED', N'AMEH', N'AMG', N'AMGN', N'AMH', N'AMH-P-F', N'AMH-P-G', N'AMH-P-H', N'AMK', N'AMKR', N'AMLX', N'AMN', N'AMNB', N'AMOT', N'AMOV', N'AMP', N'AMPE', N'AMPG', N'AMPGW', N'AMPH', N'AMPI', N'AMPI-U', N'AMPI-WS', N'AMPL', N'AMPS', N'AMPS-WS', N'AMPY', N'AMR', N'AMRC', N'AMRK', N'AMRN', N'AMRS', N'AMRX', N'AMS', N'AMSC', N'AMSF', N'AMST', N'AMSWA', N'AMT', N'AMTB', N'AMTD', N'AMTI', N'AMTX', N'AMWD', N'AMWL', N'AMX', N'AMYT', N'AMZN', N'AN', N'ANAB', N'ANAC', N'ANAC-U', N'ANAC-WS', N'ANAT', N'ANDE', N'ANEB', N'ANET', N'ANF', N'ANGH', N'ANGHW', N'ANGI', N'ANGN', N'ANGO', N'ANIK', N'ANIP', N'ANIX', N'ANNX', N'ANPC', N'ANSS', N'ANTE', N'ANTM', N'ANVS', N'ANY', N'ANZU', N'ANZUU', N'ANZUW', N'AOGO', N'AOGOW', N'AOMR', N'AON', N'AORT', N'AOS', N'AOSL', N'AOUT', N'AP', N'APA', N'APAC', N'APACU', N'APACW', N'APAM', N'APCA', N'APCA-U', N'APCA-WS', N'APCX', N'APCXW', N'APD', N'APDN', N'APEI', N'APEN', N'APG', N'APGB', N'APGB-U', N'APGB-WS', N'APH', N'API', N'APLE', N'APLS', N'APLT', N'APM', N'APMI', N'APMIU', N'APMIW', N'APN', N'APN-U', N'APN-WS', N'APO', N'APOG', N'APP', N'APPF', N'APPH', N'APPHW', N'APPN', N'APPS', N'APRE', N'APRN', N'APSG', N'APSG-U', N'APSG-WS', N'APT', N'APTM', N'APTMU', N'APTMW', N'APTO', N'APTS', N'APTV', N'APTV-P-A', N'APTX', N'APVO', N'APWC', N'AP-WS', N'APXI', N'APXIU', N'APXIW', N'APYX', N'AQB', N'AQMS', N'AQN', N'AQNA', N'AQNB', N'AQNU', N'AQST', N'AQUA', N'AR', N'ARAV', N'ARAY', N'ARBE', N'ARBEW', N'ARBG', N'ARBGU', N'ARBGW', N'ARBK', N'ARBKL', N'ARC', N'ARCB', N'ARCC', N'ARCE', N'ARCH', N'ARCK', N'ARCKU', N'ARCKW', N'ARCO', N'ARCT', N'ARDS', N'ARDX', N'ARE', N'AREB', N'AREBW', N'AREC', N'AREN', N'ARES', N'ARGD', N'ARGO', N'ARGO-P-A', N'ARGU', N'ARGUU', N'ARGUW', N'ARGX', N'ARHS', N'ARI', N'ARIZ', N'ARIZR', N'ARIZU', N'ARIZW', N'ARKO', N'ARKR', N'ARL', N'ARLO', N'ARLP', N'ARMK', N'ARMP', N'ARNC', N'AROC', N'AROW', N'ARQQ', N'ARQQW', N'ARQT', N'ARR', N'ARR-P-C', N'ARRW', N'ARRWU', N'ARRWW', N'ARRY', N'ARTA', N'ARTAU', N'ARTAW', N'ARTE', N'ARTEU', N'ARTEW', N'ARTL', N'ARTLW', N'ARTNA', N'ARTW', N'ARVL', N'ARVN', N'ARW', N'ARWR', N'ARYD', N'ARYE', N'ASAI', N'ASAN', N'ASAQ', N'ASAQ-U', N'ASAQ-WS', N'ASAX', N'ASAXU', N'ASAXW', N'ASB', N'ASB-P-E', N'ASB-P-F', N'ASC', N'ASCA', N'ASCAU', N'ASCAW', N'ASGI', N'ASGN', N'ASH', N'ASIX', N'ASLE', N'ASLN', N'ASM', N'ASMB', N'ASML', N'ASND', N'ASO', N'ASPA', N'ASPAU', N'ASPAW', N'ASPC', N'ASPCU', N'ASPCW', N'ASPN', N'ASPS', N'ASPU', N'ASR', N'ASRT', N'ASRV', N'ASTC', N'ASTE', N'ASTL', N'ASTLW', N'ASTR', N'ASTS', N'ASTSW', N'ASUR', N'ASX', N'ASXC', N'ASYS', N'ASZ', N'ASZ-U', N'ASZ-WS', N'ATA', N'ATAI', N'ATAK', N'ATAKR', N'ATAKU', N'ATAKW', N'ATAQ', N'ATAQ-U', N'ATAQ-WS', N'ATA-U', N'ATA-WS', N'ATAX', N'ATC', N'ATCO', N'ATCOL', N'ATCO-P-D', N'ATCO-P-H', N'ATCO-P-I', N'ATCX', N'ATEC', N'ATEK', N'ATEK-U', N'ATEK-WS', N'ATEN', N'ATER', N'ATEST-A', N'ATEST-B', N'ATEST-C', N'ATEST-G', N'ATEST-H', N'ATEST-L', N'ATEX', N'ATGE', N'ATHA', N'ATHE', N'ATHM', N'ATH-P-A', N'ATH-P-C', N'ATH-P-D', N'ATHX', N'ATI', N'ATIF', N'ATIP', N'ATIP-WS', N'ATKR', N'ATLC', N'ATLCL', N'ATLCP', N'ATLO', N'ATMH', N'ATNF', N'ATNFW', N'ATNI', N'ATNM', N'ATNX', N'ATO', N'ATOM', N'ATOS', N'ATR', N'ATRA', N'ATRC', N'ATRI', N'ATRO', N'ATRS', N'ATSG', N'ATSPT', N'ATSPU', N'ATSPW', N'ATTO', N'ATUS', N'ATVC', N'ATVCU', N'ATVCW', N'ATVI', N'ATXI', N'ATXS', N'ATY', N'AU', N'AUB', N'AUBAP', N'AUBN', N'AUD', N'AUDC', N'AUGX', N'AUID', N'AUMN', N'AUPH', N'AUR', N'AURA', N'AURC', N'AURCU', N'AURCW', N'AUROW', N'AUS', N'AUS-U', N'AUS-WS', N'AUTL', N'AUTO', N'AUUD', N'AUUDW', N'AUVI', N'AUVIP', N'AUY', N'AVA', N'AVAC', N'AVACU', N'AVACW', N'AVAH', N'AVAL', N'AVAN', N'AVAN-U', N'AVAN-WS', N'AVAV', N'AVB', N'AVCO', N'AVCT', N'AVCTW', N'AVD', N'AVDL', N'AVDX', N'AVEO', N'AVGO', N'AVGOP', N'AVGR', N'AVHI', N'AVHIU', N'AVHIW', N'AVID', N'AVIR', N'AVLR', N'AVNS', N'AVNT', N'AVNW', N'AVO', N'AVPT', N'AVPTW', N'AVRO', N'AVT', N'AVTE', N'AVTR', N'AVTR-P-A', N'AVTX', N'AVXL', N'AVY', N'AVYA', N'AWH', N'AWI', N'AWK', N'AWR', N'AWRE', N'AWX', N'AX', N'AXAC', N'AXAC-R', N'AXAC-WS', N'AXDX', N'AXGN', N'AXH', N'AXH-U', N'AXH-WS', N'AXL', N'AXLA', N'AXNX', N'AXON', N'AXP', N'AXR', N'AXS', N'AXSM', N'AXS-P-E', N'AXTA', N'AXTI', N'AXU', N'AY', N'AYI', N'AYLA', N'AYRO', N'AYTU', N'AYX', N'AZ', N'AZEK', N'AZN', N'AZO', N'AZPN', N'AZRE', N'AZTA', N'AZUL', N'AZYO', N'AZZ', N'B', N'BA', N'BABA', N'BAC', N'BACA', N'BACA-U', N'BACA-WS', N'BAC-P-B', N'BAC-P-E', N'BAC-P-K', N'BAC-P-L', N'BAC-P-M', N'BAC-P-N', N'BAC-P-O', N'BAC-P-P', N'BAC-P-Q', N'BAC-P-S', N'BAFN', N'BAH', N'BAK', N'BALY', N'BAM', N'BAMH', N'BAMI', N'BAMR', N'BANC', N'BAND', N'BANF', N'BANFP', N'BANR', N'BANX', N'BAOS', N'BAP', N'BARK', N'BARK-WS', N'BASE', N'BATL', N'BATRA', N'BATRK', N'BAX', N'BB', N'BBAI', N'BBAI-WS', N'BBAR', N'BBBY', N'BBCP', N'BBD', N'BBDC', N'BBDO', N'BBGI', N'BBI', N'BBIG', N'BBIO', N'BBLG', N'BBLGW', N'BBLN', N'BBLN-WS', N'BBQ', N'BBSI', N'BBU', N'BBUC', N'BBVA', N'BBW', N'BBWI', N'BBY', N'BC', N'BCAB', N'BCAC', N'BCACU', N'BCACW', N'BCAT', N'BCBP', N'BCC', N'BCDA', N'BCDAW', N'BCE', N'BCEL', N'BCH', N'BCLI', N'BCML', N'BCO', N'BCOR', N'BCOV', N'BCOW', N'BC-P-A', N'BC-P-B', N'BC-P-C', N'BCRX', N'BCS', N'BCSA', N'BCSAU', N'BCSAW', N'BCSF', N'BCTX', N'BCTXW', N'BCV-P-A', N'BCYC', N'BDC', N'BDL', N'BDN', N'BDR', N'BDSX', N'BDTX', N'BDX', N'BDXB', N'BE', N'BEAM', N'BEAT', N'BEATW', N'BECN', N'BEDU', N'BEEM', N'BEEMW', N'BEKE', N'BELFA', N'BELFB', N'BEN', N'BENE', N'BENER', N'BENEU', N'BENEW', N'BEP', N'BEPC', N'BEPH', N'BEPI', N'BEP-P-A', N'BERY', N'BEST', N'BF-A', N'BFAC', N'BFAC-U', N'BFAC-WS', N'BFAM', N'BF-B', N'BFC', N'BFH', N'BFI', N'BFIIW', N'BFIN', N'BFLY', N'BFLY-WS', N'BFRI', N'BFRIW', N'BFS', N'BFS-P-D', N'BFS-P-E', N'BFST', N'BG', N'BGCP', N'BGFV', N'BGI', N'BGNE', N'BGRY', N'BGRYW', N'BGS', N'BGSF', N'BGSX', N'BGSX-U', N'BGSX-WS', N'BH', N'BH-A', N'BHAC', N'BHACU', N'BHACW', N'BHAT', N'BHB', N'BHC', N'BHE', N'BHF', N'BHFAL', N'BHFAM', N'BHFAN', N'BHFAO', N'BHFAP', N'BHG', N'BHIL', N'BHIL-WS', N'BHLB', N'BHP', N'BHR', N'BHR-P-B', N'BHR-P-D', N'BHSE', N'BHSEU', N'BHSEW', N'BHVN', N'BIDU', N'BIG', N'BIGC', N'BIGZ', N'BIIB', N'BILI', N'BILL', N'BIMI', N'BIO', N'BIO-B', N'BIOC', N'BIOL', N'BIOS', N'BIOSU', N'BIOSW', N'BIOT', N'BIOTU', N'BIOTW', N'BIOX', N'BIP', N'BIPC', N'BIPH', N'BIPI', N'BIP-P-A', N'BIP-P-B', N'BIRD', N'BITE', N'BITE-U', N'BITE-WS', N'BITF', N'BIVI', N'BJ', N'BJDX', N'BJRI', N'BK', N'BKCC', N'BKD', N'BKE', N'BKEP', N'BKEPP', N'BKH', N'BKI', N'BKKT', N'BKKT-WS', N'BKNG', N'BKR', N'BKSC', N'BKSY', N'BKSY-WS', N'BKTI', N'BKU', N'BKYI', N'BL', N'BLBD', N'BLBX', N'BLCM', N'BLCT', N'BLD', N'BLDE', N'BLDEW', N'BLDP', N'BLDR', N'BLEU', N'BLEUR', N'BLEUU', N'BLEUW', N'BLFS', N'BLFY', N'BLI', N'BLIN', N'BLK', N'BLKB', N'BLMN', N'BLND', N'BLNG', N'BLNGU', N'BLNGW', N'BLNK', N'BLNKW', N'BLPH', N'BLRX', N'BLSA', N'BLTS', N'BLTSU', N'BLTSW', N'BLU', N'BLUA', N'BLUA-U', N'BLUA-WS', N'BLUE', N'BLX', N'BLZE', N'BMA', N'BMAC', N'BMAC-U', N'BMAC-WS', N'BMAQ', N'BMAQR', N'BMAQU', N'BMAQW', N'BMBL', N'BMEA', N'BMEZ', N'BMI', N'BML-P-G', N'BML-P-H', N'BML-P-J', N'BML-P-L', N'BMO', N'BMRA', N'BMRC', N'BMRN', N'BMTX', N'BMTX-WS', N'BMY', N'BNED', N'BNFT', N'BNGO', N'BNGOW', N'BNIX', N'BNIXR', N'BNIXW', N'BNL', N'BNNR', N'BNNRU', N'BNNRW', N'BNOX', N'BNR', N'BNS', N'BNSO', N'BNTC', N'BNTX', N'BOAC', N'BOAC-U', N'BOAC-WS', N'BOAS', N'BOAS-U', N'BOAS-WS', N'BOC', N'BOCN', N'BOCNU', N'BOCNW', N'BODY', N'BODY-WS', N'BOH', N'BOH-P-A', N'BOKF', N'BOLT', N'BON', N'BOOM', N'BOOT', N'BORR', N'BOSC', N'BOTJ', N'BOWL', N'BOWL-WS', N'BOX', N'BOXD', N'BOXD-WS', N'BOXL', N'BP', N'BPAC', N'BPACU', N'BPACW', N'BPMC', N'BPMP', N'BPOP', N'BPOPM', N'BPRN', N'BPT', N'BPTH', N'BPTS', N'BPYPM', N'BPYPN', N'BPYPO', N'BPYPP', N'BQ', N'BR', N'BRAC', N'BRACR', N'BRACU', N'BRAG', N'BRBR', N'BRC', N'BRCC')
+2022-05-16 16:48:30.056 +03:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[SaluteStocksAPI.ViewModels.CompanyIndexViewModel, SaluteStocksAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2022-05-16 16:48:30.064 +03:00 [INF] Executed action SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI) in 6465.8107ms
+2022-05-16 16:48:30.066 +03:00 [INF] Executed endpoint 'SaluteStocksAPI.Controllers.ApiController.GetCompanies (SaluteStocksAPI)'
+2022-05-16 16:48:30.070 +03:00 [INF] Request finished HTTP/2 POST https://localhost:5001/api/screener/companies application/json 17 - 200 - application/json;+charset=utf-8 6492.7125ms
+2022-05-16 16:48:30.160 +03:00 [INF] Response has success status code
+2022-05-16 16:48:30.161 +03:00 [INF] Trying to deserialize response.
+2022-05-16 16:48:30.245 +03:00 [INF] Start AddOrUpdate for SaluteStocksAPI.Models.FundamentalData.CompanyOverview.
+2022-05-16 16:48:30.246 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:30.273 +03:00 [INF] Response has success status code
+2022-05-16 16:48:30.274 +03:00 [INF] Trying to deserialize response.
+2022-05-16 16:48:30.284 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[@__entity_Symbol_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [c].[Symbol], [c].[Address], [c].[AnalystTargetPrice], [c].[AssetType], [c].[Beta], [c].[BookValue], [c].[CIK], [c].[Country], [c].[Currency], [c].[Description], [c].[DilutedEPSTTM], [c].[DividendDate], [c].[DividendPerShare], [c].[DividendYield], [c].[EBITDA], [c].[EPS], [c].[EVToEBITDA], [c].[EVToRevenue], [c].[ExDividendDate], [c].[Exchange], [c].[ExistInApi], [c].[FiscalYearEnd], [c].[ForwardPE], [c].[GrossProfitTTM], [c].[Industry], [c].[LastApiRefresh], [c].[LastLocalRefresh], [c].[LatestQuarter], [c].[MarketCapitalization], [c].[Name], [c].[OperatingMarginTTM], [c].[PEGRatio], [c].[PERatio], [c].[PriceToBookRatio], [c].[PriceToSalesRatioTTM], [c].[ProfitMargin], [c].[QuarterlyEarningsGrowthYOY], [c].[QuarterlyRevenueGrowthYOY], [c].[ReturnOnAssetsTTM], [c].[ReturnOnEquityTTM], [c].[RevenuePerShareTTM], [c].[RevenueTTM], [c].[Sector], [c].[SharesOutstanding], [c].[TrailingPE], [c].[_200DayMovingAverage], [c].[_50DayMovingAverage], [c].[_52WeekHigh], [c].[_52WeekLow]
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[Symbol] = @__entity_Symbol_0
+2022-05-16 16:48:30.289 +03:00 [INF] Entity does not exist. Adding to DB.
+2022-05-16 16:48:30.334 +03:00 [INF] Response has success status code
+2022-05-16 16:48:30.354 +03:00 [INF] Response has success status code
+2022-05-16 16:48:30.375 +03:00 [INF] Trying to deserialize response.
+2022-05-16 16:48:30.376 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.CashFlow with Symbol ASLN
+Newtonsoft.Json.JsonSerializationException: Error converting value "-5530.22" to type 'System.Nullable`1[System.Int64]'. Path 'quarterlyReports[13].cashflowFromInvestment', line 577, position 48.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCashFlow(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 96
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 176
+2022-05-16 16:48:30.425 +03:00 [WRN] Reached the API limit when getting SaluteStocksAPI.Models.FundamentalData.Earnings for symbol BEEMW
+SaluteStocksAPI.AlphaVantage.Exceptions.AlphaVantageRequestLimit: {
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 316
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetCompanyEarnings(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 142
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 178
+2022-05-16 16:48:30.479 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.IncomeStatement with Symbol ASLN
+Newtonsoft.Json.JsonSerializationException: Error converting value "30617503.98" to type 'System.Nullable`1[System.Int64]'. Path 'annualReports[4].researchAndDevelopment', line 125, position 51.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetIncomeStatement(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 69
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 179
+2022-05-16 16:48:30.425 +03:00 [INF] Response has success status code
+2022-05-16 16:48:30.578 +03:00 [INF] Trying to deserialize response.
+2022-05-16 16:48:30.638 +03:00 [ERR] Failed to refresh  entity SaluteStocksAPI.Models.FundamentalData.BalanceSheet with Symbol BBD
+Newtonsoft.Json.JsonSerializationException: Error converting value "10691941101.60" to type 'System.Nullable`1[System.Int64]'. Path 'annualReports[3].commonStockSharesOutstanding', line 162, position 60.
+ ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt64(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   --- End of inner exception stack trace ---
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetAndParseJsonAsync[T](Uri uri) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 324
+   at SaluteStocksAPI.AlphaVantage.AlphaVantageClient.GetBalanceSheet(String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\AlphaVantage\AlphaVantageClient.cs:line 82
+   at SaluteStocksAPI.Service.Background.Loader.RefreshEntity[T](String symbol) in D:\repo\SaluteStocks\SaluteStocksAPI\Service\Background\Loader.cs:line 174
+2022-05-16 16:48:30.684 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 4000), @p2='?' (DbType = Double), @p3='?' (Size = 4000), @p4='?' (DbType = Double), @p5='?' (DbType = Double), @p6='?' (DbType = Int64), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (DbType = Double), @p11='?' (DbType = DateTime2), @p12='?' (DbType = Double), @p13='?' (DbType = Double), @p14='?' (DbType = Int64), @p15='?' (DbType = Double), @p16='?' (DbType = Double), @p17='?' (DbType = Double), @p18='?' (DbType = DateTime2), @p19='?' (Size = 4000), @p20='?' (DbType = Boolean), @p21='?' (Size = 4000), @p22='?' (DbType = Double), @p23='?' (DbType = Int64), @p24='?' (Size = 4000), @p25='?' (DbType = DateTime2), @p26='?' (DbType = DateTime2), @p27='?' (DbType = DateTime2), @p28='?' (DbType = Int64), @p29='?' (Size = 4000), @p30='?' (DbType = Double), @p31='?' (DbType = Double), @p32='?' (DbType = Double), @p33='?' (DbType = Double), @p34='?' (DbType = Double), @p35='?' (DbType = Double), @p36='?' (DbType = Double), @p37='?' (DbType = Double), @p38='?' (DbType = Double), @p39='?' (DbType = Double), @p40='?' (DbType = Double), @p41='?' (DbType = Int64), @p42='?' (Size = 4000), @p43='?' (DbType = Int64), @p44='?' (DbType = Double), @p45='?' (DbType = Double), @p46='?' (DbType = Double), @p47='?' (DbType = Double), @p48='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [CompanyOverviews] ([Symbol], [Address], [AnalystTargetPrice], [AssetType], [Beta], [BookValue], [CIK], [Country], [Currency], [Description], [DilutedEPSTTM], [DividendDate], [DividendPerShare], [DividendYield], [EBITDA], [EPS], [EVToEBITDA], [EVToRevenue], [ExDividendDate], [Exchange], [ExistInApi], [FiscalYearEnd], [ForwardPE], [GrossProfitTTM], [Industry], [LastApiRefresh], [LastLocalRefresh], [LatestQuarter], [MarketCapitalization], [Name], [OperatingMarginTTM], [PEGRatio], [PERatio], [PriceToBookRatio], [PriceToSalesRatioTTM], [ProfitMargin], [QuarterlyEarningsGrowthYOY], [QuarterlyRevenueGrowthYOY], [ReturnOnAssetsTTM], [ReturnOnEquityTTM], [RevenuePerShareTTM], [RevenueTTM], [Sector], [SharesOutstanding], [TrailingPE], [_200DayMovingAverage], [_50DayMovingAverage], [_52WeekHigh], [_52WeekLow])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41, @p42, @p43, @p44, @p45, @p46, @p47, @p48);
+2022-05-16 16:48:30.704 +03:00 [INF] AddOrUpdate run successful.
+2022-05-16 16:48:33.624 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/market-cap/100 - -
+2022-05-16 16:48:33.624 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/screener-model - -
+2022-05-16 16:48:33.624 +03:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/distribution/ebitda/100 - -
+2022-05-16 16:48:33.626 +03:00 [INF] CORS policy execution successful.
+2022-05-16 16:48:33.626 +03:00 [INF] CORS policy execution successful.
+2022-05-16 16:48:33.627 +03:00 [INF] CORS policy execution successful.
+2022-05-16 16:48:33.627 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetMarketCapDistribution (SaluteStocksAPI)'
+2022-05-16 16:48:33.628 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetScreenerModel (SaluteStocksAPI)'
+2022-05-16 16:48:33.629 +03:00 [INF] Executing endpoint 'SaluteStocksAPI.Controllers.ApiController.GetEbitdaDistribution (SaluteStocksAPI)'
+2022-05-16 16:48:33.631 +03:00 [INF] Route matched with {action = "GetMarketCapDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetMarketCapDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 16:48:33.631 +03:00 [INF] Route matched with {action = "GetScreenerModel", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetScreenerModel() on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 16:48:33.632 +03:00 [INF] Route matched with {action = "GetEbitdaDistribution", controller = "Api"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.String] GetEbitdaDistribution(Int32) on controller SaluteStocksAPI.Controllers.ApiController (SaluteStocksAPI).
+2022-05-16 16:48:33.637 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:33.637 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:33.637 +03:00 [INF] Entity Framework Core 6.0.3 initialized 'StocksContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.0' with options: None
+2022-05-16 16:48:33.659 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.659 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.659 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.676 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.677 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.680 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[MarketCapitalization])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.690 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.699 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.700 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.701 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[EBITDA])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.713 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.714 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.715 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MIN([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.724 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.727 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.727 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT MAX([c].[PERatio])
+FROM [CompanyOverviews] AS [c]
+WHERE [c].[ExistInApi] = CAST(1 AS bit)
+2022-05-16 16:48:33.734 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.737 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.745 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.748 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.756 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.759 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.767 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.769 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.777 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.778 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.789 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.790 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.801 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[MarketCapitalization] IS NOT NULL) AND (CAST([c].[MarketCapitalization] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))
+2022-05-16 16:48:33.802 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[@__from_0='?' (DbType = Double), @__to_1='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [CompanyOverviews] AS [c]
+WHERE ([c].[ExistInApi] = CAST(1 AS bit)) AND ((([c].[EBITDA] IS NOT NULL) AND (CAST([c].[EBITDA] AS float) > @__from_0)) AND (CAST([c].[MarketCapitalization] AS float) < @__to_1))

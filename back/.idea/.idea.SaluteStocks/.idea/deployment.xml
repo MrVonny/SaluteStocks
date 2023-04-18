@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="salut-stocks.xyz" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="salut-stocks.xyz">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/SaluteStocks.sln" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/.dockerignore" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Controllers/ApiController.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Dockerfile" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Models/FundamentalData/BalanceSheet.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Models/FundamentalData/CashFlow.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Models/FundamentalData/Common/Report.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Models/FundamentalData/CompanyOverview.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Models/FundamentalData/Earnings.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Models/FundamentalData/IncomeStatement.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Program.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Properties/launchSettings.json" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/SaluteStocksAPI.csproj" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/Service/Loader.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/appsettings.Development.json" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/appsettings.json" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/obj/Debug/net6.0/SaluteStocksAPI.AssemblyInfo.cs" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/obj/Debug/net6.0/SaluteStocksAPI.GeneratedMSBuildEditorConfig.editorconfig" web="/" />
+            <mapping local="$PROJECT_DIR$/SaluteStocksAPI/obj/Debug/net6.0/SaluteStocksAPI.ImplicitNamespaceImports.cs" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

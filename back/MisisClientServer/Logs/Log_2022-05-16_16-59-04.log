@@ -1,0 +1,7 @@
+2022-05-16 16:59:04.681 +03:00 [INF] Generating URI for LISTING_STATUS with params: state: active
+2022-05-16 16:59:04.706 +03:00 [INF] URI: https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active
+2022-05-16 16:59:04.712 +03:00 [INF] Starting to get and parse CSV from "https://www.alphavantage.co/query?apikey=YTXYXH479B3J1MY2&function=LISTING_STATUS&state=active".
+2022-05-16 16:59:04.860 +03:00 [INF] Now listening on: https://localhost:5001
+2022-05-16 16:59:04.861 +03:00 [INF] Now listening on: http://localhost:5000
+2022-05-16 16:59:04.862 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2022-05-16 16:59:04.863 +03:00 [INF] Hosting environment: Development
