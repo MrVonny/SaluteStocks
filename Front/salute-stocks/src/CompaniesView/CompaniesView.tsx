@@ -6,7 +6,8 @@ import {useRecoilValue} from "recoil";
 import {screenerSelectedPropertiesDescriptionState, screenerSelectedPropertiesState} from "../Storage";
 import {Title} from "@sberdevices/plasma-ui/components/TextBox/TextBox";
 import {List} from "@mui/material";
-
+import {IconDone} from "@sberdevices/plasma-icons";
+import { accent, primary, tertiary } from '@sberdevices/plasma-tokens';
 
 
 export const CompaniesView = () => {
@@ -17,14 +18,11 @@ export const CompaniesView = () => {
     });
     const propertiesDescription = useRecoilValue(screenerSelectedPropertiesDescriptionState);
 
-    console.log(propertiesDescription);
-
     useEffect(() => {
 
         if(!state.isLoaded)
         {
-            console.log('SCREENER: ',screener);
-            fetch(`https://localhost:5001/api/screener/companies`, {
+            fetch(`https://salut-stocks.xyz/api/screener/companies`, {
                 body: JSON.stringify(screener),
                 method: 'POST',
                 headers: {
@@ -39,13 +37,11 @@ export const CompaniesView = () => {
                             isLoaded: true,
                             companies: result
                         })
-                        console.log(result);
                     },
                     (error) => {
                         setState({...state,
                             isLoaded: true,
                         });
-                        console.log(error);
                     }
                 )
         }
@@ -57,18 +53,20 @@ export const CompaniesView = () => {
                 <DsplL>Компании</DsplL>
                 <MarkedList>
                     {propertiesDescription.map(d=>(
-                        <MarkedItem>{d}</MarkedItem>
+                        <MarkedItem text={d}>
+                            <IconDone size="xs"  color={accent}/>
+                        </MarkedItem>
                     ))}
 
                 </MarkedList>
             </>
-            <>
+            <div >
                 {
                     state.isLoaded ?
                         <CompaniesList companies={state.companies}/> :
                         <LineSkeleton size={"display1"}/>
                 }
-            </>
+            </div>
         </>
     )
 }

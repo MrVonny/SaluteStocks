@@ -48,25 +48,7 @@ const ChartRoot = props => (
     <Chart.Root {...props} className="pr-3" />
 );
 
-function func(x: number) {return Math.exp(-1*(x-50)*(x-5)/500)}
-
-function generateSelected(values: DistributionValue[], from: number, to: number) : any
-{
-    return Array.from(new Array(to-from+1), (x, i) => i+from)
-        .map(x=>({position: x, selected: func(x), unselected: 0}))
-}
-
-function generateUnselected(values: DistributionValue[], from: number, to: number) : any
-{
-    return Array.from(new Array(to-from+1), (x, i) => i+from)
-        .map(x=>({position: x, unselected: func(x), selected: 0}))
-}
-
 export const ScreenerChart: React.FC<ScreenerChartProps> = ({availableRange, selectedRange, distribution}) => {
-
-    //const [recoilState, setRecoilState] = useRecoilState(rangeState);
-    //const availableRange = recoilState.available;
-    //const selectedRange = recoilState.selected;
 
     const data1 = distribution.Values
         .map((x,i)=>({
@@ -91,7 +73,6 @@ export const ScreenerChart: React.FC<ScreenerChartProps> = ({availableRange, sel
         .slice(selectedRange.to, distribution.Values.length);
 
     const data = data1.concat(data2).concat(data3)
-    console.log(data);
 
     return(
         <div className="" style={{

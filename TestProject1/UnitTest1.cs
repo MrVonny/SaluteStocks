@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using SaluteStocksAPI.AlphaVantage;
-using SaluteStocksAPI.DataBase;
-using SaluteStocksAPI.Models.Distribution;
-using SaluteStocksAPI.Models.Extensions;
-using SaluteStocksAPI.Models.FundamentalData;
-using SaluteStocksAPI.Screener;
-using SaluteStocksAPI.Service;
+using MisisClientServer.AlphaVantage;
+using MisisClientServer.DataBase;
+using MisisClientServer.Models.Distribution;
+using MisisClientServer.Models.Extensions;
+using MisisClientServer.Models.FundamentalData;
+using MisisClientServer.Screener;
+using MisisClientServer.Service;
 
 namespace TestProject1;
 

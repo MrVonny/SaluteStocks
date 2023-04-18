@@ -17,6 +17,9 @@ import {
 import Screener from "./Screener/Screener";
 import {CompaniesView} from "./CompaniesView/CompaniesView";
 import {createTheme, ThemeProvider} from "@mui/material";
+import {Assistant} from "./Assistant/Assistant";
+import {ScreenerAssistant} from "./Assistant/ScreenerAssistant";
+import {CompaniesAssistant} from "./Assistant/CompaniesAssistant";
 
 
 function App() {
@@ -29,16 +32,25 @@ function App() {
             })}>
                 <DeviceThemeProvider>
                     <Router>
-                        <Container className="App">
-                            <Switch>
-                                <Route exact path="/">
-                                    <Screener/>
-                                </Route>
-                                <Route path="/companies">
-                                    <CompaniesView />
-                                </Route>
-                            </Switch>
-                        </Container>
+                        <Assistant>
+                            <Container className="App" style={{
+                                minHeight: "100vh",
+                                marginBottom: "120px"
+                            }}>
+                                <Switch>
+                                    <Route exact path="/">
+                                        <ScreenerAssistant>
+                                            <Screener/>
+                                        </ScreenerAssistant>
+                                    </Route>
+                                    <Route path="/companies">
+                                        <CompaniesAssistant>
+                                            <CompaniesView />
+                                        </CompaniesAssistant>
+                                    </Route>
+                                </Switch>
+                            </Container>
+                        </Assistant>
                     </Router>
                 </DeviceThemeProvider>
             </ThemeProvider>

@@ -21,16 +21,18 @@ import {
     EbidtaProperty,
     EpsGrowth1YearProperty, EpsGrowth3YearProperty, EpsProperty,
     MarketCapProperty,
-    PeRatioProperty
+    PeRatioProperty, SectorProperty
 } from "./Properties/Properties";
 import {Distribution} from "./ScreenerChart";
 import {Link} from "react-router-dom";
+import {createAssistant, createSmartappDebugger} from "@sberdevices/assistant-client";
 
 
 type ScreenerComponentState = {
     isLoaded : boolean;
     count: number | undefined
 }
+
 
 
 
@@ -53,11 +55,10 @@ const Screener = () => {
     useEffect(() => {
         if (!state.isLoaded)/*salut-stocks.xyz*/
         {
-            fetch("https://localhost:5001/api/screener-model")
+            fetch("https://salut-stocks.xyz/api/screener-model")
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        console.log(result);
                         SetScreenerRecoilState(result);
                         setState({...state, isLoaded: true});
                     },
@@ -68,8 +69,7 @@ const Screener = () => {
 
             let LoadDistribution = (name : string, state : any, setState : any) =>
             {
-                console.log(`Fetching ${name}`)
-                fetch(`https://localhost:5001/api/distribution/${name}/100`)
+                fetch(`https://salut-stocks.xyz/api/distribution/${name}/100`)
                     .then(res => res.json())
                     .then(
                         (result) => {
@@ -81,7 +81,6 @@ const Screener = () => {
                                 available: {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position },
                                 selected: state.selected ?? {from: res.Values[0].Position, to: res.Values[res.Values.length-1].Position }
                             });
-                            console.log(res);
                         },
                         (error) => {
                             setState({...state,
@@ -91,15 +90,21 @@ const Screener = () => {
                         }
                     )
             }
-            LoadDistribution("market-cap", marketCapStateRecoil, setMarketCapStateRecoil);
-            LoadDistribution("ebitda", ebitdaStateRecoil, setEbitdaStateRecoil);
-            LoadDistribution("pe", peRatioStateRecoil, setPeRatioStateRecoil);
-            LoadDistribution("eps", epsStateRecoil, setEpsStateRecoil);
-            LoadDistribution("beta", betaStateRecoil, setBetaStateRecoil);
+
+            //if(!marketCapStateRecoil.isDistributionLoaded)
+                LoadDistribution("market-cap", marketCapStateRecoil, setMarketCapStateRecoil);
+            //if(!ebitdaStateRecoil.isDistributionLoaded)
+                LoadDistribution("ebitda", ebitdaStateRecoil, setEbitdaStateRecoil);
+            //if(!peRatioStateRecoil.isDistributionLoaded)
+                LoadDistribution("pe", peRatioStateRecoil, setPeRatioStateRecoil);
+            //if(!epsStateRecoil.isDistributionLoaded)
+                LoadDistribution("eps", epsStateRecoil, setEpsStateRecoil);
+            //if(!betaStateRecoil.isDistributionLoaded)
+                LoadDistribution("beta", betaStateRecoil, setBetaStateRecoil);
 
         }
 
-        // fetch(`https://localhost:5001/api/screener/count`, {
+        // fetch(`https://salut-stocks.xyz/api/screener/count`, {
         //     body: JSON.stringify(screener),
         //     method: 'POST',
         //     headers: {
@@ -125,7 +130,6 @@ const Screener = () => {
     }, [state])
 
     const onCurrencyChange = (event : ChangeEvent<HTMLInputElement>, currency : string) => {
-        console.log(currencyStateRecoil);
         if(event.currentTarget.checked)
             setCurrencyStateRecoil({
                 currencies: currencyStateRecoil.currencies.concat(currency)
@@ -137,16 +141,26 @@ const Screener = () => {
 
     }
 
-    return (
-        <Container>
-            <ScreenerSector title={"Валюта"}>
-                <div className={"d-flex flex-row"}>
-                    <span className={"me-4"}><Checkbox label={"RUB"} onChange={(event) => onCurrencyChange(event, "RUB")}/></span>
-                    <span className={"me-4"}><Checkbox label={"USD"} onChange={(event) => onCurrencyChange(event, "USD")}/></span>
-                    <span className={"me-4"}><Checkbox label={"EUR"} onChange={(event) => onCurrencyChange(event, "EUR")}/></span>
-                </div>
-            </ScreenerSector>
 
+
+    return (
+        <Container style={{
+            marginBottom: "100px"
+        }}>
+            {/*<ScreenerSector title={"Валюта"}>*/}
+            {/*    <div className={"d-flex flex-row"}>*/}
+            {/*        <span className={"me-4"}><Checkbox label={"RUB"} onChange={(event) => onCurrencyChange(event, "RUB")}/></span>*/}
+            {/*        <span className={"me-4"}><Checkbox label={"USD"} onChange={(event) => onCurrencyChange(event, "USD")}/></span>*/}
+            {/*        <span className={"me-4"}><Checkbox label={"EUR"} onChange={(event) => onCurrencyChange(event, "EUR")}/></span>*/}
+            {/*    </div>*/}
+            {/*</ScreenerSector>*/}
+            <ScreenerSector title={"Общее"}>
+                <Row>
+                    <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
+                        <SectorProperty/>
+                    </Col>
+                </Row>
+            </ScreenerSector>
             <ScreenerSector title={"Финансовые показатели"}>
                 <Row>
                     <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
@@ -166,16 +180,17 @@ const Screener = () => {
                     </Col>
                 </Row>
             </ScreenerSector>
-            <ScreenerSector title={"Динамика"}>
-                <Row>
-                    <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <EpsGrowth1YearProperty/>
-                    </Col>
-                    <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>
-                        <EpsGrowth3YearProperty/>
-                    </Col>
-                </Row>
-            </ScreenerSector>
+
+            {/*<ScreenerSector title={"Динамика"}>*/}
+            {/*    <Row>*/}
+            {/*        <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>*/}
+            {/*            <EpsGrowth1YearProperty/>*/}
+            {/*        </Col>*/}
+            {/*        <Col sizeXL={4} sizeL={4} sizeM={3} sizeS={4}>*/}
+            {/*            <EpsGrowth3YearProperty/>*/}
+            {/*        </Col>*/}
+            {/*    </Row>*/}
+            {/*</ScreenerSector>*/}
             <Row>
                 <Col size={2} offsetXL={5} offsetL={3} offsetM={2} offsetS={1}>
                     {state.count === undefined ?
